@@ -7,31 +7,71 @@
     <script src="~/dist/presentationSass.bundle.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <style>
+        body{
+            font-size: 16px;
+        }
+        #LogoLink{
+            font-size: 2em;
+        }
+        #SearchForm{
+            width: 75%;
+            margin-left: 12.5%;
+        }
+        #NavList{
+            font-size: 1.2em;
+        }
+        #BtnCard{
+            min-width: 100px;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AuctionApp</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+            <a id="LogoLink" class="navbar-brand align-self-start mt-3 ml-auto" asp-controller="Home" asp-action="Index">Home page</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#NavbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div id="NavbarMenu" class="collapse navbar-collapse">
+                <div class="pt-4 flex-column ml-auto">
+                    <form id="SearchForm" class="navbar-form">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Search:</span>
+                            </div>
+                            <input class="form-control" placeholder="search"/>
+                        </div>
+                    </form>
+                    <ul id="NavList" class="navbar-nav mt-2">
+                        <li class="nav-item"><a class="nav-link" href="#">Home page</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">How to offer</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    </ul>
+                </div>
+                <div class="flex-column ml-auto">
+                    <ul class="navbar-nav mt-1">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Register</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button id="BtnCard" class="btn btn-default">Card</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - AuctionApp</p>
+            <p>&copy; 2018 - Auctions</p>
         </footer>
     </div>
 

@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var pom_1 = require("./pom");
-console.log(pom_1.pom);
+/*
+ * Main.ts
+ */
+require("bootstrap/dist/css/bootstrap.min.css");
+require("bootstrap");
 //# sourceMappingURL=main.js.map
