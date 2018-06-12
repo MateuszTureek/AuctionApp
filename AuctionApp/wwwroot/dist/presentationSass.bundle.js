@@ -104,7 +104,7 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader!../
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"/*\\r\\n    Main.scss\\r\\n*/\\n* {\\n  box-sizing: border-box; }\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./Client/sass/main.scss?./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js");
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"/*\\r\\n    Main.scss\\r\\n*/\\n* {\\n  box-sizing: border-box; }\\n\\nbody {\\n  font-family: Arial, Helvetica, sans-serif;\\n  font-size: 14.3px;\\n  letter-spacing: 0.5px; }\\n\\n#Logo {\\n  font-size: 40.7px; }\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./Client/sass/main.scss?./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js");
 
 /***/ }),
 

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AuctionApp</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    </environment>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a id="Logo" class="navbar-brand" asp-controller="Home" asp-action="Index">Logo</a>
+                <button class="navbar-toggler ml-auto" data-toggle="collapse" data-target="#NavbarMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="NavbarMenu" class="collapse navbar-collapse">
+                    <div class="d-flex ml-auto flex-column">
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Register</a>
+                            </li>
+                        </ul>
+                        <form class="navbar-form mb-1">
+                            <div class="input-group-sm">
+                                <input type="search" class="form-control" placeholder="Search" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-light">
+                <nav class="nav nav-pills nav-justified flex-sm-column flex-lg-row d-sm-flex d-lg-inline-flex">
+                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link active"
+                       asp-controller="Home" asp-action="Index">Home page</a>
+                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                       asp-controller="Auction" asp-action="Index">Auctions</a>
+                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                       asp-controller="Home">How to offer</a>
+                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                       asp-controller="Home">Contact</a>
+                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                       asp-controller="Home">About us</a>
+                </nav>
+                <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex">
+                    <button class="btn btn-dark">
+                        <span class="fa fa-shopping-basket"></span>
+                        <span>0.00 pln</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-5"><!-- side map here --></div>
+                    <div class="col-7">
+                        @Html.Partial("_FilterBarPartial")
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                @Html.Partial("_SideNavPartial")
+            </div>
+            <div class="col-9">
+                <main class="body-content">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+        <hr />
+        <footer class="d-flex justify-content-between">
+            <a href="#">Auction web application.</a>
+            <div class="d-flex justify-content-between">
+                <a class="mr-5" href="#">Kontakt</a>
+                <p>&copy; 2018 - Mateusz Turek</p>
+            </div>
+        </footer>
+    </div>
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/dist/presentationSass.bundle.js"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
