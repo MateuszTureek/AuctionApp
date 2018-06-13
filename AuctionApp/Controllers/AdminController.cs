@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AuctionApp.Models;
+using AuctionApp.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +15,6 @@ namespace AuctionApp.Controllers
         public AdminController(UserManager<AppUser> userManager)
         {
             this.userManager = userManager;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }

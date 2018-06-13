@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AuctionApp.Migrations
+namespace AuctionApp.Core.Migrations
 {
     public partial class Initial : Migration
     {
