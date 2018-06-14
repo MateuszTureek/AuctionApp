@@ -12,18 +12,20 @@ namespace AuctionApp.Core.DatabaseInitial
 {
     public class IdentityInitializer
     {
-        UserManager<AppUser> userManager;
+        UserManager<AppUser> _userManager;
+        AppIdentityDbContext _context;
 
-        public IdentityInitializer(UserManager<AppUser> userManager)
+        public IdentityInitializer(UserManager<AppUser> userManager, AppIdentityDbContext context)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
+            _context = context;
         }
 
-        public void Initialize(AppIdentityDbContext context)
+        public void Initialize()
         {
-            context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
 
-            if (context.Users.Any())
+            if (_context.Users.Any())
             {
                 return;
             }
@@ -42,11 +44,11 @@ namespace AuctionApp.Core.DatabaseInitial
                 Email = "seller1@fake.com"
             };
 
-            userManager.PasswordHasher.HashPassword(buyer, "12345");
-            userManager.PasswordHasher.HashPassword(seller, "12345");
+            _userManager.PasswordHasher.HashPassword(buyer, "12345");
+            _userManager.PasswordHasher.HashPassword(seller, "12345");
 
-            var r1 = userManager.CreateAsync(buyer).Result;
-            var r2 = userManager.CreateAsync(seller).Result;
+            var r1 = _userManager.CreateAsync(buyer).Result;
+            var r2 = _userManager.CreateAsync(seller).Result;
         }
     }
 }

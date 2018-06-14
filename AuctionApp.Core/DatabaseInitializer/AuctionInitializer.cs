@@ -11,24 +11,26 @@ namespace AuctionApp.Core.DatabaseInitial
 {
     public class AuctionInitializer
     {
-        UserManager<AppUser> userManager;
+        UserManager<AppUser> _userManager;
+        AuctionDbContext _context;
 
-        public AuctionInitializer(UserManager<AppUser> userManager)
+        public AuctionInitializer(UserManager<AppUser> userManager, AuctionDbContext context)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
+            _context = context;
         }
 
-        public void Initialize(AuctionDbContext context)
+        public void Initialize()
         {
-            context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
 
-            if (context.Categories.Any())
+            if (_context.Categories.Any())
             {
                 return;
             }
 
-            AppUser buyer = userManager.FindByNameAsync("buyer_1").Result;
-            AppUser seller = userManager.FindByNameAsync("seller_1").Result;
+            AppUser buyer = _userManager.FindByNameAsync("buyer_1").Result;
+            AppUser seller = _userManager.FindByNameAsync("seller_1").Result;
 
             List<Subcategory> subcategories = new List<Subcategory>
             {
@@ -211,27 +213,27 @@ namespace AuctionApp.Core.DatabaseInitial
 
             foreach (var c in categories)
             {
-                context.Categories.Add(c);
+                _context.Categories.Add(c);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
 
             foreach (var b in bids)
             {
-                context.Bids.Add(b);
+                _context.Bids.Add(b);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
 
             foreach (var cItem in clientItems)
             {
-                context.ClientItems.Add(cItem);
+                _context.ClientItems.Add(cItem);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
 
             foreach (var cBid in clientBids)
             {
-                context.ClientBids.Add(cBid);
+                _context.ClientBids.Add(cBid);
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }
