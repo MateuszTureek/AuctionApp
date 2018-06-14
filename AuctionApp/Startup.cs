@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AuctionApp.Core.Auction;
 using AuctionApp.Core.DatabaseInitial;
 using AuctionApp.Domain.Identity;
+using AuctionApp.Repository.IRepo;
+using AuctionApp.Repository.Repo;
 using AuctionApp.Web.AppDbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,11 +31,13 @@ namespace AuctionApp
         {
             services.AddSingleton(_ => Configuration);
 
+            services.AddTransient<IGenericRepo<int, Item>, GenericRepo<int, Item>>();
+
             services.AddDbContext<AppIdentityDbContext>(o =>
-                o.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+                 o.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddDbContext<AuctionDbContext>(o =>
-                o.UseSqlServer(Configuration.GetConnectionString("AuctionConnection")));
+                 o.UseSqlServer(Configuration.GetConnectionString("AuctionConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppIdentityDbContext>()
