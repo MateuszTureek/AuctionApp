@@ -18,6 +18,8 @@ namespace AuctionApp.Web.AppDbContext
         public DbSet<ItemDescription> ItemDescriptions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<ClientItem> ClientItems { get; set; }
+        public DbSet<ClientBid> ClientBids { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

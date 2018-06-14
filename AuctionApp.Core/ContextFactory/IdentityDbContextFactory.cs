@@ -15,6 +15,7 @@ namespace AuctionApp.Core.ContextFactory
         {
             var builder = new DbContextOptionsBuilder<AppIdentityDbContext>();
             builder.UseSqlServer("Server=(LocalDb)\\MSSQLLocalDB;Database=AspCore_Identity;Trusted_Connection=True;MultipleActiveResultSets=true");
+
             return new AppIdentityDbContext(builder.Options);
         }
     }
