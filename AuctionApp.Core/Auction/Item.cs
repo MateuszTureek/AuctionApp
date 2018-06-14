@@ -13,6 +13,7 @@ namespace AuctionApp.Core.Auction
         public string Name { get; set; }
         public bool Activated { get; set; }
         public DateTime AuctionEndDate { get; set; }
+        public string ImgSrc { get; set; }
 
         public IList<Bid> Bids { get; set; }
         public IList<ItemDescription> Descriptions { get; set; }

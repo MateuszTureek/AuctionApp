@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionApp.Repository", "Au
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp.Core", "AuctionApp.Core\AuctionApp.Core.csproj", "{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionApp.Tests", "AuctionApp.Tests\AuctionApp.Tests.csproj", "{0525A643-4D83-42E9-82D0-5284176B27B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0525A643-4D83-42E9-82D0-5284176B27B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0525A643-4D83-42E9-82D0-5284176B27B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0525A643-4D83-42E9-82D0-5284176B27B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0525A643-4D83-42E9-82D0-5284176B27B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

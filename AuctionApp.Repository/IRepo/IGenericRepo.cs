@@ -12,6 +12,6 @@ namespace AuctionApp.Repository.IRepo
         void Add(TEntity entity);
         void Remove(TEntity entity);
         TEntity Get(TKey id);
-        TEntity GetAll();
+        IEnumerable<TEntity> GetAll();
     }
 }

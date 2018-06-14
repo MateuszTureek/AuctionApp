@@ -10,17 +10,13 @@ namespace AuctionApp.Core.ContextFactory
 {
     public class AuctionDbContextFactory : IDesignTimeDbContextFactory<AuctionDbContext>
     {
-        IConfigurationRoot _configuration;
-
-        public AuctionDbContextFactory(IConfigurationRoot configuration)
-        {
-            _configuration = configuration;
-        }
-
         public AuctionDbContext CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<AuctionDbContext>();
-            builder.UseSqlServer(_configuration.GetConnectionString("AuctionConnection"));
+            var builder = ConfigurationBuilderManager.CreateBuiilder<AuctionDbContext>();
+
+            var connectionString = ConfigurationBuilderManager.GetConfiguration.GetConnectionString("AuctionConnection");
+
+            builder.UseSqlServer(connectionString);
 
             return new AuctionDbContext(builder.Options);
         }

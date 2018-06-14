@@ -17,25 +17,25 @@ namespace AuctionApp.Repository.Repo
         {
             _context = context;
         }
-
+        
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Add(entity);
         }
 
         public TEntity Get(TKey id)
         {
-            throw new NotImplementedException();
+            return _context.Set<TEntity>().Find(id);
         }
 
-        public TEntity GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<TEntity>().AsNoTracking().AsEnumerable();
         }
 
         public void Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Remove(entity);
         }
     }
 }

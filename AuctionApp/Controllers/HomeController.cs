@@ -5,19 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AuctionApp.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AuctionApp.Controllers
 {
     public class HomeController : Controller
     {
-        DbContext _c;
-
-        public HomeController(DbContext context)
-        {
-            _c = context;
-        }
-
         public IActionResult Index()
         {
             return View();

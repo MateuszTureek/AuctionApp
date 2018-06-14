@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AuctionApp.Core.Migrations.AuctionDb
+namespace AuctionApp.Core.Migrations.Auction
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,8 +50,9 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Activated = table.Column<bool>(nullable: false, defaultValue: false),
+                    Activated = table.Column<bool>(nullable: false),
                     AuctionEndDate = table.Column<DateTime>(nullable: false),
+                    ImgSrc = table.Column<string>(nullable: false),
                     SubcategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -71,7 +72,7 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BidAmount = table.Column<decimal>(nullable: false),
+                    BidAmount = table.Column<decimal>(type: "decimal(16,2)", nullable: false),
                     DatePlaced = table.Column<DateTime>(nullable: false),
                     ItemId = table.Column<int>(nullable: true)
                 },
@@ -87,17 +88,17 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientItem",
+                name: "ClientItems",
                 columns: table => new
                 {
                     ItemId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientItem", x => x.ItemId);
+                    table.PrimaryKey("PK_ClientItems", x => x.ItemId);
                     table.ForeignKey(
-                        name: "FK_ClientItem_Items_ItemId",
+                        name: "FK_ClientItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
@@ -126,17 +127,17 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientBid",
+                name: "ClientBids",
                 columns: table => new
                 {
                     BidId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientBid", x => x.BidId);
+                    table.PrimaryKey("PK_ClientBids", x => x.BidId);
                     table.ForeignKey(
-                        name: "FK_ClientBid_Bids_BidId",
+                        name: "FK_ClientBids_Bids_BidId",
                         column: x => x.BidId,
                         principalTable: "Bids",
                         principalColumn: "Id",
@@ -167,10 +168,10 @@ namespace AuctionApp.Core.Migrations.AuctionDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientBid");
+                name: "ClientBids");
 
             migrationBuilder.DropTable(
-                name: "ClientItem");
+                name: "ClientItems");
 
             migrationBuilder.DropTable(
                 name: "ItemDescriptions");

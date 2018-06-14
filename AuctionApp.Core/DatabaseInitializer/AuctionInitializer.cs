@@ -136,6 +136,7 @@ namespace AuctionApp.Core.DatabaseInitial
                         descriptions[0],descriptions[1]
                     },
                     Name="iPhone 7 128GB",
+                    ImgSrc="/wwwroot/images/items/example1.jpg",
                     Subcategory=subcategories[3]
                 },
                 new Item
@@ -147,6 +148,7 @@ namespace AuctionApp.Core.DatabaseInitial
                         descriptions[3],descriptions[4]
                     },
                     Name="Nokia lumia",
+                    ImgSrc="/wwwroot/images/items/example2.jpg",
                     Subcategory=subcategories[4]
                 },
                 new Item
@@ -158,6 +160,7 @@ namespace AuctionApp.Core.DatabaseInitial
                         descriptions[0],descriptions[1],descriptions[2]
                     },
                     Name="Blender stojący Tefal BL310A38",
+                    ImgSrc="/wwwroot/images/items/example3.jpg",
                     Subcategory=subcategories[0]
                 }
             };

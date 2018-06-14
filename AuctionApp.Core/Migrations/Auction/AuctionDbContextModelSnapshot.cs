@@ -4,16 +4,14 @@ using AuctionApp.Web.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AuctionApp.Core.Migrations.AuctionDb
+namespace AuctionApp.Core.Migrations.Auction
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20180613170247_Initial")]
-    partial class Initial
+    partial class AuctionDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +25,8 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("BidAmount");
+                    b.Property<decimal>("BidAmount")
+                        .HasColumnType("decimal(16,2)");
 
                     b.Property<DateTime>("DatePlaced");
 
@@ -61,22 +60,26 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                 {
                     b.Property<int>("BidId");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450);
 
                     b.HasKey("BidId");
 
-                    b.ToTable("ClientBid");
+                    b.ToTable("ClientBids");
                 });
 
             modelBuilder.Entity("AuctionApp.Core.Auction.ClientItem", b =>
                 {
                     b.Property<int>("ItemId");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450);
 
                     b.HasKey("ItemId");
 
-                    b.ToTable("ClientItem");
+                    b.ToTable("ClientItems");
                 });
 
             modelBuilder.Entity("AuctionApp.Core.Auction.Item", b =>
@@ -85,11 +88,12 @@ namespace AuctionApp.Core.Migrations.AuctionDb
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Activated")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
+                    b.Property<bool>("Activated");
 
                     b.Property<DateTime>("AuctionEndDate");
+
+                    b.Property<string>("ImgSrc")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()

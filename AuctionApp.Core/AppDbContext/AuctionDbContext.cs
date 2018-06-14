@@ -26,7 +26,7 @@ namespace AuctionApp.Web.AppDbContext
             modelBuilder.Entity<Bid>(bid =>
             {
                 bid.HasKey(k => k.Id);
-                bid.Property(p => p.BidAmount).IsRequired();
+                bid.Property(p => p.BidAmount).IsRequired().HasColumnType("decimal(16,2)");
                 bid.Property(p => p.DatePlaced).IsRequired();
             });
 
@@ -41,8 +41,9 @@ namespace AuctionApp.Web.AppDbContext
             {
                 item.HasKey(k => k.Id);
                 item.Property(p => p.Name).HasMaxLength(50).IsRequired();
-                item.Property(p => p.Activated).HasDefaultValue(false);
+                item.Property(p => p.Activated).IsRequired();
                 item.Property(p => p.AuctionEndDate).IsRequired();
+                item.Property(p => p.ImgSrc).IsRequired();
             });
 
             modelBuilder.Entity<ItemDescription>(itemDesc =>
