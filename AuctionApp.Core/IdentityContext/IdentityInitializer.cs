@@ -1,5 +1,4 @@
-﻿using AuctionApp.Domain.Identity;
-using AuctionApp.Web.AppDbContext;
+﻿using AuctionApp.Core.IdentityContext.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AuctionApp.Core.DatabaseInitial
+namespace AuctionApp.Core.IdentityContext
 {
     public class IdentityInitializer
     {

@@ -43,7 +43,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuctionApp.Core\AuctionApp.Core.csproj" />
-    <ProjectReference Include="..\AuctionApp.Repository\AuctionApp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

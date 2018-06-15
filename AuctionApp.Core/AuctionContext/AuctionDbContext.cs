@@ -1,4 +1,4 @@
-﻿using AuctionApp.Core.Auction;
+﻿using AuctionApp.Core.AuctionContext.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuctionApp.Web.AppDbContext
+namespace AuctionApp.Core.AuctionContext
 {
     public class AuctionDbContext : DbContext
     {
@@ -44,6 +44,7 @@ namespace AuctionApp.Web.AppDbContext
                 item.Property(p => p.Activated).IsRequired();
                 item.Property(p => p.AuctionEndDate).IsRequired();
                 item.Property(p => p.ImgSrc).IsRequired();
+                item.Property(p => p.BuyNowPrice).HasColumnType("decimal(16,2)");
             });
 
             modelBuilder.Entity<ItemDescription>(itemDesc =>

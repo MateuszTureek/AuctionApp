@@ -1,5 +1,4 @@
-﻿using AuctionApp.Web.AppDbContext;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -7,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AuctionApp.Core.ContextFactory
+namespace AuctionApp.Core.IdentityContext
 {
     public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext>
     {

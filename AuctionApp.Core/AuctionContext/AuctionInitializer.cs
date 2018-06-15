@@ -1,13 +1,12 @@
-﻿using AuctionApp.Core.Auction;
-using AuctionApp.Domain.Identity;
-using AuctionApp.Web.AppDbContext;
+﻿using AuctionApp.Core.AuctionContext.Domain;
+using AuctionApp.Core.IdentityContext.Domain;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AuctionApp.Core.DatabaseInitial
+namespace AuctionApp.Core.AuctionContext
 {
     public class AuctionInitializer
     {
@@ -137,7 +136,8 @@ namespace AuctionApp.Core.DatabaseInitial
                     },
                     Name="iPhone 7 128GB",
                     ImgSrc="/wwwroot/images/items/example1.jpg",
-                    Subcategory=subcategories[3]
+                    Subcategory=subcategories[3],
+                    BuyNowPrice=2000
                 },
                 new Item
                 {
@@ -149,7 +149,8 @@ namespace AuctionApp.Core.DatabaseInitial
                     },
                     Name="Nokia lumia",
                     ImgSrc="/wwwroot/images/items/example2.jpg",
-                    Subcategory=subcategories[4]
+                    Subcategory=subcategories[4],
+                    BuyNowPrice=800
                 },
                 new Item
                 {
