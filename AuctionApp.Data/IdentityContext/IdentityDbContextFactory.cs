@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AuctionApp.Core.IdentityContext
+namespace AuctionApp.Data.IdentityContext
 {
     public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext>
     {

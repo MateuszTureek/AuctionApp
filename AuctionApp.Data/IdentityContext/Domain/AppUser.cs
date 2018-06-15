@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuctionApp.Core.IdentityContext.Domain
+namespace AuctionApp.Data.IdentityContext.Domain
 {
     public class AppUser : IdentityUser
     {

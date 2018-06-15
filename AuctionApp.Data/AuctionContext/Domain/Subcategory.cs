@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuctionApp.Core.AuctionContext.Domain
+namespace AuctionApp.Data.AuctionContext.Domain
 {
-    public class Category
+    public class Subcategory
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public short Position { get; set; }
 
-        public IList<Subcategory> Subcategories { get; set; }
+        public Category Category { get; set; }
+        public IList<Item> Items { get; set; }
     }
 }

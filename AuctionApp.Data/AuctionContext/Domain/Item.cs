@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuctionApp.Core.AuctionContext.Domain
+namespace AuctionApp.Data.AuctionContext.Domain
 {
     public class Item
     {

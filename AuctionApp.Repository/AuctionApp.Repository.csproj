@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuctionApp.Core\AuctionApp.Core.csproj" />
+    <ProjectReference Include="..\AuctionApp.Data\AuctionApp.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,5 +8,6 @@ namespace AuctionApp.Controllers
 {
     public class AuctionController : Controller
     {
+
     }
 }

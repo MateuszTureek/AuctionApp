@@ -1,5 +1,5 @@
-﻿using AuctionApp.Core.AuctionContext;
-using AuctionApp.Core.AuctionContext.Domain;
+﻿using AuctionApp.Data.AuctionContext;
+using AuctionApp.Data.AuctionContext.Domain;
 using AuctionApp.Repository.IRepo;
 using System;
 using System.Collections.Generic;

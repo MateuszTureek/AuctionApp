@@ -1,4 +1,4 @@
-﻿using AuctionApp.Core.AuctionContext.Domain;
+﻿using AuctionApp.Data.AuctionContext.Domain;
 using AuctionApp.Repository.Criteria;
 using System;
 using System.Collections.Generic;

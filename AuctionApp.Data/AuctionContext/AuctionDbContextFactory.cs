@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuctionApp.Core.AuctionContext
+namespace AuctionApp.Data.AuctionContext
 {
     public class AuctionDbContextFactory : IDesignTimeDbContextFactory<AuctionDbContext>
     {

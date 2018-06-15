@@ -5,13 +5,21 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp", "AuctionApp\AuctionApp.csproj", "{8A38C4FB-26C7-466B-A99E-6CB17710843F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp.Core", "AuctionApp.Core\AuctionApp.Core.csproj", "{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp.Tests", "AuctionApp.Tests\AuctionApp.Tests.csproj", "{0525A643-4D83-42E9-82D0-5284176B27B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp.Repository", "AuctionApp.Repository\AuctionApp.Repository.csproj", "{3E04A929-9900-48A5-9B3F-B617A478E4F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionApp.Service", "AuctionApp.Service\AuctionApp.Service.csproj", "{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionApp.Service", "AuctionApp.Service\AuctionApp.Service.csproj", "{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{C697F442-CA1F-4967-BBDF-5B2ED447960C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{55FD683C-665F-42F4-AF49-3614817B49D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{21E500BE-CE8F-4D00-80EC-5D45A7493019}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3A030B0E-9FB9-4C9A-BC38-A734BD1EA958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionApp.Data", "AuctionApp.Data\AuctionApp.Data.csproj", "{1639210A-1319-4632-AE7A-B11609D713C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +31,6 @@ Global
 		{8A38C4FB-26C7-466B-A99E-6CB17710843F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A38C4FB-26C7-466B-A99E-6CB17710843F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A38C4FB-26C7-466B-A99E-6CB17710843F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61E2DD76-4EB1-4792-9EC4-8E4CF39F3E14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0525A643-4D83-42E9-82D0-5284176B27B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0525A643-4D83-42E9-82D0-5284176B27B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0525A643-4D83-42E9-82D0-5284176B27B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,9 +43,20 @@ Global
 		{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1639210A-1319-4632-AE7A-B11609D713C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1639210A-1319-4632-AE7A-B11609D713C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1639210A-1319-4632-AE7A-B11609D713C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1639210A-1319-4632-AE7A-B11609D713C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A38C4FB-26C7-466B-A99E-6CB17710843F} = {21E500BE-CE8F-4D00-80EC-5D45A7493019}
+		{0525A643-4D83-42E9-82D0-5284176B27B9} = {3A030B0E-9FB9-4C9A-BC38-A734BD1EA958}
+		{3E04A929-9900-48A5-9B3F-B617A478E4F9} = {55FD683C-665F-42F4-AF49-3614817B49D7}
+		{89A7B31A-A7BE-4DD1-B358-2FFD0FB71CC4} = {C697F442-CA1F-4967-BBDF-5B2ED447960C}
+		{1639210A-1319-4632-AE7A-B11609D713C0} = {55FD683C-665F-42F4-AF49-3614817B49D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E6A0666-61A6-42C5-AF6F-FB94B6404A12}

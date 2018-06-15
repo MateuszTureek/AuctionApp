@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuctionApp.Core.AuctionContext.Domain
+namespace AuctionApp.Data.AuctionContext.Domain
 {
     public class ClientBid
     {

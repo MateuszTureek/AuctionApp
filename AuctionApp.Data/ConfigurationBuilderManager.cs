@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AuctionApp.Core
+namespace AuctionApp.Data
 {
     public static class ConfigurationBuilderManager
     {

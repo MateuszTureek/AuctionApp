@@ -1,4 +1,4 @@
-﻿using AuctionApp.Core.IdentityContext.Domain;
+﻿using AuctionApp.Data.IdentityContext.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuctionApp.Core.IdentityContext
+namespace AuctionApp.Data.IdentityContext
 {
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
     {
