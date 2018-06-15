@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AuctionApp.Data;
-using AuctionApp.Data.AuctionContext;
-using AuctionApp.Data.IdentityContext;
-using AuctionApp.Data.IdentityContext.Domain;
+using AuctionApp.Core.DAL.Data;
+using AuctionApp.Core.DAL.Data.AuctionContext;
+using AuctionApp.Core.DAL.Data.IdentityContext;
+using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
