@@ -121,6 +121,26 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 {
                     Key="Title 6",
                     Value="Description content 6"
+                },
+                new ItemDescription
+                {
+                    Key="Title 7",
+                    Value="Description content 7"
+                },
+                new ItemDescription
+                {
+                    Key="Title 8",
+                    Value="Description content 8"
+                },
+                new ItemDescription
+                {
+                    Key="Title 9",
+                    Value="Description content 9"
+                },
+                new ItemDescription
+                {
+                    Key="Title 10",
+                    Value="Description content 10"
                 }
             };
 
@@ -134,8 +154,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     {
                         descriptions[0],descriptions[1]
                     },
-                    Name="iPhone 7 128GB",
-                    ImgSrc="/wwwroot/images/items/example1.jpg",
+                    Name="Item 1",
+                    ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
                     BuyNowPrice=2000
                 },
@@ -145,10 +165,10 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     AuctionEndDate=DateTime.Now.AddDays(4),
                     Descriptions=new List<ItemDescription>
                     {
-                        descriptions[3],descriptions[4]
+                        descriptions[2],descriptions[3]
                     },
-                    Name="Nokia lumia",
-                    ImgSrc="/wwwroot/images/items/example2.jpg",
+                    Name="Item 2",
+                    ImgSrc="/images/items/example2.jpg",
                     Subcategory=subcategories[4],
                     BuyNowPrice=800
                 },
@@ -158,11 +178,46 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     AuctionEndDate=DateTime.Now.AddDays(20),
                     Descriptions=new List<ItemDescription>
                     {
-                        descriptions[0],descriptions[1],descriptions[2]
+                        descriptions[4],descriptions[5],descriptions[6]
                     },
-                    Name="Blender stojący Tefal BL310A38",
-                    ImgSrc="/wwwroot/images/items/example3.jpg",
+                    Name="Item 3",
+                    ImgSrc="/images/items/example3.jpg",
+                    Subcategory=subcategories[0],
+                    BuyNowPrice=678
+                },
+                new Item
+                {
+                    Activated=true,
+                    AuctionEndDate=DateTime.Now.AddDays(-1),
+                    Descriptions=new List<ItemDescription>
+                    {
+                        descriptions[7],descriptions[8]
+                    },
+                    Name="Item 4",
+                    ImgSrc="/images/items/example4.jpg",
                     Subcategory=subcategories[0]
+                },
+                new Item
+                {
+                    Activated=false,
+                    AuctionEndDate=DateTime.Now.AddDays(-10),
+                    Descriptions=new List<ItemDescription>
+                    {
+                        descriptions[9]
+                    },
+                    Name="Item 5",
+                    ImgSrc="/images/items/example5.jpg",
+                    Subcategory=subcategories[3]
+                },
+                new Item
+                {
+                    Activated=true,
+                    AuctionEndDate=DateTime.Now.AddDays(30),
+                    Descriptions=null,
+                    Name="Item 6",
+                    ImgSrc="/images/items/example6.jpg",
+                    Subcategory=subcategories[5],
+                    BuyNowPrice=3200
                 }
             };
 
@@ -179,6 +234,12 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     BidAmount=150,
                     DatePlaced=DateTime.Now,
                     Item=items[1]
+                },
+                new Bid
+                {
+                    BidAmount=580,
+                    DatePlaced=DateTime.Now,
+                    Item=items[2]
                 }
             };
 
@@ -198,6 +259,21 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 {
                     Item=items[2],
                     UserId=seller.Id
+                },
+                new ClientItem
+                {
+                    Item=items[3],
+                    UserId=seller.Id
+                },
+                new ClientItem
+                {
+                    Item=items[4],
+                    UserId=seller.Id
+                },
+                new ClientItem
+                {
+                    Item=items[5],
+                    UserId=seller.Id
                 }
             };
 
@@ -211,6 +287,11 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 new ClientBid
                 {
                     Bid=bids[1],
+                    UserId=buyer.Id
+                },
+                new ClientBid
+                {
+                    Bid=bids[2],
                     UserId=buyer.Id
                 }
             };

@@ -42,11 +42,11 @@
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Auction" asp-action="Index">Auctions</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home">How to offer</a>
+                       asp-controller="Home" asp-action="HowToOffer">How to offer</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home">Contact</a>
+                       asp-controller="Home" asp-action="Contact">Contact</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home">About us</a>
+                       asp-controller="Home" asp-action="About">About us</a>
                 </nav>
                 <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex">
                     <button class="btn btn-dark">
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="col-3">
-                @Html.Partial("_SideNavPartial")
+                @await Component.InvokeAsync("Category")
             </div>
             <div class="col-9">
                 <main class="body-content">
@@ -87,6 +87,7 @@
     </div>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/popper.js/dist/umd/popper.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/dist/presentationSass.bundle.js"></script>
     </environment>

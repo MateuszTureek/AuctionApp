@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using AuctionApp.Core.BLL.Mapper;
+using AuctionApp.Core.BLL.Service.Contract;
+using AuctionApp.Core.BLL.Service.Implement;
 using AuctionApp.Core.DAL.Data;
 using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.IdentityContext;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
+using AuctionApp.Core.DAL.Repository.Contract;
+using AuctionApp.Core.DAL.Repository.Implement;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -41,8 +48,13 @@ namespace AuctionApp
             services.AddScoped<IdentityInitializer>();
             services.AddScoped<AuctionInitializer>();
             // repo
-
+            services.AddTransient<IAuctionRepo, AuctionRepo>();
+            services.AddTransient<ICategoryRepo, CategoryRepo>();
+            //services
+            services.AddTransient<IAuctionService, AuctionService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             // mvc
+            services.AddAutoMapper(typeof(MapperProfile));
             services.AddMvc();
         }
 

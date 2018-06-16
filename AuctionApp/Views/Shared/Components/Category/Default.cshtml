@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.CategoryDTO>
+
+<ul id="Categories" class="nav nav-pills flex-column">
+    @foreach (var category in Model)
+    {
+    <li class="nav-item active mb-1">
+        <a class="nav-link active">
+            @category.Name
+        </a>
+        <!-- here component with subcategoories -->
+    </li>
+    }
+</ul>

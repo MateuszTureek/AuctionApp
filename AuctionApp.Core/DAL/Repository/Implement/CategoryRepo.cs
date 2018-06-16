@@ -32,7 +32,7 @@ namespace AuctionApp.Core.DAL.Repository.Contract
             return _dbContext.Categories.AsEnumerable();
         }
 
-        public Category Get(int id)
+        public Category GetById(int id)
         {
             return _dbContext.Categories.Find(id);
         }

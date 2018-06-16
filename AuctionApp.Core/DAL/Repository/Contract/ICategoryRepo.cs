@@ -12,7 +12,7 @@ namespace AuctionApp.Core.DAL.Repository.Contract
         void Add(Category category);
         void Remove(Category category);
         IEnumerable<Category> All();
-        Category Get(int id);
+        Category GetById(int id);
         void AddSubcategory(int categoryId, Subcategory subcategory);
     }
 }

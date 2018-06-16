@@ -1,0 +1,40 @@
+﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.AuctionDTO>
+
+<style>
+    .dl-list dt,
+    .dl-list dd {
+        float: left;
+    }
+    .dl-list dt {
+        width: 30%;
+    }
+    .dl-list dd{
+        width: 70%;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="col-3">
+        <div class="card">
+            <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
+            <div class="card-body">
+                <h5>
+                    <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
+                </h5>
+                @if (item.BuyNowPrice != 0)
+                {
+                    <p>@string.Format(new System.Globalization.CultureInfo("pl"), "Kup teraz: {0:C}", item.BuyNowPrice)</p>
+                }
+                else
+                { 
+                    <p>Kup teraz: <span class="text-muted">brak</span></p>
+                }
+                <a asp-controller="Auction" asp-action="Item" role="button" class="btn btn-dark d-block">
+                    <span class="fa fa-plus"></span>
+                    <span>Zobacz</span>
+                </a>
+            </div>
+        </div>
+    </div>
+}

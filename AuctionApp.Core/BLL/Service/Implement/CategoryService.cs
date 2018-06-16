@@ -1,29 +1,37 @@
-﻿using AuctionApp.Core.BLL.Service.Contract;
+﻿using AuctionApp.Core.BLL.DTO;
+using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AuctionApp.Core.DAL.Repository.Contract;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AuctionApp.Core.BLL.Service.Implement
 {
     public class CategoryService : ICategoryService
     {
-        ICategoryRepo _repository;
+        readonly IMapper _mapper;
+        readonly ICategoryRepo _categoryRepo;
 
-        public CategoryService(ICategoryRepo repo)
+        public CategoryService(IMapper mapper,
+                               ICategoryRepo categoryRepo)
         {
-            _repository = repo;
+            _mapper = mapper;
+            _categoryRepo = categoryRepo;
         }
 
-        public List<Category> GetCategories()
+        public List<CategoryDTO> GetCategories()
         {
-            throw new NotImplementedException();
+            var categories = _categoryRepo.All().ToList();
+            return _mapper.Map<List<Category>, List<CategoryDTO>>(categories);
         }
 
-        public Category GetCategory(int id)
+        public CategoryDTO GetCategory(int id)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepo.GetById(id);
+            return _mapper.Map<Category, CategoryDTO>(category);
         }
     }
 }

@@ -5,6 +5,17 @@
 <div class="row">
     @Html.Partial("_CarouselPartial")
 </div>
+
 <div class="row mt-2">
-    @Html.Partial("_LatestAuctionsPartial")
+    <div class="col-12">
+        <h3>Latest:</h3>
+    </div>
+    @await Component.InvokeAsync("Auction",new { activated = true })
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <h3>Wainting for active:</h3>
+    </div>
+    @await Component.InvokeAsync("Auction", new { activated = false })
 </div>

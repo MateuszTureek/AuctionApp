@@ -13,7 +13,8 @@ namespace AuctionApp.Core.DAL.Repository.Contract
         IEnumerable<Item> GetNoActivatedAuctions(AuctionCriteria criteria);
         IEnumerable<Item> GetCurrentAuctions(AuctionCriteria criteria);
         IEnumerable<Item> GetEndedAuctions(AuctionCriteria criteria);
-        Item Get(int id);
+        IEnumerable<Item> Take(int amount, bool activated);
+        Item GetById(int id);
         void Add(Item item);
         void Remove(Item item);
         void AddBid(Item item, decimal amount, string userId);

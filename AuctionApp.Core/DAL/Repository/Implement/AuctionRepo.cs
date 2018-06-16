@@ -2,6 +2,7 @@
 using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AuctionApp.Core.DAL.Repository.Contract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             });
         }
 
-        public Item Get(int id)
+        public Item GetById(int id)
         {
             return _dbContext.Items.Find(id);
         }
@@ -51,7 +52,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
 
             return userItems.Select(s => s.Item).OrderBy(o => o.AuctionEndDate)
                 .Where(w => w.Subcategory.Id == c.SubcategoryId && w.Activated == true && w.AuctionEndDate > DateTime.Now)
-                .Skip(skip).Take(c.PageSize);
+                .Skip(skip).Take(c.PageSize).AsNoTracking();
         }
 
         public IEnumerable<Item> GetEndedAuctions(AuctionCriteria criteria)
@@ -62,7 +63,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
 
             return userItems.Select(s => s.Item)
                 .Where(w => w.Subcategory.Id == c.SubcategoryId && w.Activated == true && w.AuctionEndDate >= DateTime.Now)
-                .Skip(skip).Take(c.PageSize);
+                .Skip(skip).Take(c.PageSize).AsNoTracking();
         }
 
         public IEnumerable<Item> GetNoActivatedAuctions(AuctionCriteria criteria)
@@ -73,12 +74,22 @@ namespace AuctionApp.Core.DAL.Repository.Implement
 
             return userItems.Select(s => s.Item)
                 .Where(w => w.Subcategory.Id == c.SubcategoryId && w.Activated == false && w.AuctionEndDate > DateTime.Now)
-                .Skip(skip).Take(c.PageSize);
+                .Skip(skip).Take(c.PageSize).AsNoTracking();
         }
 
         public void Remove(Item item)
         {
             _dbContext.Items.Remove(item);
+        }
+
+        public IEnumerable<Item> Take(int amount, bool activated)
+        {
+            return _dbContext.Items
+                .Where(w => w.Activated == activated)
+                .Include(i => i.Descriptions)
+                .OrderByDescending(o => o.AuctionEndDate)
+                .Take(amount)
+                .AsNoTracking();
         }
     }
 }
