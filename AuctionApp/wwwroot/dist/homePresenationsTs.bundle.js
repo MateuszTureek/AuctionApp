@@ -86,14 +86,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Client/ts/mainNavLinkActivator.ts":
+/*!*******************************************!*\
+  !*** ./Client/ts/mainNavLinkActivator.ts ***!
+  \*******************************************/
+/*! exports provided: MainNavLinkActivator */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MainNavLinkActivator\", function() { return MainNavLinkActivator; });\nclass MainNavLinkActivator {\r\n    constructor($navElem, active) {\r\n        this.$navElem = $navElem;\r\n        this.active = active;\r\n    }\r\n    init() {\r\n        this.$linkCollection = this.$navElem.children('a');\r\n        this.setupLink();\r\n    }\r\n    ;\r\n    setupLink() {\r\n        const href = window.location.pathname;\r\n        const $link = this.getLinkByHref(href);\r\n        this.deactiveLink();\r\n        this.activeLink($link);\r\n    }\r\n    ;\r\n    getLinkByHref(href) {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.attr('href') === href) {\r\n                return $link;\r\n            }\r\n        }\r\n        throw new Error(\"Not found matching nav link.\");\r\n    }\r\n    ;\r\n    activeLink($link) {\r\n        $link.addClass(this.active);\r\n    }\r\n    ;\r\n    deactiveLink() {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.hasClass(this.active)) {\r\n                $link.remove(this.active);\r\n            }\r\n        }\r\n    }\r\n    ;\r\n}\r\n;\r\n\n\n//# sourceURL=webpack:///./Client/ts/mainNavLinkActivator.ts?");
+
+/***/ }),
+
 /***/ "./Client/ts/presentation/home.ts":
 /*!****************************************!*\
   !*** ./Client/ts/presentation/home.ts ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("/*\r\n * Home - home.ts\r\n */ \r\n\n\n//# sourceURL=webpack:///./Client/ts/presentation/home.ts?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mainNavLinkActivator */ \"./Client/ts/mainNavLinkActivator.ts\");\n\r\n/*\r\n * Home - home.ts\r\n */\r\nconst mainNav = new _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__[\"MainNavLinkActivator\"]($('#MainNav'), 'active');\r\nmainNav.init();\r\n\n\n//# sourceURL=webpack:///./Client/ts/presentation/home.ts?");
 
 /***/ })
 

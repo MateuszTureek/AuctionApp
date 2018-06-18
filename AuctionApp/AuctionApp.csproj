@@ -10,6 +10,7 @@
     <None Remove="Client\ts\categoryLinkActivator.ts" />
     <None Remove="Client\ts\contract\iLinkActivator.ts" />
     <None Remove="Client\ts\LinkActivator.ts" />
+    <None Remove="Client\ts\mainNavLinkActivator.ts" />
     <None Remove="Client\ts\presentation\home.ts" />
     <None Remove="Client\ts\settings\constant.ts" />
   </ItemGroup>
@@ -42,6 +43,7 @@
     <TypeScriptCompile Include="Client\ts\categoryLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\contract\iLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\linkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\mainNavLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\auctions.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\home.ts" />
     <TypeScriptCompile Include="Client\ts\settings\constant.ts" />

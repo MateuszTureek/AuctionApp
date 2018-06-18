@@ -1,6 +1,15 @@
 ﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.CategoryDTO>
 
-<div id="Test"></div>
+<style>
+    #Categories a{
+        border-radius: 0;
+    }
+
+    #Categories ul a.active {
+        color: black;
+        background: none;
+    }
+</style>
 
 <ul id="Categories" class="nav nav-pills flex-column">
     @foreach (var category in Model)
@@ -13,7 +22,7 @@
             @category.Name
         </a>
         
-        <ul class="list-unstyled flex-column d-none">
+        <ul class="list-unstyled flex-column d-none" style="background: rgba(0, 0, 0, .10);">
             @foreach (var subcategory in category.Subcategories)
             {
                 <li data-id="@subcategory.Id" class="nav-item">

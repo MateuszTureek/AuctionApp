@@ -16,6 +16,11 @@ namespace AuctionApp.Controllers
             return View();
         }
 
+        public IActionResult HowToOffer()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

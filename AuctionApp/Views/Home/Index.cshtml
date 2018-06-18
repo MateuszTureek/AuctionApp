@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -15,7 +16,7 @@
 
 <div class="row mt-2">
     <div class="col-12">
-        <h3>Wainting for active:</h3>
+        <h3>Waiting for active:</h3>
     </div>
     @await Component.InvokeAsync("Auction", new { activated = false })
 </div>

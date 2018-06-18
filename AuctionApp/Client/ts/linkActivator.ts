@@ -11,7 +11,7 @@ export class LinkActivator implements ILinkActivator{
         protected sessionKey) {
     };
 
-    init(): void {
+    init() {
         this.$linkCollection = this.$ulElem.children('li').children('a');
         this.$linkCollection.on('click', (e: Event) => { this.linkOnClick(e); });
         
@@ -19,6 +19,7 @@ export class LinkActivator implements ILinkActivator{
     };
 
     protected linkOnClick(e: Event) {
+        e.stopPropagation();
         const $clickedLink = $(e.target);
         const clickedDataId = $clickedLink.closest('li').data('id');
         const activedDataId = parseInt(sessionStorage.getItem(this.sessionKey));
