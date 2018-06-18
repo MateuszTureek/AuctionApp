@@ -1,4 +1,5 @@
 ﻿using AuctionApp.Core.BLL.DTO;
+using AuctionApp.Core.DAL.Criteria;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace AuctionApp.Core.BLL.Service.Contract
 {
     public interface IAuctionService
     {
-        List<AuctionDTO> TakeAuctions(int amount, bool actived);
+        List<LatestAuctionDTO> TakeAuctions(int amount, bool actived);
+        List<AuctionDTO> GetAuctions(FilterAuctionDTO dto);
+        int GetAmountOfPages(int pageSize);
     }
 }

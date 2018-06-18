@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.DAL.Criteria
 {
-    public class AuctionCriteria
+    public class AuctionOfUserCriteria
     {
         public int SubcategoryId { get; set; }
         public string UserId { get; set; }
-        public short PageNumber { get; set; }
-        public short PageSize { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }

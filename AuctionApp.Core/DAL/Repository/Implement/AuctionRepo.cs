@@ -44,7 +44,12 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             return _dbContext.Items.Find(id);
         }
 
-        public IEnumerable<Item> GetCurrentAuctions(AuctionCriteria criteria)
+        public int GetCount()
+        {
+            return _dbContext.Items.Count();
+        }
+
+        public IEnumerable<Item> GetCurrentAuctions(AuctionOfUserCriteria criteria)
         {
             var c = criteria;
             var skip = (c.PageNumber - 1) * c.PageSize;
@@ -55,7 +60,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
                 .Skip(skip).Take(c.PageSize).AsNoTracking();
         }
 
-        public IEnumerable<Item> GetEndedAuctions(AuctionCriteria criteria)
+        public IEnumerable<Item> GetEndedAuctions(AuctionOfUserCriteria criteria)
         {
             var c = criteria;
             var skip = (c.PageNumber - 1) * c.PageSize;
@@ -66,7 +71,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
                 .Skip(skip).Take(c.PageSize).AsNoTracking();
         }
 
-        public IEnumerable<Item> GetNoActivatedAuctions(AuctionCriteria criteria)
+        public IEnumerable<Item> GetNoActivatedAuctions(AuctionOfUserCriteria criteria)
         {
             var c = criteria;
             var skip = (c.PageNumber - 1) * c.PageSize;
@@ -82,7 +87,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             _dbContext.Items.Remove(item);
         }
 
-        public IEnumerable<Item> Take(int amount, bool activated)
+        public IEnumerable<Item> TakeAuctions(int amount, bool activated)
         {
             return _dbContext.Items
                 .Where(w => w.Activated == activated)
@@ -90,6 +95,31 @@ namespace AuctionApp.Core.DAL.Repository.Implement
                 .OrderByDescending(o => o.AuctionEndDate)
                 .Take(amount)
                 .AsNoTracking();
+        }
+
+        public int TakeAuctionsTotalCount<TKey>(Func<Item, TKey> predicateOrderBy,
+                                      Func<Item, bool> predcateWhere)
+        {
+            var elementsByCondtions = _dbContext.Items
+                .Include(i => i.Subcategory)
+                .Include(i => i.Subcategory.Category)
+                .Where(predcateWhere)
+                .OrderBy(predicateOrderBy).AsQueryable();
+            return elementsByCondtions.Count();
+        }
+
+        public IEnumerable<Item> TakeAuctions<TKey>(Func<Item, TKey> predicateOrderBy,
+                                                    Func<Item, bool> predcateWhere,
+                                                    int skip, int take)
+        {
+            return _dbContext.Items
+                .Include(i=>i.Subcategory)
+                .Include(i=>i.Subcategory.Category)
+                .Where(predcateWhere)
+                .OrderBy(predicateOrderBy)
+                .Skip(skip)
+                .Take(take)
+                .AsEnumerable();
         }
     }
 }

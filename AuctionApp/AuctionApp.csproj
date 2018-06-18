@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Client\ts\main.ts" />
+    <None Remove="Client\ts\categoryLinkActivator.ts" />
+    <None Remove="Client\ts\contract\iLinkActivator.ts" />
+    <None Remove="Client\ts\LinkActivator.ts" />
+    <None Remove="Client\ts\presentation\home.ts" />
+    <None Remove="Client\ts\settings\constant.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,15 +38,17 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
-
   <ItemGroup>
-    <TypeScriptCompile Include="Client\ts\main.ts" />
+    <TypeScriptCompile Include="Client\ts\categoryLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\contract\iLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\presentation\auctions.ts" />
+    <TypeScriptCompile Include="Client\ts\presentation\home.ts" />
+    <TypeScriptCompile Include="Client\ts\settings\constant.ts" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\dist\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

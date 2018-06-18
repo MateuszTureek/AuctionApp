@@ -3,6 +3,7 @@ using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AuctionApp.Core.BLL.Mapper
@@ -16,9 +17,11 @@ namespace AuctionApp.Core.BLL.Mapper
 
         public void Configure()
         {
+            CreateMap<Item, LatestAuctionDTO>();
             CreateMap<Item, AuctionDTO>();
             CreateMap<ItemDescription, DescriptionDTO>();
-            CreateMap<Category, CategoryDTO>();
+            CreateMap<Subcategory, SubcategoryDTO>();
+            CreateMap<Category, CategoryDTO>().ForMember(d => d.Subcategories, o => o.MapFrom(m => m.Subcategories.ToList()));
         }
     }
 }

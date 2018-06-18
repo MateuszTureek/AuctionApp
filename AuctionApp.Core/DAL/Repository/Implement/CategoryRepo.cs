@@ -1,5 +1,6 @@
 ﻿using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +30,12 @@ namespace AuctionApp.Core.DAL.Repository.Contract
 
         public IEnumerable<Category> All()
         {
-            return _dbContext.Categories.AsEnumerable();
+            return _dbContext.Categories.Include(i => i.Subcategories).AsEnumerable();
         }
 
         public Category GetById(int id)
         {
-            return _dbContext.Categories.Find(id);
+            return _dbContext.Categories.Include(i => i.Subcategories).FirstOrDefault(f => f.Id == id);
         }
 
         public void Remove(Category category)

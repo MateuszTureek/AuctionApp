@@ -1,13 +1,29 @@
 ﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.CategoryDTO>
 
+<div id="Test"></div>
+
 <ul id="Categories" class="nav nav-pills flex-column">
     @foreach (var category in Model)
     {
-    <li class="nav-item active mb-1">
-        <a class="nav-link active">
+    <li data-id="@category.Id" class="nav-item mb-1">
+        <a class="nav-link"
+           asp-controller="Auction" asp-action="Index"
+           asp-route-categoryId="@category.Id"
+           asp-route-sortBy="@ViewBag.SortBy">
             @category.Name
         </a>
-        <!-- here component with subcategoories -->
+        
+        <ul class="list-unstyled flex-column d-none">
+            @foreach (var subcategory in category.Subcategories)
+            {
+                <li data-id="@subcategory.Id" class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="Auction" asp-action="Index"
+                       asp-route-subcategoryId="@subcategory.Id"
+                       asp-route-sortBy="@ViewBag.SortBy">@subcategory.Name</a>
+                </li>
+            }
+        </ul>
     </li>
     }
 </ul>

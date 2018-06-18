@@ -8,7 +8,8 @@ module.exports = {
     },
     entry: {
         presentationSass: './Client/sass/main.scss',
-        presentationJs:'./Client/ts/main.ts'
+        homePresenationsTs: './Client/ts/presentation/home.ts',
+        auctionPresenationsTs:'./Client/ts/presentation/auctions.ts'
     },
     output: {
         path: path.resolve(__dirname, './wwwroot/dist'),
@@ -43,7 +44,8 @@ module.exports = {
                         publicPath: '../'       // override the default path
                     }
                 }]
-            }
+            },
+            { test: /\.tsx?$/, loader: "ts-loader" }
         ]
     }
 };

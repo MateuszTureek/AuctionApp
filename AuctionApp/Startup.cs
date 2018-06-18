@@ -5,6 +5,8 @@ using System.Reflection;
 using AuctionApp.Core.BLL.Mapper;
 using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.BLL.Service.Implement;
+using AuctionApp.Core.BLL.Static;
+using AuctionApp.Core.BLL.Strategy.AuctionOrderBy;
 using AuctionApp.Core.DAL.Data;
 using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.IdentityContext;
@@ -44,15 +46,25 @@ namespace AuctionApp
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppIdentityDbContext>()
                     .AddDefaultTokenProviders();
-            // init db
+            
             services.AddScoped<IdentityInitializer>();
             services.AddScoped<AuctionInitializer>();
-            // repo
+
+            services.AddTransient<IAuctionContext, AuctionContext>();
+            services.AddTransient<IStrategy, AuctionByCategoryOrderByEndDateStartegy>();
+            services.AddTransient<IStrategy, AuctionByCategoryOrderByPriceBuyNowStartegy>();
+            services.AddTransient<IStrategy, AuctionByCategoryOrderByNameStartegy>();
+            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByEndDateStartegy>();
+            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByPriceBuyNowStartegy>();
+            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByNameStartegy>();
+
             services.AddTransient<IAuctionRepo, AuctionRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
-            //services
+
+            services.AddTransient<IPaginationService, PaginationService>();
             services.AddTransient<IAuctionService, AuctionService>();
             services.AddTransient<ICategoryService, CategoryService>();
+
             // mvc
             services.AddAutoMapper(typeof(MapperProfile));
             services.AddMvc();

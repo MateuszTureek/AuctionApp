@@ -1,18 +1,21 @@
 ﻿<div id="FilterBar" class="btn-toolbar justify-content-end pt-2 pb-2" role="toolbar">
-    <div class="input-group mr-2">
-        <div class="input-group-prepend">
-            <span class="input-group-text fa fa-search pt-2"></span>
-        </div>
-        <input class="form-control" type="search" placeholder="search..." />
-    </div>
     <div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">Order by:</span>
         </div>
         <div class="btn-group" role="group">
-            <button class="btn btn-outline-secondary" type="button">Name</button>
-            <button class="btn btn-outline-secondary" type="button">Date</button>
-            <button class="btn btn-outline-secondary" type="button">Price</button>
+            <a role="button" class="btn btn-outline-secondary active"
+               asp-controller="Auction" asp-action="Index"
+               asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.Name"
+               asp-route-categoryId="@ViewBag.CategoryId">Name</a>
+            <a role="button" class="btn btn-outline-secondary"
+               asp-controller="Auction" asp-action="Index"
+               asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.EndDateAuction"
+               asp-route-categoryId="@ViewBag.CategoryId">Auction end date</a>
+            <a role="button" class="btn btn-outline-secondary"
+               asp-controller="Auction" asp-action="Index"
+               asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.PriceBuyNow"
+               asp-route-categoryId="@ViewBag.CategoryId">Price to buy</a>
         </div>
     </div>
 </div>
