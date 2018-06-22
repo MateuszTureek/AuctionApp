@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Client\ts\auctionClearSession.ts" />
     <None Remove="Client\ts\categoryLinkActivator.ts" />
     <None Remove="Client\ts\contract\iLinkActivator.ts" />
     <None Remove="Client\ts\LinkActivator.ts" />
     <None Remove="Client\ts\mainNavLinkActivator.ts" />
+    <None Remove="Client\ts\orderButtonLinkActivator.ts" />
+    <None Remove="Client\ts\pagingLinkActivator.ts" />
     <None Remove="Client\ts\presentation\home.ts" />
     <None Remove="Client\ts\settings\constant.ts" />
   </ItemGroup>
@@ -24,6 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="2.8.2" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2-beta1" />
@@ -40,10 +44,13 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Client\ts\auctionClearSession.ts" />
     <TypeScriptCompile Include="Client\ts\categoryLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\contract\iLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\linkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\mainNavLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\orderButtonLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\pagingLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\auctions.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\home.ts" />
     <TypeScriptCompile Include="Client\ts\settings\constant.ts" />

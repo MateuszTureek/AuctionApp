@@ -41,7 +41,15 @@ namespace AuctionApp.Core.DAL.Repository.Implement
 
         public Item GetById(int id)
         {
-            return _dbContext.Items.Find(id);
+            return _dbContext.Items
+                .Include(i => i.Descriptions)
+                .Include(i => i.Bids)
+                .First(f => f.Id == id);
+        }
+
+        public string GetUserIdWhoMakeBid(int bidId)
+        {
+            return _dbContext.ClientBids.Where(s => s.BidId == bidId).Select(s => s.UserId).FirstOrDefault();
         }
 
         public int GetCount()

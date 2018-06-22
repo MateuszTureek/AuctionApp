@@ -24,7 +24,7 @@
                     {
                         <p>Kup teraz: <span class="text-muted">brak</span></p>
                     }
-                    <a asp-controller="Auction" asp-action="Item" role="button" class="btn btn-dark d-block">
+                    <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id" role="button" class="btn btn-dark d-block">
                         <span class="fa fa-plus"></span>
                         <span>Zobacz</span>
                     </a>
@@ -33,7 +33,7 @@
         </div>
     }
     <div class="col-12">
-        <ul class="pagination justify-content-end">
+        <ul id="PaginationList" class="pagination justify-content-end">
             <li class="page-item">
                 @if (ViewBag.AmountOfPagiingLink>0)
                 {
@@ -44,9 +44,10 @@
                    asp-route-sortBy="@ViewBag.SortBy">Previous</a>
                 }
             </li>
+            
             @for (var i = 0; i < ViewBag.AmountOfPagiingLink; i += 1)
             {
-                <li class="page-item">
+                <li class="page-item" data-id="@(i+1)">
                     <a class="page-link" asp-controller="Auction" asp-action="Index"
                        asp-route-pageNumber="@(i+1)"
                        asp-route-amountOfPagiingLink="@ViewBag.AmountOfPagiingLink"
@@ -56,6 +57,7 @@
             }
             @if (ViewBag.AmountOfPagiingLink > 0)
             {
+            
             <li class="page-item">
                 <a class="page-link" asp-controller="Auction" asp-action="Index"
                    asp-route-pageNumber="@(ViewBag.PageNumber + 1)"

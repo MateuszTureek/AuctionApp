@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AuctionApp.Core.BLL.DTO.SingleAuctionDTO
+
+<style>
+    dl{
+        font-size: 16px;
+    }
+    dt,dd{
+        float: left;
+        width: 50%;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-4">
+        <img src="@Model.ImgSrc" class="img-thumbnail" style="height:400px;" />
+    </div>
+    <div class="col-8">
+        <h2>@Model.Name</h2>
+        <dl class="clearfix">
+            <dt>Cena:</dt>
+            <dd> 
+                @if ((decimal)Model.BuyNowPrice == 0.00M) { <span>brak</span> }
+                else { @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", Model.BuyNowPrice)}
+            </dd>
+
+            <dt>Status:</dt>
+            <dd>@if (Model.Activated) { <span>aukcja aktywna</span> } else { <span>oczekiwanie na rozpoczęcie</span> }</dd>
+
+            <dt>
+                <button class="btn btn-dark">Kup teraz</button>
+            </dt>
+        </dl>
+        <div class="bg-dark text-white p-4 font-weight-bold" style="font-size: 18px; letter-spacing: 1px;">
+            <p class="text-center">
+                Cene przedmiotu można licytowac.
+            </p>
+            <p class="text-center">
+                Przedmiot można kupić za cene podana przez właściciela odrazu wciskając kup teraz.
+            </p>
+            <p class="text-center">
+                Licytacja oraz zakup są dostępne po zalogowaniu.
+            </p>
+        </div>
+    </div>
+    <div class="col-6 mt-2">
+        <h4>Opis:</h4>
+        <dl class="clearfix">
+            @foreach (var desc in Model.Descriptions)
+            {
+                <dt style="width:30%;">@desc.Key</dt>
+                <dd style="width:70%;">@desc.Value</dd>
+            }
+        </dl>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6 mt-2">
+        <h4>Lista licytacji:</h4>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>User</th>
+                    <th>Price</th>
+                    <th>Dodano</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bid in Model.Bids)
+                {
+                    <tr>
+                        <td>@bid.UserName</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidAmount)</td>
+                        <td>@bid.DatePlaced</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12">
+        <h4>Ostation dodane:</h4>
+        <div class="row">
+            @await Component.InvokeAsync("Auction", true)
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 /**
  * Class LinkActivator activates link in ul. Using session storage.
  */
-export class LinkActivator implements ILinkActivator{
+export default class LinkActivator implements ILinkActivator{
     protected $linkCollection: JQuery<HTMLUListElement>;
 
     constructor(

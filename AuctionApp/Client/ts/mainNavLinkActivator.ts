@@ -1,4 +1,4 @@
-﻿export class MainNavLinkActivator {
+﻿export default class MainNavLinkActivator {
     protected $linkCollection: JQuery<HTMLElement>;
 
     constructor(

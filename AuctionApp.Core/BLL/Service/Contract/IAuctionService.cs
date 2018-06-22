@@ -13,5 +13,7 @@ namespace AuctionApp.Core.BLL.Service.Contract
         List<LatestAuctionDTO> TakeAuctions(int amount, bool actived);
         List<AuctionDTO> GetAuctions(FilterAuctionDTO dto);
         int GetAmountOfPages(int pageSize);
+        SingleAuctionDTO GetAuction(int id);
+
     }
 }

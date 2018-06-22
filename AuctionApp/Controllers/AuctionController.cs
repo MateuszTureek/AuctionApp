@@ -49,10 +49,16 @@ namespace AuctionApp.Controllers
 
             return View(result);
         }
+        // TO DO
+        public IActionResult Search(string phrase)
+        {
+            return View();
+        }
 
         public IActionResult Item(int? id)
         {
-            return View();
+            return View(
+                _service.GetAuction((int)id));
         }
     }
 }

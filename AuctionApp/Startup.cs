@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AuctionApp.Core.BLL.Dependencies;
 using AuctionApp.Core.BLL.Mapper;
 using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.BLL.Service.Implement;
@@ -49,24 +50,14 @@ namespace AuctionApp
             
             services.AddScoped<IdentityInitializer>();
             services.AddScoped<AuctionInitializer>();
+            // register my service
+            DependencyProvider.SetupAuctionDependency(services);
 
-            services.AddTransient<IAuctionContext, AuctionContext>();
-            services.AddTransient<IStrategy, AuctionByCategoryOrderByEndDateStartegy>();
-            services.AddTransient<IStrategy, AuctionByCategoryOrderByPriceBuyNowStartegy>();
-            services.AddTransient<IStrategy, AuctionByCategoryOrderByNameStartegy>();
-            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByEndDateStartegy>();
-            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByPriceBuyNowStartegy>();
-            services.AddTransient<IStrategy, AuctionBySubcategoryOrderByNameStartegy>();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(3);
+            });
 
-            services.AddTransient<IAuctionRepo, AuctionRepo>();
-            services.AddTransient<ICategoryRepo, CategoryRepo>();
-
-            services.AddTransient<IPaginationService, PaginationService>();
-            services.AddTransient<IAuctionService, AuctionService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-
-            // mvc
-            services.AddAutoMapper(typeof(MapperProfile));
             services.AddMvc();
         }
 
@@ -85,6 +76,8 @@ namespace AuctionApp
             }
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseAuthentication();
 

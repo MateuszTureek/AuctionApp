@@ -21,7 +21,11 @@ namespace AuctionApp.Core.BLL.Mapper
             CreateMap<Item, AuctionDTO>();
             CreateMap<ItemDescription, DescriptionDTO>();
             CreateMap<Subcategory, SubcategoryDTO>();
-            CreateMap<Category, CategoryDTO>().ForMember(d => d.Subcategories, o => o.MapFrom(m => m.Subcategories.ToList()));
+            CreateMap<Category, CategoryDTO>()
+                .ForMember(d => d.Subcategories, o => o.MapFrom(m => m.Subcategories.ToList()));
+            CreateMap<Bid, BidOfAuction>();
+            CreateMap<Item, SingleAuctionDTO>()
+                .ForMember(d => d.Bids, o => o.MapFrom(m => m.Bids));
         }
     }
 }

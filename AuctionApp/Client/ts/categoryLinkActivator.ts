@@ -1,7 +1,7 @@
-﻿import { LinkActivator } from "./linkActivator";
-import { SUBCATEGORY_KEY } from "./settings/constant";
+﻿import { SUBCATEGORY_KEY } from "./settings/constant";
+import LinkActivator from "./linkActivator";
 
-export class CategoryLinkActivator extends LinkActivator{
+export default class CategoryLinkActivator extends LinkActivator{
     private subcategoryLinkActivator: LinkActivator;
 
     init() {
@@ -14,7 +14,7 @@ export class CategoryLinkActivator extends LinkActivator{
         }
     };
 
-    initSubcategory(activeCategoryDataId) {
+    protected initSubcategory(activeCategoryDataId) {
         const $link = this.findLinkByDataId(activeCategoryDataId);
         const $subUl = $($link.closest('li').children('ul').first()) as JQuery<HTMLUListElement>;
 
@@ -22,17 +22,17 @@ export class CategoryLinkActivator extends LinkActivator{
         this.subcategoryLinkActivator.init();
     };
 
-    setupLink() {
+    protected setupLink() {
         super.setupLink();
         this.showSubcategories();
     };
 
-    linkOnClick(e: Event) {
+    protected linkOnClick(e: Event) {
         super.linkOnClick(e);
         sessionStorage.removeItem(SUBCATEGORY_KEY);
     };
 
-    private showSubcategories() {
+    protected showSubcategories() {
         const activatedDataId = parseInt(sessionStorage.getItem(this.sessionKey));
         if (!isNaN(activatedDataId)) {
             const $activatedLink = this.findLinkByDataId(activatedDataId);

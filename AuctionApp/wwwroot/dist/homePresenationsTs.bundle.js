@@ -86,15 +86,27 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Client/ts/auctionClearSession.ts":
+/*!******************************************!*\
+  !*** ./Client/ts/auctionClearSession.ts ***!
+  \******************************************/
+/*! exports provided: AuctionSession */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"AuctionSession\", function() { return AuctionSession; });\n/* harmony import */ var _settings_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings/constant */ \"./Client/ts/settings/constant.ts\");\n\r\nclass AuctionSession {\r\n    static clear() {\r\n        $('#AuctionLink').on('click', () => {\r\n            sessionStorage.removeItem(_settings_constant__WEBPACK_IMPORTED_MODULE_0__[\"CATEGORY_KEY\"]);\r\n            sessionStorage.removeItem(_settings_constant__WEBPACK_IMPORTED_MODULE_0__[\"SUBCATEGORY_KEY\"]);\r\n            sessionStorage.removeItem(_settings_constant__WEBPACK_IMPORTED_MODULE_0__[\"SORT_OPTION_KEY\"]);\r\n            sessionStorage.removeItem(_settings_constant__WEBPACK_IMPORTED_MODULE_0__[\"PAGING_KEY\"]);\r\n        });\r\n    }\r\n}\r\n;\r\n\n\n//# sourceURL=webpack:///./Client/ts/auctionClearSession.ts?");
+
+/***/ }),
+
 /***/ "./Client/ts/mainNavLinkActivator.ts":
 /*!*******************************************!*\
   !*** ./Client/ts/mainNavLinkActivator.ts ***!
   \*******************************************/
-/*! exports provided: MainNavLinkActivator */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MainNavLinkActivator\", function() { return MainNavLinkActivator; });\nclass MainNavLinkActivator {\r\n    constructor($navElem, active) {\r\n        this.$navElem = $navElem;\r\n        this.active = active;\r\n    }\r\n    init() {\r\n        this.$linkCollection = this.$navElem.children('a');\r\n        this.setupLink();\r\n    }\r\n    ;\r\n    setupLink() {\r\n        const href = window.location.pathname;\r\n        const $link = this.getLinkByHref(href);\r\n        this.deactiveLink();\r\n        this.activeLink($link);\r\n    }\r\n    ;\r\n    getLinkByHref(href) {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.attr('href') === href) {\r\n                return $link;\r\n            }\r\n        }\r\n        throw new Error(\"Not found matching nav link.\");\r\n    }\r\n    ;\r\n    activeLink($link) {\r\n        $link.addClass(this.active);\r\n    }\r\n    ;\r\n    deactiveLink() {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.hasClass(this.active)) {\r\n                $link.remove(this.active);\r\n            }\r\n        }\r\n    }\r\n    ;\r\n}\r\n;\r\n\n\n//# sourceURL=webpack:///./Client/ts/mainNavLinkActivator.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return MainNavLinkActivator; });\nclass MainNavLinkActivator {\r\n    constructor($navElem, active) {\r\n        this.$navElem = $navElem;\r\n        this.active = active;\r\n    }\r\n    init() {\r\n        this.$linkCollection = this.$navElem.children('a');\r\n        this.setupLink();\r\n    }\r\n    ;\r\n    setupLink() {\r\n        const href = window.location.pathname;\r\n        const $link = this.getLinkByHref(href);\r\n        this.deactiveLink();\r\n        this.activeLink($link);\r\n    }\r\n    ;\r\n    getLinkByHref(href) {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.attr('href') === href) {\r\n                return $link;\r\n            }\r\n        }\r\n        throw new Error(\"Not found matching nav link.\");\r\n    }\r\n    ;\r\n    activeLink($link) {\r\n        $link.addClass(this.active);\r\n    }\r\n    ;\r\n    deactiveLink() {\r\n        let i = 0, $link;\r\n        const length = this.$linkCollection.length;\r\n        for (i; i < length; i += 1) {\r\n            $link = $(this.$linkCollection.get(i));\r\n            if ($link.hasClass(this.active)) {\r\n                $link.remove(this.active);\r\n            }\r\n        }\r\n    }\r\n    ;\r\n}\r\n;\r\n\n\n//# sourceURL=webpack:///./Client/ts/mainNavLinkActivator.ts?");
 
 /***/ }),
 
@@ -106,7 +118,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mainNavLinkActivator */ \"./Client/ts/mainNavLinkActivator.ts\");\n\r\n/*\r\n * Home - home.ts\r\n */\r\nconst mainNav = new _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__[\"MainNavLinkActivator\"]($('#MainNav'), 'active');\r\nmainNav.init();\r\n\n\n//# sourceURL=webpack:///./Client/ts/presentation/home.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mainNavLinkActivator */ \"./Client/ts/mainNavLinkActivator.ts\");\n/* harmony import */ var _auctionClearSession__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../auctionClearSession */ \"./Client/ts/auctionClearSession.ts\");\n\r\n\r\n/*\r\n * Home - home.ts\r\n */\r\nconst mainNav = new _mainNavLinkActivator__WEBPACK_IMPORTED_MODULE_0__[\"default\"]($('#MainNav'), 'active');\r\nmainNav.init();\r\n_auctionClearSession__WEBPACK_IMPORTED_MODULE_1__[\"AuctionSession\"].clear();\r\n\n\n//# sourceURL=webpack:///./Client/ts/presentation/home.ts?");
+
+/***/ }),
+
+/***/ "./Client/ts/settings/constant.ts":
+/*!****************************************!*\
+  !*** ./Client/ts/settings/constant.ts ***!
+  \****************************************/
+/*! exports provided: CATEGORY_KEY, SUBCATEGORY_KEY, ACTIVE_NAV_LINK_KEY, SORT_OPTION_KEY, PAGING_KEY */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"CATEGORY_KEY\", function() { return CATEGORY_KEY; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"SUBCATEGORY_KEY\", function() { return SUBCATEGORY_KEY; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ACTIVE_NAV_LINK_KEY\", function() { return ACTIVE_NAV_LINK_KEY; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"SORT_OPTION_KEY\", function() { return SORT_OPTION_KEY; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"PAGING_KEY\", function() { return PAGING_KEY; });\n// global session storage keys\r\nconst CATEGORY_KEY = \"ActiveCategory\";\r\nconst SUBCATEGORY_KEY = \"ActiveSubcategory\";\r\nconst ACTIVE_NAV_LINK_KEY = \"ActiveNavLink\";\r\nconst SORT_OPTION_KEY = \"ActiveSortOption\";\r\nconst PAGING_KEY = \"ActiveAuctionPage\";\r\n\n\n//# sourceURL=webpack:///./Client/ts/settings/constant.ts?");
 
 /***/ })
 
