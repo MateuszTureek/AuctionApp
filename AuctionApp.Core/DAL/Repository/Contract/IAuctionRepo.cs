@@ -27,5 +27,6 @@ namespace AuctionApp.Core.DAL.Repository.Contract
         void Remove(Item item);
         void AddBid(Item item, decimal amount, string userId);
         string GetUserIdWhoMakeBid(int bidId);
+        IEnumerable<Item> SearchByPhrase(string phrase);
     }
 }

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<AuctionApp.Core.BLL.DTO.ItemDTO>
+
+<style>
+    .price{
+        font-size: 18px;
+    }
+</style>
+
+<h4>Search result for: "@ViewBag.Phrase".</h4>
+
+<ul>
+    @foreach(var item in Model)
+    {
+    <li class="d-flex justify-content-between mb-2">
+        <div class="d-flex justify-content-between">
+            <img src="@item.ImgSrc" height="90" width="120" />
+            <a class="h5 ml-3" asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
+        </div>
+        <p class="price">
+            @if (item.BuyNowPrice != 0)
+            {
+                <span>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", item.BuyNowPrice)</span>
+            }
+            else
+            {
+                <span>Tylko licytacja.</span>
+            }
+        </p>
+    </li>
+    }
+</ul>

@@ -14,6 +14,6 @@ namespace AuctionApp.Core.BLL.Service.Contract
         List<ItemDTO> GetItems(FilterItemDTO dto);
         int GetAmountOfPages(int pageSize);
         SingleItemDTO GetItem(int id);
-
+        List<ItemDTO> SearchItems(string phrase);
     }
 }

@@ -5,6 +5,7 @@ using AuctionApp.Core.DAL.Repository.Contract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -128,6 +129,13 @@ namespace AuctionApp.Core.DAL.Repository.Implement
                 .Skip(skip)
                 .Take(take)
                 .AsEnumerable();
+        }
+
+        public IEnumerable<Item> SearchByPhrase(string phrase)
+        {
+            return _dbContext.Items
+                .Where(w => w.Name.ToLower(CultureInfo.CurrentCulture).Contains(phrase.ToLower(CultureInfo.CurrentCulture)))
+                .Take(20);
         }
     }
 }

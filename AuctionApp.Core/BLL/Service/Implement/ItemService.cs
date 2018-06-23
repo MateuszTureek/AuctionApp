@@ -149,6 +149,12 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return _mapper.Map<List<Item>, List<ItemDTO>>(auctions);
         }
 
+        public List<ItemDTO> SearchItems(string phrase)
+        {
+            if (string.IsNullOrEmpty(phrase)) return new List<ItemDTO>();
+            return _mapper.Map<List<Item>, List<ItemDTO>>(_auctionRepo.SearchByPhrase(phrase).ToList());
+        }
+
         public List<LatestItemDTO> TakeItems(int amount, bool actived)
         {
             var auctions = _auctionRepo.TakeAuctions(4, actived).ToList();
