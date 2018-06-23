@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AuctionLayout.cshtml";
 }
 
-@model IEnumerable<AuctionApp.Core.BLL.DTO.AuctionDTO>
+@model IEnumerable<AuctionApp.Core.BLL.DTO.ItemDTO>
 
 <div class="row">
     @foreach (var item in Model)
@@ -14,7 +14,7 @@
                 <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
                 <div class="card-body">
                     <h5>
-                        <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
+                        <a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
                     </h5>
                     @if (item.BuyNowPrice != 0)
                     {
@@ -24,7 +24,7 @@
                     {
                         <p>Kup teraz: <span class="text-muted">brak</span></p>
                     }
-                    <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id" role="button" class="btn btn-dark d-block">
+                    <a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id" role="button" class="btn btn-dark d-block">
                         <span class="fa fa-plus"></span>
                         <span>Zobacz</span>
                     </a>
@@ -37,7 +37,7 @@
             <li class="page-item">
                 @if (ViewBag.AmountOfPagiingLink>0)
                 {
-                <a class="page-link" asp-controller="Auction" asp-action="Index"
+                <a class="page-link" asp-controller="Item" asp-action="Index"
                    asp-route-pageNumber="@(ViewBag.PageNumber - 1)"
                    asp-route-amountOfPagiingLink="@ViewBag.AmountOfPagiingLink"
                    asp-route-categoryId="@ViewBag.CategoryId"
@@ -48,7 +48,7 @@
             @for (var i = 0; i < ViewBag.AmountOfPagiingLink; i += 1)
             {
                 <li class="page-item" data-id="@(i+1)">
-                    <a class="page-link" asp-controller="Auction" asp-action="Index"
+                    <a class="page-link" asp-controller="Item" asp-action="Index"
                        asp-route-pageNumber="@(i+1)"
                        asp-route-amountOfPagiingLink="@ViewBag.AmountOfPagiingLink"
                        asp-route-categoryId="@ViewBag.CategoryId"
@@ -59,7 +59,7 @@
             {
             
             <li class="page-item">
-                <a class="page-link" asp-controller="Auction" asp-action="Index"
+                <a class="page-link" asp-controller="Item" asp-action="Index"
                    asp-route-pageNumber="@(ViewBag.PageNumber + 1)"
                    asp-route-amountOfPagiingLink="@ViewBag.AmountOfPagiingLink"
                    asp-route-categoryId="@ViewBag.CategoryId"

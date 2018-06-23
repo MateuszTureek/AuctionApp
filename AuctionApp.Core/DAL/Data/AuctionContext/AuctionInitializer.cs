@@ -157,7 +157,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Name="Item 1",
                     ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
-                    BuyNowPrice=2000
+                    BuyNowPrice=2000,
+                    Status=Status.Waiting
                 },
                 new Item
                 {
@@ -170,7 +171,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Name="Item 2",
                     ImgSrc="/images/items/example2.jpg",
                     Subcategory=subcategories[4],
-                    BuyNowPrice=800
+                    BuyNowPrice=800,
+                    Status=Status.InAuction
                 },
                 new Item
                 {
@@ -183,7 +185,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Name="Item 3",
                     ImgSrc="/images/items/example3.jpg",
                     Subcategory=subcategories[0],
-                    BuyNowPrice=678
+                    BuyNowPrice=678,
+                    Status=Status.InAuction
                 },
                 new Item
                 {
@@ -195,7 +198,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     },
                     Name="Item 4",
                     ImgSrc="/images/items/example4.jpg",
-                    Subcategory=subcategories[0]
+                    Subcategory=subcategories[0],
+                    Status=Status.Waiting
                 },
                 new Item
                 {
@@ -207,7 +211,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     },
                     Name="Item 5",
                     ImgSrc="/images/items/example5.jpg",
-                    Subcategory=subcategories[3]
+                    Subcategory=subcategories[3],
+                    Status=Status.Waiting
                 },
                 new Item
                 {
@@ -217,7 +222,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Name="Item 6",
                     ImgSrc="/images/items/example6.jpg",
                     Subcategory=subcategories[5],
-                    BuyNowPrice=3200
+                    BuyNowPrice=3200,
+                    Status=Status.Bought
                 }
             };
 

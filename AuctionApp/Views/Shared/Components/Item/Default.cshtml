@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.LatestAuctionDTO>
+﻿@model IEnumerable<AuctionApp.Core.BLL.DTO.LatestItemDTO>
 
 <style>
     .dl-list dt,
@@ -20,7 +20,7 @@
             <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
             <div class="card-body">
                 <h5>
-                    <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
+                    <a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
                 </h5>
                 @if (item.BuyNowPrice != 0)
                 {
@@ -30,7 +30,7 @@
                 { 
                     <p>Kup teraz: <span class="text-muted">brak</span></p>
                 }
-                <a asp-controller="Auction" asp-action="Item" asp-route-id="@item.Id" role="button" class="btn btn-dark d-block">
+                <a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id" role="button" class="btn btn-dark d-block">
                     <span class="fa fa-plus"></span>
                     <span>Zobacz</span>
                 </a>

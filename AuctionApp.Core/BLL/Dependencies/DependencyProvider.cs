@@ -29,7 +29,7 @@ namespace AuctionApp.Core.BLL.Dependencies
             services.AddTransient<ICategoryRepo, CategoryRepo>();
 
             services.AddTransient<IPaginationService, PaginationService>();
-            services.AddTransient<IAuctionService, AuctionService>();
+            services.AddTransient<IItemService, ItemService>();
             services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddAutoMapper(typeof(MapperProfile));

@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.ViewComponents
 {
-    public class Auction : ViewComponent
+    public class Item : ViewComponent
     {
-        readonly IAuctionService _service;
+        readonly IItemService _service;
 
-        public Auction(IAuctionService service)
+        public Item(IItemService service)
         {
             _service = service;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(bool activated)
         {
-            var dto = _service.TakeAuctions(3, activated);
+            var dto = _service.TakeItems(3, activated);
             return View(dto);
         }
     }

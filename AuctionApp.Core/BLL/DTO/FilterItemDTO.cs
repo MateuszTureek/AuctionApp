@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AuctionApp.Core.BLL.DTO
 {
-    public class FilterAuctionDTO
+    public class FilterItemDTO
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

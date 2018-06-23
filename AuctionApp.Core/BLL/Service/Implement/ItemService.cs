@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.BLL.Service.Implement
 {
-    public class AuctionService : IAuctionService
+    public class ItemService : IItemService
     {
         readonly IMapper _mapper;
         readonly IAuctionRepo _auctionRepo;
         readonly IPaginationService _paginationService;
         readonly UserManager<AppUser> _userManager;
 
-        public AuctionService(IMapper mapper,
+        public ItemService(IMapper mapper,
                               IPaginationService paginationService,
                               IAuctionRepo auctionRepo,
                               IAuctionContext auctionContext,
@@ -52,13 +52,13 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return Convert.ToInt32(amountOfPages);
         }
 
-        public SingleAuctionDTO GetAuction(int id)
+        public SingleItemDTO GetItem(int id)
         {
             string userId;
             AppUser user;
 
             var auction = _auctionRepo.GetById(id);
-            var singleAuctionDto = _mapper.Map<Item, SingleAuctionDTO>(auction);
+            var singleAuctionDto = _mapper.Map<Item, SingleItemDTO>(auction);
 
             for(var i = 0; i < auction.Bids.Count; i += 1)
             {
@@ -74,7 +74,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return singleAuctionDto;
         }
 
-        public List<AuctionDTO> GetAuctions(FilterAuctionDTO dto)
+        public List<ItemDTO> GetItems(FilterItemDTO dto)
         {
             AuctionContext context;
 
@@ -146,14 +146,14 @@ namespace AuctionApp.Core.BLL.Service.Implement
             }
 
             var auctions = context.GetAuctions(dto);
-            return _mapper.Map<List<Item>, List<AuctionDTO>>(auctions);
+            return _mapper.Map<List<Item>, List<ItemDTO>>(auctions);
         }
 
-        public List<LatestAuctionDTO> TakeAuctions(int amount, bool actived)
+        public List<LatestItemDTO> TakeItems(int amount, bool actived)
         {
             var auctions = _auctionRepo.TakeAuctions(4, actived).ToList();
 
-            return _mapper.Map<List<Item>, List<LatestAuctionDTO>>(auctions);
+            return _mapper.Map<List<Item>, List<LatestItemDTO>>(auctions);
         }
     }
 }

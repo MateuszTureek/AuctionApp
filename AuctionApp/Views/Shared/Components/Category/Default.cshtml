@@ -16,7 +16,7 @@
     {
     <li data-id="@category.Id" class="nav-item mb-1">
         <a class="nav-link"
-           asp-controller="Auction" asp-action="Index"
+           asp-controller="Item" asp-action="Index"
            asp-route-categoryId="@category.Id"
            asp-route-sortBy="@ViewBag.SortBy">
             @category.Name
@@ -27,7 +27,7 @@
             {
                 <li data-id="@subcategory.Id" class="nav-item">
                     <a class="nav-link"
-                       asp-controller="Auction" asp-action="Index"
+                       asp-controller="Item" asp-action="Index"
                        asp-route-subcategoryId="@subcategory.Id"
                        asp-route-sortBy="@ViewBag.SortBy">@subcategory.Name</a>
                 </li>

@@ -18,7 +18,34 @@ namespace AuctionApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var cartItems = _cartService.GetCartItems();
+            ViewBag.TotalCost = string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", _cartService.GetTotalPrice());
+
+            return View(cartItems);
+        }
+
+        public async Task<IActionResult> AddCartItem(int? itemId)
+        {
+            if (itemId == null) return NotFound();
+
+            await _cartService.AddItemToCart((int)itemId).ConfigureAwait(false);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Remove(int? id)
+        {
+            if (id == null) return NotFound();
+
+            await _cartService.RemoveCartItem((int)id).ConfigureAwait(false);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Clear()
+        {
+            await _cartService.RemoveCart().ConfigureAwait(false);
+            return RedirectToAction("Index");
         }
     }
 }

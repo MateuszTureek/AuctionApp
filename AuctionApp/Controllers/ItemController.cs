@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
-    public class AuctionController : Controller
+    public class ItemController : Controller
     {
         readonly int pageSize = PaginationService.PageSize;
-        readonly IAuctionService _service;
+        readonly IItemService _service;
         readonly IPaginationService _paginationService;
 
-        public AuctionController(IAuctionService service, IPaginationService paginationService)
+        public ItemController(IItemService service, IPaginationService paginationService)
         {
             _paginationService = paginationService;
             _service = service;
@@ -33,7 +33,7 @@ namespace AuctionApp.Controllers
             ViewBag.PageNumber = pageNumber;
             ViewBag.SubcategoryId = subcategoryId;
 
-            var result = _service.GetAuctions(new FilterAuctionDTO
+            var result = _service.GetItems(new FilterItemDTO
             {
                 CategoryId = categoryId,
                 SubcategoryId = subcategoryId,
@@ -58,7 +58,7 @@ namespace AuctionApp.Controllers
         public IActionResult Item(int? id)
         {
             return View(
-                _service.GetAuction((int)id));
+                _service.GetItem((int)id));
         }
     }
 }

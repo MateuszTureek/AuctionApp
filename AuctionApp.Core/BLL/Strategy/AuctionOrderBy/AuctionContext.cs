@@ -16,7 +16,7 @@ namespace AuctionApp.Core.BLL.Strategy.AuctionOrderBy
             _strategy = strategy;
         }
 
-        public List<Item> GetAuctions(FilterAuctionDTO dto)
+        public List<Item> GetAuctions(FilterItemDTO dto)
         {
             return _strategy.GetAuctionsOrderBy(dto);
         }

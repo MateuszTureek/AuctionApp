@@ -40,7 +40,7 @@
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="Index">Home page</a>
                     <a id="AuctionLink" class="flex-sm-fill flex-lg-grow-0 nav-item nav-link active"
-                       asp-controller="Auction" asp-action="Index">Auctions</a>
+                       asp-controller="Item" asp-action="Index">Available items</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="HowToOffer">How to offer</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
@@ -49,10 +49,10 @@
                        asp-controller="Home" asp-action="About">About us</a>
                 </nav>
                 <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex">
-                    <button class="btn btn-dark">
+                    <a role="button" class="btn btn-dark" asp-controller="Cart" asp-action="Index">
                         <span class="fa fa-shopping-basket"></span>
-                        <span>0.00 pln</span>
-                    </button>
+                        <span>@await Component.InvokeAsync("TotalCost")</span>
+                    </a>
                 </div>
             </div>
         </div>

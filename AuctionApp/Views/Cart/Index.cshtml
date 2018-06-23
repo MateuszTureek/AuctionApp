@@ -4,20 +4,68 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between">
-            <h2>Koszyk</h2>
-            <button class="btn btn-sm btn-danger">Wyczyść koszyk</button>
+<style>
+    .empty-cart {
+        font-size: 22px;
+    }
+    .price{
+        font-size: 18px;
+    }
+    img {
+        height: 120px;
+    }
+</style>
+
+@model IEnumerable<AuctionApp.Core.BLL.DTO.CartItemDTO>
+
+<div class="col-12 mb-4 mt-4">
+    <div class="d-flex justify-content-between">
+        <h3>Koszyk</h3>
+        <div class="mt-2">
+            <form asp-controller="Cart" asp-action="Clear">
+                <button type="submit" class="btn btn-sm btn-danger">Wyczyść koszyk</button>
+            </form>
         </div>
     </div>
-    <div class="col-12">
-        <table class="table">
-            <tr>
-                <td>
-
-                </td>
-            </tr>
-        </table>
-    </div>
+</div>
+<div class="col-12">
+    @if (Model.Count() == 0)
+    {
+        <p class="empty-cart text-center mt-5 mb-5">
+            <span class="fa fa-info-circle"></span>
+            <span>Koszy jest pusty.</span>
+        </p>
+    }
+    else
+    {
+        @foreach (var cartItem in Model)
+        {
+            <div class="d-flex justify-content-between mb-2">
+                <div class="clearfix">
+                    <img src="@cartItem.ImgSrc" alt="Brak zdjęcia" />
+                    <h4 class="pull-right ml-2">@cartItem.ItemName</h4>
+                </div>
+                <div class="clearfix">
+                    <p class="pull-left mr-2 mt-1 price">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</p>
+                    <form asp-controller="Cart" asp-action="Remove" class="pull-right">
+                        <input type="hidden" name="id" value="@cartItem.Id" />
+                        <button type="submit" class="btn btn-danger">
+                            <span class="fa fa-remove"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <hr />
+        }
+        <div class="col-12">
+            <div class="row d-flex justify-content-between">
+                <p>
+                    Suma: <span>@ViewBag.TotalCost</span>
+                </p>
+                <div>
+                    <button class="btn btn-success">Confirm transation</button>
+                </div>
+            </div>
+        </div>
+    }
 </div>

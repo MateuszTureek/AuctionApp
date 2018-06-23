@@ -17,15 +17,21 @@ namespace AuctionApp.Core.BLL.Mapper
 
         public void Configure()
         {
-            CreateMap<Item, LatestAuctionDTO>();
-            CreateMap<Item, AuctionDTO>();
+            CreateMap<Item, LatestItemDTO>();
+            CreateMap<Item, ItemDTO>();
             CreateMap<ItemDescription, DescriptionDTO>();
             CreateMap<Subcategory, SubcategoryDTO>();
             CreateMap<Category, CategoryDTO>()
                 .ForMember(d => d.Subcategories, o => o.MapFrom(m => m.Subcategories.ToList()));
             CreateMap<Bid, BidOfAuction>();
-            CreateMap<Item, SingleAuctionDTO>()
+            CreateMap<Item, SingleItemDTO>()
                 .ForMember(d => d.Bids, o => o.MapFrom(m => m.Bids));
+            CreateMap<SingleItemDTO, CartItemDTO>()
+                .ForMember(d => d.Id, o => o.Ignore())
+                .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Id))
+                .ForMember(d => d.ItemName, o => o.MapFrom(m => m.Name))
+                .ForMember(d => d.Price, o => o.MapFrom(m => m.BuyNowPrice))
+                .ForMember(d => d.ImgSrc, o => o.MapFrom(m => m.ImgSrc));
         }
     }
 }

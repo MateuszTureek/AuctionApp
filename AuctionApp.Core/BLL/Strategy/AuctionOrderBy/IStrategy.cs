@@ -8,6 +8,6 @@ namespace AuctionApp.Core.BLL.Strategy.AuctionOrderBy
 {
     public interface IStrategy
     {
-        List<Item> GetAuctionsOrderBy(FilterAuctionDTO dto);
+        List<Item> GetAuctionsOrderBy(FilterItemDTO dto);
     }
 }

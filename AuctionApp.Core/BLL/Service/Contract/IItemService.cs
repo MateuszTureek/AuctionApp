@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.BLL.Service.Contract
 {
-    public interface IAuctionService
+    public interface IItemService
     {
-        List<LatestAuctionDTO> TakeAuctions(int amount, bool actived);
-        List<AuctionDTO> GetAuctions(FilterAuctionDTO dto);
+        List<LatestItemDTO> TakeItems(int amount, bool actived);
+        List<ItemDTO> GetItems(FilterItemDTO dto);
         int GetAmountOfPages(int pageSize);
-        SingleAuctionDTO GetAuction(int id);
+        SingleItemDTO GetItem(int id);
 
     }
 }

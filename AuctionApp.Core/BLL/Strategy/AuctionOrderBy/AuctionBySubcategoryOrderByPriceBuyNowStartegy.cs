@@ -22,7 +22,7 @@ namespace AuctionApp.Core.BLL.Strategy.AuctionOrderBy
             _auctionRepo = auctionRepo;
         }
 
-        public List<Item> GetAuctionsOrderBy(FilterAuctionDTO dto)
+        public List<Item> GetAuctionsOrderBy(FilterItemDTO dto)
         {
             PaginationService.PageNumber = dto.PageNumber;
             PaginationService.TotalCount = _auctionRepo.TakeAuctionsTotalCount(s => s.BuyNowPrice,

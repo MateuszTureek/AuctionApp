@@ -14,6 +14,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public DateTime AuctionEndDate { get; set; }
         public string ImgSrc { get; set; }
         public decimal BuyNowPrice { get; set; }
+        public Status Status { get; set; }
 
         public IList<Bid> Bids { get; set; }
         public IList<ItemDescription> Descriptions { get; set; }
