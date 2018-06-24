@@ -4,19 +4,17 @@
 }
 
 <div class="row">
-    @Html.Partial("_CarouselPartial")
+    <div class="col-12">
+        @Html.Partial("_CarouselPartial")
+    </div>
 </div>
 
-<div class="row mt-2">
-    <div class="col-12">
-        <h3>Latest:</h3>
-    </div>
-    @await Component.InvokeAsync("Item",new { activated = true })
+<div class="pt-2 pb-3 bg-success">
+    <h3 class="col-12 text-white">Latest:</h3>
+    @await Component.InvokeAsync("Item", new { activated = true })
 </div>
 
-<div class="row mt-2">
-    <div class="col-12">
-        <h3>Waiting for active:</h3>
-    </div>
+<div class="pt-2 pb-3 bg-warning">
+    <h3 class="col-12 text-white">Waiting for active:</h3>
     @await Component.InvokeAsync("Item", new { activated = false })
 </div>

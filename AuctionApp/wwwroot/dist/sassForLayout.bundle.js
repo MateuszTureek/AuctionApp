@@ -81,30 +81,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./Client/sass/main.scss");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./Client/sass/layoutStyle.scss");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./Client/sass/main.scss":
-/*!*******************************!*\
-  !*** ./Client/sass/main.scss ***!
-  \*******************************/
+/***/ "./Client/sass/layoutStyle.scss":
+/*!**************************************!*\
+  !*** ./Client/sass/layoutStyle.scss ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./main.scss */ \"./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./Client/sass/main.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./Client/sass/main.scss?");
+eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js!./layoutStyle.scss */ \"./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./Client/sass/layoutStyle.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./Client/sass/layoutStyle.scss?");
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./Client/sass/main.scss":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./Client/sass/main.scss ***!
-  \**************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js!./Client/sass/layoutStyle.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js!./Client/sass/layoutStyle.scss ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"/*\\r\\n    Main.scss\\r\\n*/\\n* {\\n  box-sizing: border-box; }\\n\\nbody {\\n  font-family: Arial, Helvetica, sans-serif;\\n  font-size: 14.3px;\\n  letter-spacing: 0.5px; }\\n\\n#Logo {\\n  font-size: 40.7px; }\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./Client/sass/main.scss?./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js");
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \"/*\\r\\n    To Layout.\\r\\n*/\\n* {\\n  box-sizing: border-box; }\\n\\nbody {\\n  font-family: Arial, Helvetica, sans-serif;\\n  font-size: 14.3px;\\n  letter-spacing: 0.5px; }\\n\\n#Logo {\\n  font-size: 38.5px; }\\n\\nheader #RegAndLog.navbar-nav a {\\n  color: white; }\\n\\nheader #SearchForm {\\n  width: 200px; }\\n\\nheader nav.nav > a {\\n  color: white; }\\n\\nheader nav.nav .active {\\n  background: rgba(34, 34, 34, 0.8);\\n  border: #222; }\\n\\nmain .card {\\n  overflow: hidden; }\\n\\nmain .card img:hover {\\n  position: relative;\\n  transform: scale(1.1); }\\n\\nmain .card h5 > a {\\n  color: black; }\\n\\nmain .card h5 > a:hover {\\n  color: rgba(0, 0, 0, 0.7);\\n  text-decoration: none; }\\n\\nmain #HowToBid,\\nmain #About,\\nmain #Contact {\\n  font-size: 15.4px;\\n  letter-spacing: 1px;\\n  text-align: justify;\\n  line-height: 30px; }\\n\\nmain #Contact a {\\n  font-weight: bold;\\n  color: black; }\\n\\nmain #Item {\\n  background: whitesmoke; }\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./Client/sass/layoutStyle.scss?./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js");
 
 /***/ }),
 

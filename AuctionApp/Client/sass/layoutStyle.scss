@@ -1,0 +1,42 @@
+﻿/*
+    To Layout.
+*/
+@import 'common.scss';
+
+main {
+    .card {
+        overflow: hidden;
+    }
+
+    .card img:hover {
+        position: relative;
+        transform: scale(1.1);
+    }
+
+    .card h5 > a {
+        color: black;
+    }
+
+    .card h5 > a:hover {
+        color: rgba(0, 0, 0, 0.70);
+        text-decoration: none;
+    }
+
+    #HowToBid,
+    #About,
+    #Contact {
+        font-size: $font-size*1.4;
+        letter-spacing: 1px;
+        text-align: justify;
+        line-height: 30px;
+    }
+
+    #Contact a {
+        font-weight: bold;
+        color: black;
+    }
+
+    #Item {
+        background: whitesmoke;
+    }
+}

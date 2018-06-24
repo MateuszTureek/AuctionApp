@@ -11,23 +11,23 @@
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a id="Logo" class="navbar-brand" asp-controller="Home" asp-action="Index">Logo</a>
+                <a id="Logo" class="navbar-brand" asp-controller="Home" asp-action="Index">Auction application</a>
                 <button class="navbar-toggler ml-auto" data-toggle="collapse" data-target="#NavbarMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div id="NavbarMenu" class="collapse navbar-collapse">
                     <div class="d-flex ml-auto flex-column">
-                        <ul class="navbar-nav justify-content-end">
+                        <ul id="RegAndLog" class="navbar-nav justify-content-end">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Log in</a>
+                                <a class="nav-link" href="#">Logowanie</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Register</a>
+                                <a class="nav-link" href="#">Rejstracja</a>
                             </li>
                         </ul>
-                        <form class="navbar-form mb-1" asp-controller="Item" asp-action="Search">
+                        <form id="SearchForm" class="navbar-form mb-1" asp-controller="Item" asp-action="Search">
                             <div class="input-group-sm">
                                 <input name="phrase" type="search" class="form-control" placeholder="Search" />
                             </div>
@@ -35,20 +35,20 @@
                     </div>
                 </div>
             </div>
-            <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-light">
-                <nav id="MainNav" class="nav nav-pills nav-justified flex-sm-column flex-lg-row d-sm-flex d-lg-inline-flex">
+            <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-dark">
+                <nav id="MainNav" class="nav nav-justified flex-sm-column flex-lg-row d-sm-flex d-lg-inline-flex ml-3">
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home" asp-action="Index">Home page</a>
+                       asp-controller="Home" asp-action="Index">Strona główna</a>
                     <a id="AuctionLink" class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Item" asp-action="Index">Available items</a>
+                       asp-controller="Item" asp-action="Index">Dostępne przedmioty</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home" asp-action="HowToOffer">How to offer</a>
+                       asp-controller="Home" asp-action="HowToOffer">Jak licytowac?</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home" asp-action="Contact">Contact</a>
+                       asp-controller="Home" asp-action="Contact">Kontakt</a>
                     <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
-                       asp-controller="Home" asp-action="About">About us</a>
+                       asp-controller="Home" asp-action="About">O nas</a>
                 </nav>
-                <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex">
+                <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex mr-3">
                     <a role="button" class="btn btn-dark" asp-controller="Cart" asp-action="Index">
                         <span class="fa fa-shopping-basket"></span>
                         <span>@await Component.InvokeAsync("TotalCost")</span>
@@ -57,7 +57,7 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main class="body-content">
             @RenderBody()
         </main>
@@ -73,8 +73,8 @@
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/dist/presentationSass.bundle.js"></script>
-        <script src="~/dist/homePresenationsTs.bundle.js"></script>
+        <script src="~/dist/sassForLayout.bundle.js"></script>
+        <script src="~/dist/tsHome.bundle.js"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>

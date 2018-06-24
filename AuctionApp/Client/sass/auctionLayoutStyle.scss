@@ -1,0 +1,29 @@
+﻿/*
+    To AuctionLayout.
+*/
+@import 'common.scss';
+
+#Categories a {
+    color: white;
+    border-radius: 0;
+}
+
+#Categories > li a.active {
+    background: rgba(0, 123, 255, 0.40);
+}
+
+#Categories ul a.active {
+    color: black;
+}
+
+.category-colum{
+    height: 100%;
+}
+
+.filter-col {
+    background: rgba(52, 58, 64, 0.9);
+}
+
+.body-content {
+    background: whitesmoke;
+}

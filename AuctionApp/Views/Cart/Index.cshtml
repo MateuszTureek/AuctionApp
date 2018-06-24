@@ -43,7 +43,8 @@
             <div class="d-flex justify-content-between mb-2">
                 <div class="clearfix">
                     <img src="@cartItem.ImgSrc" alt="Brak zdjęcia" />
-                    <h4 class="pull-right ml-2">@cartItem.ItemName</h4>
+                    <a asp-controller="Item" asp-action="Item" asp-route-id="@cartItem.ItemId"
+                       class="pull-right ml-2 h4">@cartItem.ItemName</a>
                 </div>
                 <div class="clearfix">
                     <p class="pull-left mr-2 mt-1 price">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</p>

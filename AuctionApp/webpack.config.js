@@ -7,9 +7,10 @@ module.exports = {
         extensions: [".js", ".ts", '.scss']
     },
     entry: {
-        presentationSass: './Client/sass/main.scss',
-        homePresenationsTs: './Client/ts/presentation/home.ts',
-        auctionPresenationsTs:'./Client/ts/presentation/auctions.ts'
+        sassForLayout: './Client/sass/layoutStyle.scss',
+        sassForAuctionLayout: './Client/sass/auctionLayoutStyle.scss',
+        tsHome: './Client/ts/presentation/home.ts',
+        tsAuction: './Client/ts/presentation/auctions.ts'
     },
     output: {
         path: path.resolve(__dirname, './wwwroot/dist'),

@@ -7,7 +7,7 @@ namespace AuctionApp.Core.BLL.Static
 {
     public class PaginationService : IPaginationService
     {
-        const int pageSize = 3;
+        const int pageSize = 10;
         
         public static int PageNumber { get; set; }
         public static int PageSize { get { return pageSize; } private set { value = pageSize; } }

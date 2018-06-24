@@ -12,10 +12,12 @@
     }
 </style>
 
-<h4>Search result for: "@ViewBag.Phrase".</h4>
+<h4>Wynik wyszukiwania dla: "@ViewBag.Phrase".</h4>
 
+@if (Model.Count()!=0)
+{
 <ul>
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
     <li class="d-flex justify-content-between mb-2">
         <div class="d-flex justify-content-between">
@@ -35,3 +37,8 @@
     </li>
     }
 </ul>
+}
+else
+{
+    <p class="text-center mt-5 mb-5 h4">Brak wyników.</p>
+}
