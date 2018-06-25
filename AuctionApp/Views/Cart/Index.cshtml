@@ -18,7 +18,7 @@
 
 @model IEnumerable<AuctionApp.Core.BLL.DTO.CartItemDTO>
 
-<div class="col-12 mb-4 mt-4">
+<div class="col-12 pb-4 pt-4">
     <div class="d-flex justify-content-between">
         <h3>Koszyk</h3>
         <div class="mt-2">
@@ -60,9 +60,9 @@
         }
         <div class="col-12">
             <div class="row d-flex justify-content-between">
-                <p>
+                <strong class="h5">
                     Suma: <span>@ViewBag.TotalCost</span>
-                </p>
+                </strong>
                 <div>
                     <button class="btn btn-success">Confirm transation</button>
                 </div>

@@ -8,8 +8,15 @@
 
     init() {
         this.$linkCollection = this.$navElem.children('a');
+        this.setRigidlyLinksToCollection();
         this.setupLink();
     };
+
+    setRigidlyLinksToCollection() {
+        var $cartLink = $('#Cart').find('a').first();
+
+        this.$linkCollection = this.$linkCollection.add($cartLink);
+    }
 
     setupLink() {
         const href = window.location.pathname;
