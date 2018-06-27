@@ -16,9 +16,10 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public decimal BuyNowPrice { get; set; }
         public Status Status { get; set; }
 
+        public Subcategory Subcategory { get; set; }
+        public Payment Payment { get; set; }
         public IList<Bid> Bids { get; set; }
         public IList<ItemDescription> Descriptions { get; set; }
-        public Subcategory Subcategory { get; set; }
         public IList<ClientItem> ClientItems { get; set; }
     }
 }

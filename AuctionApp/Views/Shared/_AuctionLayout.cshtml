@@ -36,20 +36,20 @@
                 </div>
             </div>
             <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-dark">
-                <nav id="MainNav" class="nav nav-justified flex-sm-column flex-lg-row d-sm-flex d-lg-inline-flex ml-3">
-                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                <nav id="MainNav" class="nav nav-justified flex-column flex-lg-row d-flex d-lg-inline-flex ml-3">
+                    <a class="flex-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="Index">Strona główna</a>
-                    <a id="AuctionLink" class="flex-sm-fill flex-lg-grow-0 nav-item nav-link active"
+                    <a id="AuctionLink" class="flex-fill flex-lg-grow-0 nav-item nav-link active"
                        asp-controller="Item" asp-action="Index">Dostępne przedmioty</a>
-                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                    <a class="flex-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="HowToOffer">Jak licytowac?</a>
-                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                    <a class="flex-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="Contact">Kontakt</a>
-                    <a class="flex-sm-fill flex-lg-grow-0 nav-item nav-link"
+                    <a class="flex-fill flex-lg-grow-0 nav-item nav-link"
                        asp-controller="Home" asp-action="About">O nas</a>
                 </nav>
-                <div class="flex-lg-row d-lg-inline-flex justify-content-sm-center d-sm-flex mr-3">
-                    <a role="button" class="btn btn-dark" asp-controller="Cart" asp-action="Index">
+                <div class="flex-lg-row d-lg-inline-flex justify-content-center d-flex ml-3 ml-lg-0 mr-3">
+                    <a role="button" class="btn btn-dark d-block w-100" asp-controller="Cart" asp-action="Index">
                         <span class="fa fa-shopping-basket"></span>
                         <span>@await Component.InvokeAsync("TotalCost")</span>
                     </a>
@@ -60,17 +60,17 @@
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-12 filter-col">
-                <div class="row">
-                    <div class="col-3"><!-- side map here --></div>
-                    <div class="col-9">
+                <div class="row no-gutters">
+                    <div class="col-lg-3"><!-- side map here --></div>
+                    <div class="col-lg-9 col-12">
                         @Html.Partial("_FilterBarPartial")
                     </div>
                 </div>
             </div>
-            <div class="col-3 bg-dark d-inline-block category-colum">
+            <div class="col-12 col-lg-3 bg-dark d-inline-block category-colum">
                 @await Component.InvokeAsync("Category")
             </div>
-            <div class="col-9">
+            <div class="col-12 col-lg-9">
                 <main class="body-content">
                     @RenderBody()
                 </main>

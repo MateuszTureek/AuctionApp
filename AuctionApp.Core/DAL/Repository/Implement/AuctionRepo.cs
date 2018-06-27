@@ -45,6 +45,7 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             return _dbContext.Items
                 .Include(i => i.Descriptions)
                 .Include(i => i.Bids)
+                .Include(i=>i.Payment)
                 .First(f => f.Id == id);
         }
 

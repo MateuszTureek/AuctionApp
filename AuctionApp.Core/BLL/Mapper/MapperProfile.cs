@@ -25,7 +25,8 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.Subcategories, o => o.MapFrom(m => m.Subcategories.ToList()));
             CreateMap<Bid, BidOfAuction>();
             CreateMap<Item, SingleItemDTO>()
-                .ForMember(d => d.Bids, o => o.MapFrom(m => m.Bids));
+                .ForMember(d => d.Bids, o => o.MapFrom(m => m.Bids))
+                .ForMember(d => d.PaymentMethod, o => o.MapFrom(m => m.Payment.Name));
             CreateMap<SingleItemDTO, CartItemDTO>()
                 .ForMember(d => d.Id, o => o.Ignore())
                 .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Id))

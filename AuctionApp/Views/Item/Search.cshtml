@@ -19,7 +19,7 @@
 <ul>
     @foreach (var item in Model)
     {
-    <li class="d-flex justify-content-between mb-2">
+    <li class="d-flex justify-content-between pb-2">
         <div class="d-flex justify-content-between">
             <img src="@item.ImgSrc" height="90" width="120" />
             <a class="h5 ml-3" asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
@@ -40,5 +40,5 @@
 }
 else
 {
-    <p class="text-center mt-5 mb-5 h4">Brak wyników.</p>
+    <p class="text-center pt-2 pb-5 h4">Brak wyników.</p>
 }

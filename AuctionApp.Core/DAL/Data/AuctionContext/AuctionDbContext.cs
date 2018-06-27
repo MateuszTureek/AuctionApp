@@ -20,13 +20,14 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<ClientItem> ClientItems { get; set; }
         public DbSet<ClientBid> ClientBids { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Bid>(bid =>
             {
                 bid.HasKey(k => k.Id);
-                bid.Property(p => p.BidAmount).IsRequired().HasColumnType("decimal(16,2)");
+                bid.Property(p => p.BidAmount).HasColumnType("decimal(16,2)").IsRequired();
                 bid.Property(p => p.DatePlaced).IsRequired();
             });
 
@@ -35,6 +36,14 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 cat.HasKey(k => k.Id);
                 cat.Property(p => p.Name).HasMaxLength(50).IsRequired();
                 cat.Property(p => p.Position).IsRequired();
+            });
+
+            modelBuilder.Entity<Payment>(payment =>
+            {
+                payment.HasKey(k => k.Id);
+                payment.Property(p => p.Name).HasMaxLength(50).IsRequired();
+                payment.Property(p => p.DeliveryTime).IsRequired();
+                payment.Property(p => p.Amount).IsRequired();
             });
 
             modelBuilder.Entity<Item>(item =>
@@ -82,6 +91,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 item.HasMany(m => m.Descriptions).WithOne(o => o.Item);
                 item.HasOne(o => o.Subcategory).WithMany(m => m.Items);
                 item.HasMany(m => m.ClientItems).WithOne(o => o.Item).HasForeignKey("ItemId");
+                item.HasOne(o => o.Payment).WithMany(m => m.Items).HasForeignKey("PaymentId");
             });
             modelBuilder.Entity<Category>().HasMany(m => m.Subcategories).WithOne(o => o.Category);
         }

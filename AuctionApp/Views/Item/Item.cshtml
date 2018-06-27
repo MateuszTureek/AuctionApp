@@ -41,6 +41,9 @@
                     else
                     { <span>oczekiwanie na rozpoczęcie</span>}
                 </dd>
+
+                <dt>Metoda płatności:</dt>
+                <dd>@Model.PaymentMethod</dd>
             </dl>
 
             <form asp-controller="Cart" asp-action="AddCartItem" class="mb-2">

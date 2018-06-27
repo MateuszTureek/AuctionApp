@@ -10,7 +10,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-4 mt-3">
+            <div class="col-12 col-sm-6 col-lg-4 mt-3 mb-2 mb-lg-0">
                 <div class="card">
                     <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
                     <div class="card-body">
@@ -34,7 +34,7 @@
             </div>
         }
         <div class="col-12">
-            <ul id="PaginationList" class="pagination justify-content-end mt-2">
+            <ul id="PaginationList" class="pagination justify-content-lg-end justify-content-center mt-2">
                 <li class="page-item">
                     @if (ViewBag.AmountOfPagiingLink > 0)
                     {
