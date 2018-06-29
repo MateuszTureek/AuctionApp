@@ -1,4 +1,5 @@
 ﻿using AuctionApp.Core.BLL.Service.Contract;
+using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace AuctionApp.ViewComponents
             _service = service;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(bool activated)
+        public async Task<IViewComponentResult> InvokeAsync(Status status)
         {
-            var dto = _service.TakeItems(3, activated);
+            var dto = _service.GetItems(3, status);
             return View(dto);
         }
     }

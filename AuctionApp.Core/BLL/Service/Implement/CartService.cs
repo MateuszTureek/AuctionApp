@@ -1,4 +1,5 @@
 ﻿using AuctionApp.Core.BLL.DTO;
+using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Service.Contract;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -32,10 +33,10 @@ namespace AuctionApp.Core.BLL.Service.Implement
 
         public async Task AddItemToCart(int itemId)
         {
-            SingleItemDTO item = _itemService.GetItem(itemId);
+            ItemDetailsDTO item = _itemService.GetItem(itemId);
             if (item == null) throw new NullReferenceException();
 
-            var cartItem = _mapper.Map<SingleItemDTO, CartItemDTO>(item);
+            var cartItem = _mapper.Map<ItemDetailsDTO, CartItemDTO>(item);
 
             if (!_s.IsAvailable)
                 await _s.LoadAsync().ConfigureAwait(false);

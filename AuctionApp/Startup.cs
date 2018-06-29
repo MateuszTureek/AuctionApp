@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using AuctionApp.Core.BLL.Dependencies;
-using AuctionApp.Core.BLL.Mapper;
-using AuctionApp.Core.BLL.Service.Contract;
-using AuctionApp.Core.BLL.Service.Implement;
-using AuctionApp.Core.BLL.Static;
-using AuctionApp.Core.BLL.Strategy.AuctionOrderBy;
 using AuctionApp.Core.DAL.Data;
 using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.IdentityContext;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
-using AuctionApp.Core.DAL.Repository.Contract;
-using AuctionApp.Core.DAL.Repository.Implement;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -84,10 +75,13 @@ namespace AuctionApp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
             identityInitializer.Initialize();
             auctionInitializer.Initialize();
         }

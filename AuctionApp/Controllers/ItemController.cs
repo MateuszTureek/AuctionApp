@@ -2,29 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AuctionApp.Core.BLL.DTO;
+using AuctionApp.Core.BLL.Criteria;
+using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
 using AuctionApp.Core.BLL.Service.Contract;
-using AuctionApp.Core.BLL.Static;
+using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
     public class ItemController : Controller
     {
-        readonly int pageSize = PaginationService.PageSize;
+        readonly int pageSize = 3;
         readonly IItemService _service;
-        readonly IPaginationService _paginationService;
 
-        public ItemController(IItemService service, IPaginationService paginationService)
+        public ItemController(IItemService service)
         {
-            _paginationService = paginationService;
             _service = service;
         }
 
         public IActionResult Index(int? categoryId,
                                    int? subcategoryId,
-                                   int? amountOfPagiingLink,
+                                   int? amountOfPagingLink,
                                    int pageNumber = 1,
                                    SortBy sortBy = SortBy.Name)
         {
@@ -33,27 +32,28 @@ namespace AuctionApp.Controllers
             ViewBag.PageNumber = pageNumber;
             ViewBag.SubcategoryId = subcategoryId;
 
-            var result = _service.GetItems(new FilterItemDTO
+            int amountOfPages = 0;
+
+            var result = _service.GetItems(new ItemCriteria()
             {
+                PageIndex = pageNumber,
+                PageSize = pageSize,
+                SortBy = sortBy,
                 CategoryId = categoryId,
                 SubcategoryId = subcategoryId,
-                SortBy = sortBy,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            });
+                Status = Status.InAuction
+            }, out amountOfPages);
 
-            if (pageNumber <= 1 && result != null)
-                ViewBag.AmountOfPagiingLink = _paginationService.AmountOfPages();
-            else
-                ViewBag.AmountOfPagiingLink = amountOfPagiingLink;
+            ViewBag.AmountOfPagingLink = (int)Math.Ceiling((double)amountOfPages / pageSize);
 
             return View(result);
         }
-        
+
         public IActionResult Search(string phrase)
         {
-            var result = _service.SearchItems(phrase);
             ViewBag.Phrase = phrase;
+
+            var result = _service.SearchItems(phrase);
 
             return View(result);
         }

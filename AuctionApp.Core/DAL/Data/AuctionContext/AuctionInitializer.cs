@@ -166,7 +166,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
             {
                 new Item
                 {
-                    Activated=true,
                     AuctionEndDate=DateTime.Now.AddDays(12),
                     Descriptions=new List<ItemDescription>
                     {
@@ -175,13 +174,40 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Name="Item 1",
                     ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
+                    BuyNowPrice=1300,
+                    Status=Status.InAuction,
+                    Payment=payments[0]
+                },
+                new Item
+                {
+                    AuctionEndDate=DateTime.Now.AddDays(12),
+                    Descriptions=new List<ItemDescription>
+                    {
+                        descriptions[0],descriptions[1]
+                    },
+                    Name="Item 1.1",
+                    ImgSrc="/images/items/example1.jpg",
+                    Subcategory=subcategories[3],
                     BuyNowPrice=2000,
+                    Status=Status.InAuction,
+                    Payment=payments[0]
+                },
+                new Item
+                {
+                    AuctionEndDate=DateTime.Now.AddDays(12),
+                    Descriptions=new List<ItemDescription>
+                    {
+                        descriptions[0],descriptions[1]
+                    },
+                    Name="Item 1.2",
+                    ImgSrc="/images/items/example1.jpg",
+                    Subcategory=subcategories[3],
+                    BuyNowPrice=400,
                     Status=Status.Waiting,
                     Payment=payments[0]
                 },
                 new Item
                 {
-                    Activated=true,
                     AuctionEndDate=DateTime.Now.AddDays(4),
                     Descriptions=new List<ItemDescription>
                     {
@@ -196,7 +222,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 },
                 new Item
                 {
-                    Activated=false,
                     AuctionEndDate=DateTime.Now.AddDays(20),
                     Descriptions=new List<ItemDescription>
                     {
@@ -211,7 +236,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 },
                 new Item
                 {
-                    Activated=true,
                     AuctionEndDate=DateTime.Now.AddDays(-1),
                     Descriptions=new List<ItemDescription>
                     {
@@ -225,7 +249,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 },
                 new Item
                 {
-                    Activated=false,
                     AuctionEndDate=DateTime.Now.AddDays(-10),
                     Descriptions=new List<ItemDescription>
                     {
@@ -239,7 +262,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 },
                 new Item
                 {
-                    Activated=true,
                     AuctionEndDate=DateTime.Now.AddDays(30),
                     Descriptions=null,
                     Name="Item 6",

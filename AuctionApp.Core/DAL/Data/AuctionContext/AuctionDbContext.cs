@@ -50,7 +50,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
             {
                 item.HasKey(k => k.Id);
                 item.Property(p => p.Name).HasMaxLength(50).IsRequired();
-                item.Property(p => p.Activated).IsRequired();
                 item.Property(p => p.AuctionEndDate).IsRequired();
                 item.Property(p => p.ImgSrc).IsRequired();
                 item.Property(p => p.BuyNowPrice).HasColumnType("decimal(16,2)");

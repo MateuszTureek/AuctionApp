@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model AuctionApp.Core.BLL.DTO.SingleItemDTO
+@model AuctionApp.Core.BLL.DTO.Item.ItemDetailsDTO
 
 <style>
     dl{
@@ -36,10 +36,10 @@
 
                 <dt>Status:</dt>
                 <dd>
-                    @if (Model.Activated)
+                    @if (Model.Status==AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
                     {<span>aukcja aktywna</span> }
                     else
-                    { <span>oczekiwanie na rozpoczęcie</span>}
+                    { <span>aukcja w poczekalni</span>}
                 </dd>
 
                 <dt>Metoda płatności:</dt>
@@ -102,7 +102,7 @@
         <div class="col-12">
             <h4>Ostation dodane:</h4>
             <div class="row">
-                @await Component.InvokeAsync("Item", true)
+                @await Component.InvokeAsync("Item", AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
             </div>
         </div>
     </div>

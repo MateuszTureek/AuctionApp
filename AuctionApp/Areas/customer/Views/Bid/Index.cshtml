@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h4>Moje oferty.</h4>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th>Zdjęcie</th>
+            <th>Przedmiot</th>
+            <th>Cena: Kup teraz</th>
+            <th>Metoda płatności</th>
+            <th>Koszt dostawy</th>
+            <th>Moja oferta</th>
+            <th>Oferte dodano</th>
+            <th>Stan oferty</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        <tr>
+            <td>
+                <img src="~/images/s1.svg" style="width: 80px; height: 70px;" />
+            </td>
+            <td>
+                <a href="#">Item 1</a>
+            </td>
+            <td>200 pln</td>
+            <td>Płatność przy odbiorze</td>
+            <td>30 pln</td>
+            <td>150 pln</td>
+            <td>2018-06-20</td>
+            <td class="text-warning">Przebita</td>
+        </tr>
+    </tbody>
+</table>

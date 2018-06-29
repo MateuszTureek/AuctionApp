@@ -57,7 +57,12 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="wwwroot\dist\" />
+    <Folder Include="Areas\admin\Controllers\" />
+    <Folder Include="Areas\admin\Data\" />
+    <Folder Include="Areas\admin\Models\" />
+    <Folder Include="Areas\admin\Views\" />
+    <Folder Include="Areas\customer\Data\" />
+    <Folder Include="Areas\customer\Models\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

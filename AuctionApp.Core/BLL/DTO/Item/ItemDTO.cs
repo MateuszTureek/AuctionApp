@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuctionApp.Core.BLL.DTO
+namespace AuctionApp.Core.BLL.DTO.Item
 {
-    public class LatestItemDTO
+    public abstract class ItemDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

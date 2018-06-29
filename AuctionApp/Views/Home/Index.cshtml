@@ -11,10 +11,10 @@
 
 <div class="pt-2 pb-3 bg-success">
     <h3 class="col-12 text-white">Latest:</h3>
-    @await Component.InvokeAsync("Item", new { activated = true })
+    @await Component.InvokeAsync("Item", new { status = AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction })
 </div>
 
 <div class="pt-2 pb-3 bg-warning">
     <h3 class="col-12 text-white">Waiting for active:</h3>
-    @await Component.InvokeAsync("Item", new { activated = false })
+    @await Component.InvokeAsync("Item", new { status = AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.Waiting })
 </div>
