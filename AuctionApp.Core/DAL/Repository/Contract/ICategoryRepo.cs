@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.DAL.Repository.Contract
 {
-    public interface ICategoryRepo
+    public interface ICategoryRepo : IGenericRepo<Category>
     {
-        void Add(Category category);
-        void Remove(Category category);
-        IEnumerable<Category> All();
-        Category GetById(int id);
-        void AddSubcategory(int categoryId, Subcategory subcategory);
+        void AddSubcategory(Category category, Subcategory subcategory);
     }
 }

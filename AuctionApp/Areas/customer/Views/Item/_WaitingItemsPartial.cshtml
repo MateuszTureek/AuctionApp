@@ -1,0 +1,41 @@
+﻿<div data-status="1">
+    <div class="d-flex justify-content-between mb-1">
+        <h4>Przedmioty w poczekalni:</h4>
+        @Html.Partial("_ToolBarPartial")
+    </div>
+
+    <table id="WaitingItemsTable" class="table">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th>Kategoria</th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Name" data-desc="false">
+                        <span>Nazwa</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.BuyNowPrice" data-desc="false">
+                        <span>Kup teraz</span>
+                        <span class="fa fa-sort-amount-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Delivery" data-desc="false">
+                        <span>Dostawa</span>
+                        <span class="fa fa-sort-amount-desc"></span>
+                    </a>
+                </th>
+                <th>Wystaw na licytacje</th>
+                <th>Usuń</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <!-- render by js -->
+        </tbody>
+    </table>
+    <p class="no-items d-none">Brak przedmiotów w poczekalni.</p>
+</div>
+
+@Html.Partial("_AddToAuctionPartial")
+@Html.Partial("_DeleteItemPartial")

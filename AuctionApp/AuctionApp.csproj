@@ -7,9 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Client\ts\abstract\observable.ts" />
+    <None Remove="Client\ts\ajax\item\itemAjax.ts" />
     <None Remove="Client\ts\auctionClearSession.ts" />
     <None Remove="Client\ts\categoryLinkActivator.ts" />
     <None Remove="Client\ts\contract\iLinkActivator.ts" />
+    <None Remove="Client\ts\contract\iObservable.ts" />
+    <None Remove="Client\ts\contract\iObserver.ts" />
+    <None Remove="Client\ts\customer\customer.ts" />
+    <None Remove="Client\ts\customer\implement\criteria.ts" />
+    <None Remove="Client\ts\customer\implement\factory\criteriaFactory.ts" />
+    <None Remove="Client\ts\customer\implement\filter\orderLink.ts" />
+    <None Remove="Client\ts\customer\implement\manager\tableManager.ts" />
+    <None Remove="Client\ts\customer\implement\navTabs.ts" />
+    <None Remove="Client\ts\customer\interface\iCriteria.ts" />
+    <None Remove="Client\ts\customer\implement\strategy\tableStrategy.ts" />
+    <None Remove="Client\ts\customer\implement\table\tableItems.ts" />
+    <None Remove="Client\ts\customer\implement\table\tableOfBoughtItems.ts" />
+    <None Remove="Client\ts\customer\implement\table\tableOfInAuctionItems.ts" />
+    <None Remove="Client\ts\customer\implement\table\TableOfWaitingItems.ts" />
+    <None Remove="Client\ts\customer\tabsComponent.ts" />
+    <None Remove="Client\ts\enum\status.ts" />
+    <None Remove="Client\ts\enum\WaitingItemsOrderBy.ts" />
+    <None Remove="Client\ts\formatter.ts" />
     <None Remove="Client\ts\LinkActivator.ts" />
     <None Remove="Client\ts\mainNavLinkActivator.ts" />
     <None Remove="Client\ts\orderButtonLinkActivator.ts" />
@@ -44,13 +64,35 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Client\ts\abstract\observable.ts" />
+    <TypeScriptCompile Include="Client\ts\ajax\item\itemAjax.ts" />
     <TypeScriptCompile Include="Client\ts\auctionClearSession.ts" />
-    <TypeScriptCompile Include="Client\ts\categoryLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\contract\iObservable.ts" />
+    <TypeScriptCompile Include="Client\ts\contract\iObserver.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\manager\criteriaManager.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\factory\tableFactory.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\criteria.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\manager\orderLinksManager.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\filter\searchItems.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\filter\selectListOfAmountPages.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\manager\tableManager.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\navTabs.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\interface\iCriteria.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\strategy\tableStrategy.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableItems.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfBoughtItems.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfInAuctionItems.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfWaitingItems.ts" />
+    <TypeScriptCompile Include="Client\ts\enum\status.ts" />
+    <TypeScriptCompile Include="Client\ts\enum\waitingItemsOrderBy.ts" />
+    <TypeScriptCompile Include="Client\ts\formatter.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator\categoryLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\contract\iLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\mainNavLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\orderButtonLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\pagingLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\customer\customer.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator\linkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator\mainNavLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator\orderButtonLinkActivator.ts" />
+    <TypeScriptCompile Include="Client\ts\linkActivator\pagingLinkActivator.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\auctions.ts" />
     <TypeScriptCompile Include="Client\ts\presentation\home.ts" />
     <TypeScriptCompile Include="Client\ts\settings\constant.ts" />

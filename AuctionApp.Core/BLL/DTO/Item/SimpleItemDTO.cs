@@ -6,6 +6,6 @@ namespace AuctionApp.Core.BLL.DTO.Item
 {
     public class SimpleItemDTO : ItemDTO
     {
-        public string PaymentMethod { get; set; }
+        public string DeliveryMethod { get; set; }
     }
 }

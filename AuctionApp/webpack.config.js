@@ -9,8 +9,10 @@ module.exports = {
     entry: {
         sassForLayout: './Client/sass/layoutStyle.scss',
         sassForAuctionLayout: './Client/sass/auctionLayoutStyle.scss',
+
         tsHome: './Client/ts/presentation/home.ts',
-        tsAuction: './Client/ts/presentation/auctions.ts'
+        tsAuction: './Client/ts/presentation/auctions.ts',
+        tsCustomer:'./Client/ts/customer/customer.ts'
     },
     output: {
         path: path.resolve(__dirname, './wwwroot/dist'),

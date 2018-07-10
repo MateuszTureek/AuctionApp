@@ -19,7 +19,7 @@ namespace AuctionApp.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(Status status)
         {
-            var dto = _service.GetItems(3, status);
+            var dto = _service.GetLastAddedItems(status);
             return View(dto);
         }
     }

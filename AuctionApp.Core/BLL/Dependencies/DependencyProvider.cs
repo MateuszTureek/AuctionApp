@@ -3,6 +3,7 @@ using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.BLL.Service.Implement;
 using AuctionApp.Core.DAL.Repository.Contract;
 using AuctionApp.Core.DAL.Repository.Implement;
+using AuctionApp.Core.DAL.UnitOfWork;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,15 +16,17 @@ namespace AuctionApp.Core.BLL.Dependencies
     {
         public static void SetupAuctionDependency(IServiceCollection services)
         {
+            services.AddTransient<IUnitOfWork, AuctionUnitOfWork>();
+
             services.AddTransient<IItemRepo, ItemRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
 
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<ICategoryService, CategoryService>();
 
-            services.AddAutoMapper(typeof(MapperProfile));
-
             services.AddTransient<ICartService, CartService>();
+
+            services.AddAutoMapper(typeof(MapperProfile));
         }
     }
 }

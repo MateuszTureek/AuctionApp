@@ -24,7 +24,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
 
         public List<CategoryDTO> GetCategories()
         {
-            var categories = _categoryRepo.All().ToList();
+            var categories = _categoryRepo.GetAll().ToList();
             return _mapper.Map<List<Category>, List<CategoryDTO>>(categories);
         }
 

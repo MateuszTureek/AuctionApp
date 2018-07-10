@@ -1,12 +1,10 @@
-﻿import MainNavLinkActivator from "../mainNavLinkActivator";
-import { AuctionSession } from "../auctionClearSession";
+﻿import { AuctionSession } from "../auctionClearSession";
+import MainNavLinkActivator from "../linkActivator/mainNavLinkActivator";
 
 /*
  * Home - home.ts
  */
-const mainNav = new MainNavLinkActivator(
-    $('#MainNav') as JQuery<HTMLElement>,
-    'active');
-mainNav.init();
-
-AuctionSession.clear();
+$(document).ready(() => {
+    const mainNav = new MainNavLinkActivator($('#MainNav') as JQuery<HTMLElement>, 'active');
+    AuctionSession.clear();
+});

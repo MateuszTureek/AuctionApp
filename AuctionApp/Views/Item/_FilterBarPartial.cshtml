@@ -6,14 +6,17 @@
         <div id="OrderByGroupButton" class="btn-group" role="group">
             <a role="button" class="btn btn-primary" data-order-by="@AuctionApp.Core.BLL.Enum.SortBy.Name"
                asp-controller="Item" asp-action="Index"
+               asp-route-pageNumber="@ViewBag.PageNumber"
                asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.Name"
                asp-route-categoryId="@ViewBag.CategoryId">Name</a>
             <a role="button" class="btn btn-primary" data-order-by="@AuctionApp.Core.BLL.Enum.SortBy.EndDateAuction"
                asp-controller="Item" asp-action="Index"
+               asp-route-pageNumber="@ViewBag.PageNumber"
                asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.EndDateAuction"
                asp-route-categoryId="@ViewBag.CategoryId">Auction end date</a>
             <a role="button" class="btn btn-primary" data-order-by="@AuctionApp.Core.BLL.Enum.SortBy.PriceBuyNow"
                asp-controller="Item" asp-action="Index"
+               asp-route-pageNumber="@ViewBag.PageNumber"
                asp-route-sortBy="@AuctionApp.Core.BLL.Enum.SortBy.PriceBuyNow"
                asp-route-categoryId="@ViewBag.CategoryId">Price to buy</a>
         </div>

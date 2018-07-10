@@ -1,4 +1,5 @@
 ﻿using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Core.DAL.Specyfication.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,25 +9,13 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.DAL.Repository.Contract
 {
-    public interface IItemRepo
+    public interface IItemRepo : IGenericRepo<Item>
     {
-        Item GetById(int id);
-        void Add(Item item);
-        void Remove(Item item);
-        void AddBid(Item item, decimal amount, string userId);
-        string GetUserIdWhoMakeBid(int bidId);
-
-        IEnumerable<Item> SearchByPhrase(string phrase);
-
-        IEnumerable<Item> GetItems<TKey>(
-            Expression<Func<Item, TKey>> orderPredicate,
-            Expression<Func<Item, bool>> wherePredicate,
-            int pageIndex, int pageSize,
-            out int totalPages);
-
-        IEnumerable<Item> GetItems<TKey>(
-            int amount,
-            Expression<Func<Item, TKey>> orderPredicate,
-            Expression<Func<Item, bool>> wherePredicate);
+        IEnumerable<Item> Find(ISpec<Item, bool> spec);
+        IEnumerable<Item> Find(ISpec<Item, bool> spec, ISpec<Item, object> orderSpec);
+        IEnumerable<Item> GetLastAddedItems(ISpec<Item, bool> spec, int amount);
+        IEnumerable<Item> GetSortedItems(
+            Expression<Func<Item, bool>> conditionPredicate, Expression<Func<Item, object>> orderPredicate, bool desc,int amountOfPages);
     }
 }
+

@@ -4,11 +4,12 @@ using System.Text;
 
 namespace AuctionApp.Core.BLL.DTO.Item
 {
-    public class WaitingItemDTO : ItemDTO
+    public class WaitingItemDTO
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal BuyNowPrice { get; set; }
         public string CategoryName { get; set; }
-        public DateTime AuctionEndDate { get; set; }
-        public string PaymentMethod { get; set; }
+        public string DeliveryMethod { get; set; }
     }
 }

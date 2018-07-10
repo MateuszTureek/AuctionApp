@@ -1,0 +1,52 @@
+﻿<div data-status="2">
+    <div class="d-flex justify-content-between mb-1">
+        @Html.Partial("_ExportToolsPartial")
+        @Html.Partial("_ToolBarPartial")
+    </div>
+
+    <table id="InAuctionItemsTable" class="table">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th>Kategoria</th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Name" data-desc="false">
+                        <span>Nazwa</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.BuyNowPrice" data-desc="false">
+                        <span>Cena: Kup teraz</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.StartDate" data-desc="false">
+                        <span>Początek aukcji</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.EndDate" data-desc="false">
+                        <span>Koniec aukcji</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Delivery" data-desc="false">
+                        <span>Metoda dostawy</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>Sprawdź oferty</th>
+                <th>Wycofaj przemiot</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <!-- render by js-->
+        </tbody>
+    </table>
+    <p class="no-items d-none">Brak oczekujących przedmiotów.</p>
+</div>
+
+@Html.Partial("_CancelItemAuction")

@@ -19,22 +19,45 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Auction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BestBidId");
+
+                    b.Property<DateTime?>("EndDate");
+
+                    b.Property<DateTime?>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auctions");
+                });
+
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Bid", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AuctionId");
+
+                    b.Property<int>("AuctionRef");
+
                     b.Property<decimal>("BidAmount")
                         .HasColumnType("decimal(16,2)");
 
                     b.Property<DateTime>("DatePlaced");
 
-                    b.Property<int?>("ItemId");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("AuctionId");
 
                     b.ToTable("Bids");
                 });
@@ -56,30 +79,24 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.ClientBid", b =>
+            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Delivery", b =>
                 {
-                    b.Property<int>("BidId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("DeliveryTime");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(450);
+                        .HasMaxLength(50);
 
-                    b.HasKey("BidId");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(16,2)");
 
-                    b.ToTable("ClientBids");
-                });
+                    b.HasKey("Id");
 
-            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.ClientItem", b =>
-                {
-                    b.Property<int>("ItemId");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450);
-
-                    b.HasKey("ItemId");
-
-                    b.ToTable("ClientItems");
+                    b.ToTable("DeliveryMethods");
                 });
 
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", b =>
@@ -88,10 +105,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AuctionEndDate");
+                    b.Property<int?>("AuctionRef");
 
-                    b.Property<decimal>("BuyNowPrice")
+                    b.Property<decimal>("ConstPrice")
                         .HasColumnType("decimal(16,2)");
+
+                    b.Property<int?>("DeliveryRef")
+                        .IsRequired();
 
                     b.Property<string>("ImgSrc")
                         .IsRequired();
@@ -100,17 +120,24 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PaymentId");
-
                     b.Property<int>("Status");
 
-                    b.Property<int?>("SubcategoryId");
+                    b.Property<int?>("SubcategoryRef")
+                        .IsRequired();
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PaymentId");
+                    b.HasIndex("AuctionRef")
+                        .IsUnique()
+                        .HasFilter("[AuctionRef] IS NOT NULL");
 
-                    b.HasIndex("SubcategoryId");
+                    b.HasIndex("DeliveryRef");
+
+                    b.HasIndex("SubcategoryRef");
 
                     b.ToTable("Items");
                 });
@@ -122,6 +149,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("ItemId");
+
+                    b.Property<int>("ItemRef");
 
                     b.Property<string>("Key")
                         .IsRequired()
@@ -137,32 +166,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                     b.ToTable("ItemDescriptions");
                 });
 
-            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Amount");
-
-                    b.Property<int>("DeliveryTime");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Payments");
-                });
-
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Subcategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int>("CategoryRef");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -172,57 +182,49 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryRef");
 
                     b.ToTable("Subcategories");
                 });
 
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Bid", b =>
                 {
-                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", "Item")
+                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Auction", "Auction")
                         .WithMany("Bids")
-                        .HasForeignKey("ItemId");
-                });
-
-            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.ClientBid", b =>
-                {
-                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Bid", "Bid")
-                        .WithMany("ClientBids")
-                        .HasForeignKey("BidId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.ClientItem", b =>
-                {
-                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", "Item")
-                        .WithMany("ClientItems")
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", b =>
                 {
-                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Payment", "Payment")
+                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Auction", "Auction")
+                        .WithOne("Item")
+                        .HasForeignKey("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", "AuctionRef")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Delivery", "Delivery")
                         .WithMany("Items")
-                        .HasForeignKey("PaymentId");
+                        .HasForeignKey("DeliveryRef");
 
                     b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Subcategory", "Subcategory")
                         .WithMany("Items")
-                        .HasForeignKey("SubcategoryId");
+                        .HasForeignKey("SubcategoryRef");
                 });
 
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.ItemDescription", b =>
                 {
                     b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Item", "Item")
-                        .WithMany("Descriptions")
-                        .HasForeignKey("ItemId");
+                        .WithMany("ItemDescriptions")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Subcategory", b =>
                 {
                     b.HasOne("AuctionApp.Core.DAL.Data.AuctionContext.Domain.Category", "Category")
                         .WithMany("Subcategories")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryRef")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

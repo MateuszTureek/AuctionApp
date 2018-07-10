@@ -4,144 +4,51 @@
     Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
 }
 
+<style>
+    table img {
+        width: 80px;
+        height: 70px;
+    }
+    .no-items {
+        font-size: 20px;
+        text-align: center;
+        padding: 10% 0 10% 0;
+    }
+
+    #NavTabs li {
+        margin-right: 2px;
+    }
+
+    #NavTabs li a.nav-link:not(.active) {
+        background: rgba(128, 128, 128, 0.40);
+        color: #5e5c5c;
+    }
+</style>
+
 <div class="row">
     <div class="col-lg-12">
-        <h4>Auctions:</h4>
-        <ul id="AuctionTabs" class="nav nav-tabs" role="tablist">
+        <ul id="NavTabs" data-status="1" class="nav nav-tabs d-inline-flex" role="tablist">
             <li class="nav-item">
-                <a id="WaitingTab" data-toggle="tab" href="#WaitingContent" class="nav-link active" role="tab">Waiting</a>
+                <a id="WaitingTab" data-status="1" data-toggle="tab" href="#WaitingContent" class="nav-link active" role="tab">Poczekalnia</a>
             </li>
             <li class="nav-item">
-                <a id="ActiveTab" data-toggle="tab" href="#ActiveContent" class="nav-link" role="tab">Active</a>
+                <a id="ActiveTab" data-status="2" data-toggle="tab" href="#ActiveContent" class="nav-link" role="tab">Aukcje</a>
             </li>
             <li class="nav-item">
-                <a id="EndedTab" data-toggle="tab" href="#EndedContent" class="nav-link" role="tab">Ended</a>
+                <a id="EndedTab" data-status="3" data-toggle="tab" href="#EndedContent" class="nav-link" role="tab">Sprzedane</a>
             </li>
         </ul>
-        <div id="AuctionTabContent" class="tab-content">
+        <div id="AuctionTabContent" class="tab-content mt-2">
             <div id="WaitingContent" class="tab-pane fade show active" role="tabpanel">
-                <!-- reapeat -->
-                <div class="btn-group d-flex justify-content-end mt-1 mb-1" role="group">
-                    <button class="btn btn-outline-primary">Name</button>
-                    <button class="btn btn-outline-primary">Price</button>
-                    <button class="btn btn-outline-primary">Auction end date</button>
-                </div>
-                <table class="table">
-                    <thead class="thead-dark text-center">
-                        <tr>
-                            <th>Zdjęcie</th>
-                            <th>Nazwa</th>
-                            <th>Kategoria</th>
-                            <th>Cena: Kup teraz</th>
-                            <th>Koniec aukcji</th>
-                            <th>Metoda płatności</th>
-                            <th>Wystaw do zakupu</th>
-                            <th>Usuń przedmiot</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td>
-                                <img src="~/images/s1.svg" style="width: 80px; height: 70px;" />
-                            </td>
-                            <td>
-                                <a href="#">Name 1</a>
-                            </td>
-                            <td>
-                                <a href="#">Category 1</a>
-                            </td>
-                            <td>2030 pln</td>
-                            <td>2018-10-12</td>
-                            <td>Przelew</td>
-                            <td>
-                                <button class="btn btn-success btn-sm">Aktywuj</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger btn-sm">Usuń</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                @Html.Partial("_WaitingItemsPartial")
             </div>
+
             <div id="ActiveContent" class="tab-pane fade" role="tabpanel">
-                <!-- reapeat -->
-                <div class="btn-group d-flex justify-content-end mt-1 mb-1" role="group">
-                    <button class="btn btn-outline-primary">Name</button>
-                    <button class="btn btn-outline-primary">Price</button>
-                    <button class="btn btn-outline-primary">Auction end date</button>
-                </div>
-                <table class="table">
-                    <thead class="thead-dark text-center">
-                        <tr>
-                            <th>Zdjęcie</th>
-                            <th>Nazwa</th>
-                            <th>Cena: Kup teraz</th>
-                            <th>Koniec aukcji</th>
-                            <th>Metoda płatności</th>
-                            <th>Sprawdz stan</th>
-                            <th>Wycofaj przemiot</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td>
-                                <img src="~/images/s1.svg" style="width: 80px; height: 70px;" />
-                            </td>
-                            <td>
-                                <a href="#">Name 1</a>
-                            </td>
-                            <td>2030 pln</td>
-                            <td>2018-10-12</td>
-                            <td>Przelew</td>
-                            <td>
-                                <button class="btn btn-info btn-sm">Sprawdź</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm">Anuluj</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                @Html.Partial("_InAuctionItemsPartial")
             </div>
+
             <div id="EndedContent" class="tab-pane fade" role="tabpanel">
-                <!-- reapeat -->
-                <div class="btn-group d-flex justify-content-end mt-1 mb-1" role="group">
-                    <button class="btn btn-outline-primary">Name</button>
-                    <button class="btn btn-outline-primary">Price</button>
-                    <button class="btn btn-outline-primary">Auction end date</button>
-                </div>
-                <table class="table">
-                    <thead class="thead-dark text-center">
-                        <tr>
-                            <th>Zdjęcie</th>
-                            <th>Nazwa</th>
-                            <th>Cena: Kup teraz</th>
-                            <th>Koniec aukcji</th>
-                            <th>Metoda płatności</th>
-                            <th>Koszt dostawy</th>
-                            <th>Kupujący</th>
-                            <th>Cena zakupu</th>
-                            <th>Całkowity koszt</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td>
-                                <img src="~/images/s1.svg" style="width: 80px; height: 70px;" />
-                            </td>
-                            <td>
-                                <a href="#">Name 1</a>
-                            </td>
-                            <td>1700 pln</td>
-                            <td>2018-10-12</td>
-                            <td>Przelew</td>
-                            <td>120 pln</td>
-                            <td>buyer 1</td>
-                            <td>2000 pln</td>
-                            <td>2120 pln</td>
-                        </tr>
-                    </tbody>
-                </table>
+                @Html.Partial("_BoughtItemsPartial")
             </div>
         </div>
     </div>

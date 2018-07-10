@@ -43,7 +43,7 @@
                 </dd>
 
                 <dt>Metoda płatności:</dt>
-                <dd>@Model.PaymentMethod</dd>
+                <dd>@Model.DeliveryMethod</dd>
             </dl>
 
             <form asp-controller="Cart" asp-action="AddCartItem" class="mb-2">
@@ -78,26 +78,35 @@
         </div>
         <div class="w-100"></div>
         <div class="col-6 mt-2">
-            <h4>Lista licytacji:</h4>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>User</th>
-                        <th>Price</th>
-                        <th>Dodano</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var bid in Model.Bids)
-                    {
+            <h4>Tabela ofert:</h4>
+            @if (Model.Auction != null)
+            {
+                @if (Model.Auction.Bids.Count != 0)
+                {
+                <table class="table">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>@bid.UserName</td>
-                            <td>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidAmount)</td>
-                            <td>@bid.DatePlaced</td>
+                            <th>Nazwa użytkownika</th>
+                            <th>Oferowana kwota</th>
+                            <th>Dodana</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var bid in Model.Bids)
+                        {
+                            <tr>
+                                <td>@bid.UserName</td>
+                                <td>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidAmount)</td>
+                                <td>@bid.DatePlaced</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                }
+                else
+                { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Brak ofert.</p> }
+            }
+            else { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Aukja wciąż nie rozpoczęta.</p> }
         </div>
         <div class="col-12">
             <h4>Ostation dodane:</h4>

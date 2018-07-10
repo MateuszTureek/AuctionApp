@@ -1,6 +1,7 @@
 ﻿using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AuctionApp.Core.DAL.Repository.Contract;
+using AuctionApp.Core.DAL.Specyfication.Contract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,95 +13,88 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Core.DAL.Repository.Implement
 {
-    public class ItemRepo : IItemRepo
+    public class ItemRepo : GenericRepo<Item>, IItemRepo
     {
-        readonly AuctionDbContext _dbContext;
-
-        public ItemRepo(AuctionDbContext dbContext)
+        public ItemRepo(AuctionDbContext db) : base(db)
         {
-            _dbContext = dbContext;
         }
 
-        public void Add(Item item)
+        public IEnumerable<Item> Find(ISpec<Item, bool> spec)
         {
-            _dbContext.Items.Add(item);
+            var result = _dbSet
+                .Include(i => i.Auction)
+                .Include(i => i.Auction.Bids)
+                .Include(i => i.Subcategory)
+                .Include(i => i.Subcategory.Category)
+                .Include(i => i.Delivery)
+                .Where(spec.ToExpression())
+                .OrderBy(x => x.Name)
+                .AsNoTracking();
+
+            return result;
         }
 
-        public void AddBid(Item item, decimal amount, string userId)
+        public IEnumerable<Item> Find(ISpec<Item, bool> spec, ISpec<Item, object> orderSpec)
         {
-            _dbContext.ClientBids.Add(new ClientBid()
-            {
-                UserId = userId,
-                Bid = new Bid()
-                {
-                    BidAmount = amount,
-                    DatePlaced = DateTime.Now,
-                }
-            });
+            var result = _dbSet
+                .Include(i => i.Subcategory)
+                .Include(i => i.Subcategory.Category)
+                .Include(i => i.Delivery)
+                .Where(spec.ToExpression())
+                .OrderBy(orderSpec.ToExpression())
+                .AsNoTracking();
+
+            return result;
         }
 
-        public Item GetById(int id)
+        public override Item GetById(int id)
         {
-            return _dbContext.Items
-                .Include(i => i.Descriptions)
-                .Include(i => i.Bids)
-                .Include(i => i.Payment)
+            return _dbSet
+                .Include(i => i.Auction)
+                .Include(i => i.Auction.Bids)
+                .Include(i => i.ItemDescriptions)
+                .Include(i => i.Delivery)
                 .First(f => f.Id == id);
         }
 
-        public IEnumerable<Item> GetItems<TKey>(
-            Expression<Func<Item, TKey>> orderPredicate,
-            Expression<Func<Item, bool>> wherePredicate,
-            int pageIndex,
-            int pageSize,
-            out int totalPages)
+        public IEnumerable<Item> GetLastAddedItems(ISpec<Item, bool> spec, int amount)
         {
-            var itemsQueryable = _dbContext.Items
-                .Include(i => i.Payment)
-                .Where(wherePredicate)
-                .OrderBy(orderPredicate);
-
-            totalPages = itemsQueryable.Count();
-
-            return itemsQueryable
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize);
-        }
-
-        public string GetUserIdWhoMakeBid(int bidId)
-        {
-            return _dbContext.ClientBids
-                .Where(s => s.BidId == bidId)
-                .Select(s => s.UserId)
-                .FirstOrDefault();
-        }
-
-
-        public void Remove(Item item)
-        {
-            _dbContext.Items.Remove(item);
-        }
-
-        public IEnumerable<Item> SearchByPhrase(string phrase)
-        {
-            return _dbContext.Items
-                .Where(w => w.Name.ToLower(CultureInfo.CurrentCulture).Contains(phrase.ToLower(CultureInfo.CurrentCulture)))
-                .Take(20)
-                .AsNoTracking()
-                .AsEnumerable();
-        }
-
-        public IEnumerable<Item> GetItems<TKey>(
-            int amount,
-            Expression<Func<Item, TKey>> orderPredicate,
-            Expression<Func<Item, bool>> wherePredicate)
-        {
-            return _dbContext.Items
-                .Where(wherePredicate)
-                .OrderBy(orderPredicate)
+            var result = _dbSet
+                .Include(i => i.Subcategory)
+                .Include(i => i.Subcategory.Category)
+                .Include(i => i.Delivery)
+                .Where(spec.ToExpression())
+                .OrderBy(x => x.Name)
                 .Take(amount)
-                .AsNoTracking()
-                .AsEnumerable();
+                .AsNoTracking();
+
+            return result;
+        }
+
+        public IEnumerable<Item> GetSortedItems(
+            Expression<Func<Item, bool>> conditionPredicate,
+            Expression<Func<Item, object>> orderPredicate,
+            bool desc,
+            int amountOfPages)
+        {
+            IEnumerable<Item> result;
+            var query = _dbSet
+                .Include(i=>i.Auction)
+                .Include(i=>i.Auction.Bids)
+                .Include(i => i.Subcategory.Category)
+                .Include(i => i.Delivery)
+                .Where(conditionPredicate)
+                .Take(amountOfPages);
+
+            if (!desc)
+                result = query
+                    .OrderBy(orderPredicate)
+                    .AsNoTracking();
+            else
+                result = query
+                    .OrderByDescending(orderPredicate)
+                    .AsNoTracking();
+            return result;
         }
     }
 }

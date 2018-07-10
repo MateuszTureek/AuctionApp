@@ -15,15 +15,5 @@ namespace AuctionApp.Core.BLL.Criteria
         public Status Status { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
-
-        public Expression<Func<Item,object>> GetSortBy(SortBy sortBy)
-        {
-            switch (sortBy)
-            {
-                case SortBy.EndDateAuction: { return orderBy => orderBy.AuctionEndDate; }
-                case SortBy.PriceBuyNow: { return orderBy => orderBy.BuyNowPrice; }
-                default: { return orderBy => orderBy.Name; }
-            }
-        }
     }
 }

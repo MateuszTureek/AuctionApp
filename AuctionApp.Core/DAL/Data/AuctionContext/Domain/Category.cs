@@ -13,5 +13,11 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public short Position { get; set; }
 
         public IList<Subcategory> Subcategories { get; set; }
+
+        public void AddSubcategory(Subcategory subcategory)
+        {
+            if (Subcategories != null) Subcategories.Add(subcategory);
+            else throw new NullReferenceException();
+        }
     }
 }

@@ -10,15 +10,26 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime AuctionEndDate { get; set; }
         public string ImgSrc { get; set; }
-        public decimal BuyNowPrice { get; set; }
+        public decimal ConstPrice { get; set; }
         public Status Status { get; set; }
+        public string UserName { get; set; }
 
+        public int? AuctionRef { get; set; }
+        public Auction Auction { get; set; }
+
+        public int? SubcategoryRef { get; set; }
         public Subcategory Subcategory { get; set; }
-        public Payment Payment { get; set; }
-        public IList<Bid> Bids { get; set; }
-        public IList<ItemDescription> Descriptions { get; set; }
-        public IList<ClientItem> ClientItems { get; set; }
+
+        public int? DeliveryRef { get; set; }
+        public Delivery Delivery { get; set; }
+
+        public IList<ItemDescription> ItemDescriptions { get; set; }
+
+        public void AddDescription(ItemDescription description)
+        {
+            if (description != null) ItemDescriptions.Add(description);
+            else throw new NullReferenceException();
+        }
     }
 }

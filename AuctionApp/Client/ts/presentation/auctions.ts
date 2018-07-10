@@ -1,29 +1,16 @@
 ﻿import { CATEGORY_KEY, SUBCATEGORY_KEY, SORT_OPTION_KEY, PAGING_KEY } from "../settings/constant";
-import OrderButtonLinkActivator from "../orderButtonLinkActivator";
-import CategoryLinkActivator from "../categoryLinkActivator";
-import PagingLinkActivator from "../pagingLinkActivator";
 import { AuctionSession } from "../auctionClearSession";
+import CategoryLinkActivator from "../linkActivator/categoryLinkActivator";
+import OrderButtonLinkActivator from "../linkActivator/orderButtonLinkActivator";
+import PagingLinkActivator from "../linkActivator/pagingLinkActivator";
 /*
  * Main - auctions.ts
  */
-const categoryLinkActovator = new CategoryLinkActivator(
-    $('#Categories') as JQuery<HTMLUListElement>,
-    'active',
-    CATEGORY_KEY);
 
-categoryLinkActovator.init();
+$(document).ready(() => {
+    const categoryLinkActovator = new CategoryLinkActivator($('#Categories') as JQuery<HTMLUListElement>, 'active', CATEGORY_KEY);
+    const buttonLinkActivator = new OrderButtonLinkActivator($('#OrderByGroupButton') as JQuery<HTMLDivElement>, 'active', SORT_OPTION_KEY);
+    const pagingLinkActivator = new PagingLinkActivator($('#PaginationList') as JQuery<HTMLUListElement>, 'active', PAGING_KEY);
 
-const buttonLinkActivator = new OrderButtonLinkActivator(
-    $('#OrderByGroupButton') as JQuery<HTMLDivElement>,
-    'active',
-    SORT_OPTION_KEY);
-buttonLinkActivator.init();
-
-const pagingLinkActivator = new PagingLinkActivator(
-    $('#PaginationList') as JQuery<HTMLUListElement>,
-    'active',
-    PAGING_KEY
-);
-pagingLinkActivator.init();
-
-AuctionSession.clear();
+    AuctionSession.clear();
+});

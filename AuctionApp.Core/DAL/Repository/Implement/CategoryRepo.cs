@@ -1,46 +1,33 @@
 ﻿using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Core.DAL.Repository.Implement;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AuctionApp.Core.DAL.Repository.Contract
 {
-    public class CategoryRepo : ICategoryRepo
+    public class CategoryRepo : GenericRepo<Category>, ICategoryRepo
     {
-        readonly AuctionDbContext _dbContext;
-
-        public CategoryRepo(AuctionDbContext dbContext)
+        public CategoryRepo(AuctionDbContext db) : base(db)
         {
-            _dbContext = dbContext;
         }
 
-        public void Add(Category category)
+        public void AddSubcategory(Category category, Subcategory subcategory)
         {
-            _dbContext.Categories.Add(category);
+            category.Subcategories.Add(subcategory);
         }
 
-        public void AddSubcategory(int categoryId, Subcategory subcategory)
+        public override IEnumerable<Category> GetAll()
         {
-            _dbContext.Categories.Find(categoryId).Subcategories.Add(subcategory);
-        }
-
-        public IEnumerable<Category> All()
-        {
-            return _dbContext.Categories.Include(i => i.Subcategories).AsEnumerable();
-        }
-
-        public Category GetById(int id)
-        {
-            return _dbContext.Categories.Include(i => i.Subcategories).FirstOrDefault(f => f.Id == id);
-        }
-
-        public void Remove(Category category)
-        {
-            _dbContext.Categories.Remove(category);
+            return _dbSet
+                .Include(i => i.Subcategories)
+                .AsNoTracking()
+                .ToList();
         }
     }
 }

@@ -21,9 +21,9 @@ namespace AuctionApp.Controllers
             _service = service;
         }
 
+        [HttpGet]
         public IActionResult Index(int? categoryId,
                                    int? subcategoryId,
-                                   int? amountOfPagingLink,
                                    int pageNumber = 1,
                                    SortBy sortBy = SortBy.Name)
         {
@@ -31,8 +31,6 @@ namespace AuctionApp.Controllers
             ViewBag.SortBy = sortBy;
             ViewBag.PageNumber = pageNumber;
             ViewBag.SubcategoryId = subcategoryId;
-
-            int amountOfPages = 0;
 
             var result = _service.GetItems(new ItemCriteria()
             {
@@ -42,13 +40,12 @@ namespace AuctionApp.Controllers
                 CategoryId = categoryId,
                 SubcategoryId = subcategoryId,
                 Status = Status.InAuction
-            }, out amountOfPages);
-
-            ViewBag.AmountOfPagingLink = (int)Math.Ceiling((double)amountOfPages / pageSize);
+            });
 
             return View(result);
         }
 
+        [HttpGet]
         public IActionResult Search(string phrase)
         {
             ViewBag.Phrase = phrase;
@@ -58,10 +55,12 @@ namespace AuctionApp.Controllers
             return View(result);
         }
 
+        [HttpGet]
         public IActionResult Item(int? id)
         {
-            return View(
-                _service.GetItem((int)id));
+            if (id == null) return NotFound();
+            var result = _service.GetItem((int)id);
+            return View(result);
         }
     }
 }

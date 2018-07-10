@@ -15,20 +15,56 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
 
         public DbSet<Bid> Bids { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Auction> Auctions { get; set; }
         public DbSet<ItemDescription> ItemDescriptions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
-        public DbSet<ClientItem> ClientItems { get; set; }
-        public DbSet<ClientBid> ClientBids { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Delivery> DeliveryMethods { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Item>(item =>
+            {
+                item.HasKey(k => k.Id);
+                item.Property(p => p.Name).HasMaxLength(50).IsRequired();
+                item.Property(p => p.ImgSrc).IsRequired();
+                item.Property(p => p.ConstPrice).HasColumnType("decimal(16,2)");
+                item.Property(p => p.Status).IsRequired();
+                item.Property(p => p.UserName).HasMaxLength(256).IsRequired();
+
+                item
+                .HasOne(o => o.Auction)
+                .WithOne(o => o.Item)
+                .IsRequired(false)
+                .HasForeignKey<Item>(f => f.AuctionRef)
+                .OnDelete(DeleteBehavior.Cascade);
+
+                item
+                .HasOne(o => o.Subcategory)
+                .WithMany(m => m.Items)
+                .IsRequired()
+                .HasForeignKey(f => f.SubcategoryRef)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+                item
+                .HasOne(o => o.Delivery)
+                .WithMany(m => m.Items)
+                .IsRequired()
+                .HasForeignKey(f => f.DeliveryRef)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+                item
+                .HasMany(m => m.ItemDescriptions)
+                .WithOne(o => o.Item)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<Bid>(bid =>
             {
                 bid.HasKey(k => k.Id);
                 bid.Property(p => p.BidAmount).HasColumnType("decimal(16,2)").IsRequired();
                 bid.Property(p => p.DatePlaced).IsRequired();
+                bid.Property(p => p.Username).HasMaxLength(256).IsRequired();
             });
 
             modelBuilder.Entity<Category>(cat =>
@@ -36,23 +72,21 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 cat.HasKey(k => k.Id);
                 cat.Property(p => p.Name).HasMaxLength(50).IsRequired();
                 cat.Property(p => p.Position).IsRequired();
+
+                cat
+                .HasMany(m => m.Subcategories)
+                .WithOne(o => o.Category)
+                .IsRequired()
+                .HasForeignKey(f => f.CategoryRef)
+                .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Payment>(payment =>
+            modelBuilder.Entity<Delivery>(payment =>
             {
                 payment.HasKey(k => k.Id);
                 payment.Property(p => p.Name).HasMaxLength(50).IsRequired();
-                payment.Property(p => p.DeliveryTime).IsRequired();
-                payment.Property(p => p.Amount).IsRequired();
-            });
-
-            modelBuilder.Entity<Item>(item =>
-            {
-                item.HasKey(k => k.Id);
-                item.Property(p => p.Name).HasMaxLength(50).IsRequired();
-                item.Property(p => p.AuctionEndDate).IsRequired();
-                item.Property(p => p.ImgSrc).IsRequired();
-                item.Property(p => p.BuyNowPrice).HasColumnType("decimal(16,2)");
+                payment.Property(p => p.DeliveryTime);
+                payment.Property(p => p.Price).HasColumnType("decimal(16,2)").IsRequired();
             });
 
             modelBuilder.Entity<ItemDescription>(itemDesc =>
@@ -69,30 +103,18 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 cat.Property(p => p.Position).IsRequired();
             });
 
-            modelBuilder.Entity<ClientItem>(cItem =>
+            modelBuilder.Entity<Auction>(auction =>
             {
-                cItem.HasKey(k => k.ItemId);
-                cItem.Property(p => p.UserId).IsRequired().HasMaxLength(450);
-            });
+                auction.HasKey(k => k.Id);
+                auction.Property(p => p.BestBidId).IsRequired(false);
+                auction.Property(p => p.StartDate);
+                auction.Property(p => p.EndDate);
 
-            modelBuilder.Entity<ClientBid>(cBid =>
-            {
-                cBid.HasKey(k => k.BidId);
-                cBid.Property(p => p.UserId).IsRequired().HasMaxLength(450);
+                auction
+                .HasMany(m => m.Bids)
+                .WithOne(o => o.Auction)
+                .OnDelete(DeleteBehavior.Cascade);
             });
-
-            // relations
-            modelBuilder.Entity<Bid>().HasMany(m => m.ClientBids).WithOne(o => o.Bid).HasForeignKey("BidId");
-
-            modelBuilder.Entity<Item>(item =>
-            {
-                item.HasMany(m => m.Bids).WithOne(o => o.Item);
-                item.HasMany(m => m.Descriptions).WithOne(o => o.Item);
-                item.HasOne(o => o.Subcategory).WithMany(m => m.Items);
-                item.HasMany(m => m.ClientItems).WithOne(o => o.Item).HasForeignKey("ItemId");
-                item.HasOne(o => o.Payment).WithMany(m => m.Items).HasForeignKey("PaymentId");
-            });
-            modelBuilder.Entity<Category>().HasMany(m => m.Subcategories).WithOne(o => o.Category);
         }
     }
 }

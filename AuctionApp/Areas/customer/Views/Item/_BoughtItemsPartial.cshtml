@@ -1,0 +1,52 @@
+﻿<div data-status="3">
+    <div class="d-flex justify-content-between mb-1">
+        @Html.Partial("_ExportToolsPartial")
+        @Html.Partial("_ToolBarPartial")
+    </div>
+
+    <table id="BoughtItemsTable" class="table">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th>Kategoria</th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Name" data-desc="false">
+                        <span>Nazwa</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Delivery" data-desc="false">
+                        <span>Metoda dostawy</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.BuyNowPrice" data-desc="false">
+                        <span>Kup teraz</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.StartDate" data-desc="false">
+                        <span>Początek aukcji</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.EndDate" data-desc="false">
+                        <span>Koniec aukcji</span>
+                        <span class="fa fa-sort-alpha-desc"></span>
+                    </a>
+                </th>
+                <th>Kupujący</th>
+                <th>Cena zakupu</th>
+                <th>Koszt dostawy</th>
+                <th>Całkowity koszt</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <!-- render by js -->
+        </tbody>
+    </table>
+    <p class="no-items d-none">Brak przedmiotów kupionych.</p>
+</div>

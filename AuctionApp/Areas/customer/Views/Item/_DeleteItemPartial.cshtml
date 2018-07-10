@@ -1,0 +1,23 @@
+﻿
+<div id="DeleteItemModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <h5>Usuwanie przedmiotu.</h5>
+                </div>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                <p class="text-center">Chcesz usunąć przedmiot <strong><!-- name render here --></strong> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                <button id="BtnDeleteItem" type="button" class="btn btn-primary">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>

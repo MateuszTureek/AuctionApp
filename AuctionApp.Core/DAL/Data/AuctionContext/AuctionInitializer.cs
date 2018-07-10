@@ -24,7 +24,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
             _context.Database.EnsureCreated();
 
             if (_context.Categories.Any() &&
-                _context.Payments.Any() &&
+                _context.DeliveryMethods.Any() &&
                 _context.Items.Any())
             {
                 return;
@@ -33,78 +33,80 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
             AppUser buyer = _userManager.FindByNameAsync("buyer_1").Result;
             AppUser seller = _userManager.FindByNameAsync("seller_1").Result;
 
+            List<Category> categories = new List<Category>
+            {
+                new Category
+                {
+                    Name="AGD",
+                    Position=1
+                },
+                new Category
+                {
+                    Name="GSM",
+                    Position=2
+                },
+                new Category
+                {
+                    Name="Foto",
+                    Position=3
+                }
+            };
+
             List<Subcategory> subcategories = new List<Subcategory>
             {
                 // Category AGD
                 new Subcategory
                 {
                     Name="AGD-wolnostojące",
-                    Position=1
+                    Position=1,
+                    Category=categories[0]
                 },
                 new Subcategory
                 {
                     Name="AGD-do zabudowy",
-                    Position=2
+                    Position=2,
+                    Category=categories[0]
                 },
                 new Subcategory
                 {
                     Name="AGD-drobne",
-                    Position=3
+                    Position=3,
+                    Category=categories[0]
                 },
                 // Category GSM
                 new Subcategory
                 {
                     Name="Smartfony",
-                    Position=3
+                    Position=3,
+                    Category=categories[1]
                 },
                 new Subcategory
                 {
                     Name="Telefony",
-                    Position=5
+                    Position=5,
+                    Category=categories[1]
                 },
                 // Category Foto
                 new Subcategory
                 {
                     Name="Karty pamięci",
-                    Position=6
+                    Position=6,
+                    Category=categories[2]
                 }
             };
 
-            List<Category> categories = new List<Category>
+            List<Delivery> deliveryOptions = new List<Delivery>
             {
-                new Category
+                new Delivery()
                 {
-                    Name="AGD",
-                    Position=1,
-                    Subcategories=new List<Subcategory>{ subcategories[0], subcategories[1], subcategories[2] }
+                    Price=0.00M,
+                    Name="Odbiór osobisty"
                 },
-                new Category
+                new Delivery()
                 {
-                    Name="GSM",
-                    Position=2,
-                    Subcategories=new List<Subcategory>{ subcategories[3], subcategories[4] }
-                },
-                new Category
-                {
-                    Name="Foto",
-                    Position=3,
-                    Subcategories=new List<Subcategory>{ subcategories[5] }
-                }
-            };
-
-            List<Payment> payments = new List<Payment>
-            {
-                new Payment()
-                {
-                    Amount=0.00M,
-                    DeliveryTime=0,
-                    Name="Przelew"
-                },
-                new Payment()
-                {
-                    Amount=20.00M,
+                    Price=40.00M,
                     DeliveryTime=48,
-                    Name="Płatność przy odbiorze"
+                    Name="Kurier"
                 }
             };
 
@@ -162,82 +164,160 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 }
             };
 
+            List<Auction> auctions = new List<Auction>
+            {
+                new Auction
+                {
+                    StartDate=DateTime.Now.AddDays(-2),
+                    EndDate=DateTime.Now.AddDays(10),
+                    Bids=new List<Bid>
+                    {
+                        new Bid()
+                        {
+                            DatePlaced=DateTime.Now,
+                            Username=buyer.UserName,
+                            BidAmount=200M
+                        }
+                    }
+                },
+                new Auction
+                {
+                    StartDate=DateTime.Now,
+                    EndDate=DateTime.Now.AddDays(17),
+                    Bids=new List<Bid>
+                    {
+                        new Bid()
+                        {
+                            DatePlaced=DateTime.Now,
+                            Username=buyer.UserName,
+                            BidAmount=50M
+                        }
+                    }
+                },
+                new Auction
+                {
+                    StartDate=DateTime.Now,
+                    EndDate=DateTime.Now.AddDays(5),
+                    Bids=new List<Bid>
+                    {
+                        new Bid()
+                        {
+                            DatePlaced=DateTime.Now,
+                            Username=buyer.UserName,
+                            BidAmount=1200M
+                        }
+                    }
+                },
+                new Auction
+                {
+                    StartDate=DateTime.Now.AddDays(-3),
+                    EndDate=DateTime.Now,
+                    Bids=new List<Bid>
+                    {
+                        new Bid()
+                        {
+                            DatePlaced=DateTime.Now.AddDays(-2),
+                            Username=buyer.UserName,
+                            BidAmount=400M
+                        }
+                    }
+                },
+                new Auction
+                {
+                    EndDate = DateTime.Now.AddDays(10),
+                    StartDate=DateTime.Now,
+                    Bids=new List<Bid>
+                    {
+                        new Bid()
+                        {
+                            DatePlaced=DateTime.Now.AddDays(-5),
+                            Username=buyer.UserName,
+                            BidAmount=300M
+                        }
+                    }
+                }
+            };
+
             List<Item> items = new List<Item>
             {
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(12),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[0],descriptions[1]
                     },
                     Name="Item 1",
                     ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
-                    BuyNowPrice=1300,
+                    ConstPrice=1300,
                     Status=Status.InAuction,
-                    Payment=payments[0]
+                    Delivery=deliveryOptions[0],
+                    Auction=auctions[0],
+                    UserName=seller.UserName
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(12),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[0],descriptions[1]
                     },
                     Name="Item 1.1",
                     ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
-                    BuyNowPrice=2000,
+                    ConstPrice=2000,
                     Status=Status.InAuction,
-                    Payment=payments[0]
+                    Delivery=deliveryOptions[1],
+                    Auction=auctions[1],
+                    UserName=seller.UserName
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(12),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[0],descriptions[1]
                     },
                     Name="Item 1.2",
                     ImgSrc="/images/items/example1.jpg",
                     Subcategory=subcategories[3],
-                    BuyNowPrice=400,
+                    ConstPrice=400,
                     Status=Status.Waiting,
-                    Payment=payments[0]
+                    Delivery=deliveryOptions[1],
+                    UserName=seller.UserName,
+                    Auction=null
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(4),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[2],descriptions[3]
                     },
                     Name="Item 2",
                     ImgSrc="/images/items/example2.jpg",
                     Subcategory=subcategories[4],
-                    BuyNowPrice=800,
+                    ConstPrice=800,
                     Status=Status.InAuction,
-                    Payment=payments[1]
+                    Delivery=deliveryOptions[0],
+                    UserName=seller.UserName,
+                    Auction=auctions[4]
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(20),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[4],descriptions[5],descriptions[6]
                     },
                     Name="Item 3",
                     ImgSrc="/images/items/example3.jpg",
                     Subcategory=subcategories[0],
-                    BuyNowPrice=678,
-                    Status=Status.InAuction,
-                    Payment=payments[1]
+                    ConstPrice=678,
+                    Status=Status.Waiting,
+                    Delivery=deliveryOptions[0],
+                    UserName=seller.UserName,
+                    Auction=null
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(-1),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[7],descriptions[8]
                     },
@@ -245,12 +325,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     ImgSrc="/images/items/example4.jpg",
                     Subcategory=subcategories[0],
                     Status=Status.Waiting,
-                    Payment=payments[0]
+                    Delivery=deliveryOptions[1],
+                    UserName=seller.UserName,
+                    Auction=null
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(-10),
-                    Descriptions=new List<ItemDescription>
+                    ItemDescriptions=new List<ItemDescription>
                     {
                         descriptions[9]
                     },
@@ -258,117 +339,33 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     ImgSrc="/images/items/example5.jpg",
                     Subcategory=subcategories[3],
                     Status=Status.Waiting,
-                    Payment=payments[1]
+                    Delivery=deliveryOptions[1],
+                    Auction=null,
+                    UserName=seller.UserName
                 },
                 new Item
                 {
-                    AuctionEndDate=DateTime.Now.AddDays(30),
-                    Descriptions=null,
+                    ItemDescriptions=null,
                     Name="Item 6",
                     ImgSrc="/images/items/example6.jpg",
                     Subcategory=subcategories[5],
-                    BuyNowPrice=3200,
+                    ConstPrice=3200,
                     Status=Status.Bought,
-                    Payment=payments[1]
+                    Delivery=deliveryOptions[1],
+                    Auction=auctions[3],
+                    UserName=seller.UserName
                 }
             };
-
-            List<Bid> bids = new List<Bid>
+            
+            foreach (var item in items)
             {
-                new Bid
-                {
-                    BidAmount=100,
-                    DatePlaced=DateTime.Now,
-                    Item=items[0]
-                },
-                new Bid
-                {
-                    BidAmount=150,
-                    DatePlaced=DateTime.Now,
-                    Item=items[1]
-                },
-                new Bid
-                {
-                    BidAmount=580,
-                    DatePlaced=DateTime.Now,
-                    Item=items[2]
-                }
-            };
-
-            List<ClientItem> clientItems = new List<ClientItem>
-            {
-                new ClientItem
-                {
-                    Item=items[0],
-                    UserId=seller.Id
-                },
-                new ClientItem
-                {
-                    Item=items[1],
-                    UserId=seller.Id
-                },
-                new ClientItem
-                {
-                    Item=items[2],
-                    UserId=seller.Id
-                },
-                new ClientItem
-                {
-                    Item=items[3],
-                    UserId=seller.Id
-                },
-                new ClientItem
-                {
-                    Item=items[4],
-                    UserId=seller.Id
-                },
-                new ClientItem
-                {
-                    Item=items[5],
-                    UserId=seller.Id
-                }
-            };
-
-            List<ClientBid> clientBids = new List<ClientBid>
-            {
-                new ClientBid
-                {
-                    Bid=bids[0],
-                    UserId=buyer.Id
-                },
-                new ClientBid
-                {
-                    Bid=bids[1],
-                    UserId=buyer.Id
-                },
-                new ClientBid
-                {
-                    Bid=bids[2],
-                    UserId=buyer.Id
-                }
-            };
-
-            foreach (var c in categories)
-            {
-                _context.Categories.Add(c);
+                _context.Items.Add(item);
             }
             _context.SaveChanges();
 
-            foreach (var b in bids)
+            foreach (var auction in auctions)
             {
-                _context.Bids.Add(b);
-            }
-            _context.SaveChanges();
-
-            foreach (var cItem in clientItems)
-            {
-                _context.ClientItems.Add(cItem);
-            }
-            _context.SaveChanges();
-
-            foreach (var cBid in clientBids)
-            {
-                _context.ClientBids.Add(cBid);
+                auction.SetBestBidId();
             }
             _context.SaveChanges();
         }
