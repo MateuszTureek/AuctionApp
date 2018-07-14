@@ -1,4 +1,5 @@
-﻿<div data-status="1">
+﻿
+<div id="Waiting">
     <div class="d-flex justify-content-between mb-1">
         <h4>Przedmioty w poczekalni:</h4>
         @Html.Partial("_ToolBarPartial")
@@ -9,21 +10,18 @@
             <tr>
                 <th>Kategoria</th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Name" data-desc="false">
+                    <a data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Name">
                         <span>Nazwa</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.BuyNowPrice" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.BuyNowPrice">
                         <span>Kup teraz</span>
-                        <span class="fa fa-sort-amount-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Delivery" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.WaitingItemsOrderBy.Delivery">
                         <span>Dostawa</span>
-                        <span class="fa fa-sort-amount-desc"></span>
                     </a>
                 </th>
                 <th>Wystaw na licytacje</th>
@@ -34,8 +32,20 @@
             <!-- render by js -->
         </tbody>
     </table>
-    <p class="no-items d-none">Brak przedmiotów w poczekalni.</p>
+
+    <ul class="pagination justify-content-lg-center">
+        <li class="page-item" data-arrow="left">
+            <a class="page-link" href="#"><span>&laquo;</span></a>
+        </li>
+        <!-- render page numbers here ! -->
+        <li class="page-item" data-arrow="right">
+            <a class="page-link" href="#"><span>&raquo;</span></a>
+        </li>
+    </ul>
 </div>
+@*
+<p class="no-items d-none">Brak przedmiotów w poczekalni.</p>
+*@
 
 @Html.Partial("_AddToAuctionPartial")
 @Html.Partial("_DeleteItemPartial")

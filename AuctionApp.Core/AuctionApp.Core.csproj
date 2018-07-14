@@ -29,4 +29,9 @@
   <ItemGroup>
     <Folder Include="DAL\Data\AuctionContext\Migrations\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Hosting">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.hosting\2.0.2\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

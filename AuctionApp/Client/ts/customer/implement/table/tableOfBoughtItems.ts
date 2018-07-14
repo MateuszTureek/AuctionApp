@@ -6,12 +6,15 @@ import ICriteria from "../../interface/iCriteria";
 import OrderLinksManager from "../manager/orderLinksManager";
 import SelectList from "../filter/selectListOfAmountPages";
 import Search from "../filter/searchItems";
+import Pagination from "../../../pagination";
 
 export default class TableOfBoughtItems extends TableItems {
     private search: Search;
     private selectList: SelectList;
     private orderLinksManager: OrderLinksManager;
     private criteriaManager: CriteriaManager;
+    private containerId = 'Bought';
+    private paging: Pagination;
 
     constructor(
         private itemAjax: ItemAjax,
@@ -25,12 +28,15 @@ export default class TableOfBoughtItems extends TableItems {
         this.search = new Search(this.$table.closest('div').find('input[type="search"]'));
         this.selectList = new SelectList(this.$table.closest('div').find('select'));
         this.orderLinksManager = new OrderLinksManager(this.$table.children('thead').find('th a'));
+        this.paging = new Pagination($('#' + this.containerId).find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
 
         this.search.add(this);
+        this.selectList.add(this.paging);
         this.selectList.add(this);
         this.orderLinksManager.add(this);
+        this.paging.add(this);
 
-        this.criteriaManager = new CriteriaManager(this.orderLinksManager, this.search, this.selectList);
+        this.criteriaManager = new CriteriaManager(this.orderLinksManager, this.search, this.selectList, this.paging);
     };
 
     update(): void {
@@ -40,11 +46,13 @@ export default class TableOfBoughtItems extends TableItems {
     renderTBody() {
         const criteria = this.criteriaManager.GetCriteria;
 
-        this.itemAjax.getBoughtItems(criteria).then((items: any[]) => {
-            if (items.length !== 0) {
-                const $body = this.getTBody(items);
+        this.itemAjax.getBoughtItems(criteria).then((result: any) => {
+            if (result.items.length !== 0) {
+                const $body = this.getTBody(result.items);
+
                 this.$tbody.empty();
                 this.$tbody.append($body.children());
+                this.paging.generatePagination(result.totalAmount);
             }
             else {
                 this.$tbody.empty();

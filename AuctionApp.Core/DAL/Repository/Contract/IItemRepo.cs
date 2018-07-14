@@ -14,8 +14,7 @@ namespace AuctionApp.Core.DAL.Repository.Contract
         IEnumerable<Item> Find(ISpec<Item, bool> spec);
         IEnumerable<Item> Find(ISpec<Item, bool> spec, ISpec<Item, object> orderSpec);
         IEnumerable<Item> GetLastAddedItems(ISpec<Item, bool> spec, int amount);
-        IEnumerable<Item> GetSortedItems(
-            Expression<Func<Item, bool>> conditionPredicate, Expression<Func<Item, object>> orderPredicate, bool desc,int amountOfPages);
+        IEnumerable<Item> GetSortedItems(Expression<Func<Item, bool>> conditionPredicate, Expression<Func<Item, object>> orderPredicate);
     }
 }
 

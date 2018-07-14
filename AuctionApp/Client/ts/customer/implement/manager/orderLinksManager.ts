@@ -15,27 +15,18 @@ export default class OrderLinksManager extends Observable {
         return this.$currentLink.data('orderBy');
     };
 
-    get GetDescValue(): boolean {
-        return this.$currentLink.data('desc');
-    };
-
-    set SetDescValue(val: boolean) {
-        this.$currentLink.data('desc', val);
-    };
-    
     linkOnClick(e: Event) {
         e.preventDefault();
 
-        var $clicked = $(e.currentTarget);
+        const $clicked = $(e.currentTarget);
 
-        if ($clicked.data('orderBy') as number === this.GetOrderByValue) {
-            this.SetDescValue = !this.GetDescValue;
-        }
-        else {
-            this.SetDescValue = false;
+        if ($clicked.data('orderBy') as number !== this.GetOrderByValue) {
+            this.$currentLink.attr('href', '#');
+            $clicked.removeAttr('href');
+
             this.$currentLink = $clicked;
-            this.SetDescValue = true;
         }
+
         this.notify();
     }
 };

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctionApp.Core.BLL.DTO.Auction;
+using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
 using AuctionApp.Core.BLL.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
@@ -62,34 +63,28 @@ namespace AuctionApp.Areas.customer.Controllers
 
         [HttpGet]
         public IActionResult GetWaitingItems(
-            int amountOfPages,
-            string phrase = "",
-            bool desc = false,
+            SearchCriteriaDTO searchDTO,
             WaitingItemsOrderBy orderBy = WaitingItemsOrderBy.Name)
         {
-            var result = _itemService.GetWaitingItems(orderBy, desc, phrase, amountOfPages);
+            var result = _itemService.GetWaitingItems(orderBy, searchDTO);
             return Json(result);
         }
-        
+
         [HttpGet]
         public IActionResult GetInAuctionItems(
-            int amountOfPages,
-            string phrase = "",
-            bool desc = false,
+            SearchCriteriaDTO searchDTO,
             InAuctionItemsOrderBy orderBy = InAuctionItemsOrderBy.Name)
-      {
-            var result = _itemService.GetInAuctionItems(orderBy, desc, phrase, amountOfPages);
+        {
+            var result = _itemService.GetInAuctionItems(orderBy, searchDTO);
             return Json(result);
         }
-        
+
         [HttpGet]
         public IActionResult GetBoughtItems(
-            int amountOfPages,
-            string phrase = "",
-            bool desc = false,
+            SearchCriteriaDTO searchDTO,
             BoughtItemsOrderBy orderBy = BoughtItemsOrderBy.Name)
         {
-            var result = _itemService.GetBoughtItems(orderBy, desc, phrase, amountOfPages);
+            var result = _itemService.GetBoughtItems(orderBy, searchDTO);
             return Json(result);
         }
     }

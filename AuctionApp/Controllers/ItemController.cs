@@ -58,7 +58,7 @@ namespace AuctionApp.Controllers
         [HttpGet]
         public IActionResult Item(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return BadRequest();
             var result = _service.GetItem((int)id);
             return View(result);
         }

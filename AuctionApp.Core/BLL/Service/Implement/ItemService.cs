@@ -68,11 +68,12 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public List<WaitingItemDTO> GetWaitingItems(WaitingItemsOrderBy orderBy, bool desc, string phrase,int amountOfPages)
+        public PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
+            var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
 
-            if (string.IsNullOrEmpty(phrase)) phrase = "";
+            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
 
             switch (orderBy)
             {
@@ -80,16 +81,25 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 case WaitingItemsOrderBy.Delivery: { oPredicate = (x => x.Delivery.Name); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Waiting && w.Name.Contains(phrase), oPredicate, desc, amountOfPages).ToList();
-            return _mapper.Map<List<Item>, List<WaitingItemDTO>>(items);
+            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Waiting && w.Name.Contains(c.Phrase), oPredicate);
+
+            List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
+
+            var result = new PagedWaitingItemsDTO()
+            {
+                TotalAmount = items.Count(),
+                Items = _mapper.Map<List<Item>, List<WaitingItemDTO>>(list)
+            };
+
+            return result;
         }
 
-        // to do
-        public List<InAuctionItemDTO> GetInAuctionItems(InAuctionItemsOrderBy orderBy, bool desc, string phrase, int amountOfPages)
+        public PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
+            var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
 
-            if (string.IsNullOrEmpty(phrase)) phrase = "";
+            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
 
             switch (orderBy)
             {
@@ -99,17 +109,25 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 case InAuctionItemsOrderBy.EndDate: { oPredicate = (x => x.Auction.EndDate); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.InAuction && w.Name.Contains(phrase), oPredicate, desc, amountOfPages).ToList();
+            var items = _itemRepo.GetSortedItems(w => w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
 
-            return _mapper.Map<List<Item>, List<InAuctionItemDTO>>(items);
+            List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
+
+            var result = new PagedInAuctionItemsDTO
+            {
+                TotalAmount = items.Count(),
+                Items = _mapper.Map<List<Item>, List<InAuctionItemDTO>>(list)
+            };
+
+            return result;
         }
 
-        // to do
-        public List<BoughtItemDTO> GetBoughtItems(BoughtItemsOrderBy orderBy, bool desc, string phrase, int amountOfPages)
+        public PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
+            var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
 
-            if (string.IsNullOrEmpty(phrase)) phrase = "";
+            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
 
             switch (orderBy)
             {
@@ -121,9 +139,17 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 //case BoughtItemsOrderBy.TotalCost: { oPredicate = (x => x.); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Bought && w.Name.Contains(phrase), oPredicate, desc, amountOfPages).ToList();
 
-            return _mapper.Map<List<Item>, List<BoughtItemDTO>>(items);
+            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
+            List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
+
+            var result = new PagedBoughtItemsDTO
+            {
+                TotalAmount = items.Count(),
+                Items = _mapper.Map<List<Item>, List<BoughtItemDTO>>(list)
+            };
+
+            return result;
         }
 
         public List<LatestItemDTO> GetLastAddedItems(Status status)

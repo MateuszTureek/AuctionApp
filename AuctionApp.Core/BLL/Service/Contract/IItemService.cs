@@ -16,9 +16,9 @@ namespace AuctionApp.Core.BLL.Service.Contract
         List<LatestItemDTO> GetLastAddedItems(Status status);
         ItemDetailsDTO GetItem(int id);
         List<SimpleItemDTO> SearchItems(string phrase);
-        List<WaitingItemDTO> GetWaitingItems(WaitingItemsOrderBy orderBy, bool desc, string phrase, int amountOfPages);
-        List<InAuctionItemDTO> GetInAuctionItems(InAuctionItemsOrderBy orderBy, bool desc, string phrase, int amountOfPages);
-        List<BoughtItemDTO> GetBoughtItems(BoughtItemsOrderBy orderBy, bool desc, string phrase, int amountOfPages);
+        PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO);
+        PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO);
+        PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO);
 
         AuctionDetailsDTO GetAuctionByItem(int id);
         void SetAuction(CreateAuctionDTO dto);

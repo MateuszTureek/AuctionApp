@@ -6,6 +6,7 @@ import ICriteria from "../../interface/iCriteria";
 import Search from "../filter/searchItems";
 import SelectList from "../filter/selectListOfAmountPages";
 import OrderLinksManager from "../manager/orderLinksManager";
+import Pagination from "../../../pagination";
 
 export default class TableOfWaitingItems extends TableItems {
     private search: Search;
@@ -16,12 +17,15 @@ export default class TableOfWaitingItems extends TableItems {
     private addToAuctionConfirmId = 'BtnAddToAuctionConfirm';
     private deleteItemClass = "btn-delete-item";
     private deleteItemConfirmId = "BtnDeleteItem";
+    private containerId = 'Waiting';
+    private paging: Pagination;
 
     constructor(
         private itemAjax: ItemAjax,
         private formatter: Formatter
     ) {
         super();
+        
         this.tableId = 'WaitingItemsTable';
         this.$table = $('#' + this.tableId);
         this.$tbody = this.$table.children('tbody').first();
@@ -29,12 +33,15 @@ export default class TableOfWaitingItems extends TableItems {
         this.search = new Search(this.$table.closest('div').find('input[type="search"]'));
         this.selectList = new SelectList(this.$table.closest('div').find('select'));
         this.orderLinksManager = new OrderLinksManager(this.$table.children('thead').find('th a'));
+        this.paging = new Pagination($('#' + this.containerId).find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
 
         this.search.add(this);
+        this.selectList.add(this.paging);
         this.selectList.add(this);
         this.orderLinksManager.add(this);
+        this.paging.add(this);
 
-        this.criteriaManager = new CriteriaManager(this.orderLinksManager, this.search, this.selectList);
+        this.criteriaManager = new CriteriaManager(this.orderLinksManager, this.search, this.selectList, this.paging);
     };
 
     events() {
@@ -103,13 +110,14 @@ export default class TableOfWaitingItems extends TableItems {
     renderTBody() {
         const criteria = this.criteriaManager.GetCriteria;
 
-        this.itemAjax.getWaitingItems(criteria).then((items: any[]) => {
-            if (items.length !== 0) {
-                const $body = this.getTBody(items);
+        this.itemAjax.getWaitingItems(criteria).then((result: any) => {
+            if (result.items.length !== 0) {
+                const $body = this.getTBody(result.items);
 
                 this.$tbody.empty();
                 this.$tbody.append($body.children());
                 this.events();
+                this.paging.generatePagination(result.totalAmount);
             }
             else {
                 this.$tbody.empty();

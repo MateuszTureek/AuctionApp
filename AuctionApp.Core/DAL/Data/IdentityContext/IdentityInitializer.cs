@@ -33,14 +33,20 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = "buyer_1",
-                Email = "buyer1@fake.com"
+                Email = "buyer1@fake.com",
+                PhoneNumber = "000 111 222",
+                Address = "ul.Jana Pawła 23",
+                Country = "Polska"
             };
 
             AppUser seller = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
                 UserName = "seller_1",
-                Email = "seller1@fake.com"
+                Email = "seller1@fake.com",
+                PhoneNumber = "222 444 000",
+                Address = "ul.Łąkowa 9",
+                Country = "Polska"
             };
 
             _userManager.PasswordHasher.HashPassword(buyer, "12345");

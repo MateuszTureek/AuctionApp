@@ -73,27 +73,17 @@ namespace AuctionApp.Core.DAL.Repository.Implement
 
         public IEnumerable<Item> GetSortedItems(
             Expression<Func<Item, bool>> conditionPredicate,
-            Expression<Func<Item, object>> orderPredicate,
-            bool desc,
-            int amountOfPages)
+            Expression<Func<Item, object>> orderPredicate)
         {
-            IEnumerable<Item> result;
-            var query = _dbSet
-                .Include(i=>i.Auction)
-                .Include(i=>i.Auction.Bids)
+            var result = _dbSet
+                .Include(i => i.Auction)
+                .Include(i => i.Auction.Bids)
                 .Include(i => i.Subcategory.Category)
                 .Include(i => i.Delivery)
                 .Where(conditionPredicate)
-                .Take(amountOfPages);
-
-            if (!desc)
-                result = query
-                    .OrderBy(orderPredicate)
-                    .AsNoTracking();
-            else
-                result = query
-                    .OrderByDescending(orderPredicate)
-                    .AsNoTracking();
+                .OrderBy(orderPredicate)
+                .AsNoTracking()
+                .AsEnumerable();
             return result;
         }
     }

@@ -2,16 +2,16 @@
 
 export default class Criteria implements ICriteria {
     OrderBy: number;
-    Desc: boolean;
     Phrase: string;
     AmountOfPages: number;
+    PageIndex: number;
 
     getCriteriaJSON(): object {
         return {
             orderBy: this.OrderBy,
-            desc: this.Desc,
             phrase: this.Phrase,
-            amountOfPages: this.AmountOfPages
+            amountOfPages: this.AmountOfPages,
+            pageIndex: this.PageIndex
         };
     };
 };
