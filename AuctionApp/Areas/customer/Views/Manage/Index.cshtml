@@ -4,4 +4,262 @@
     Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<h4>Customer manage</h4>
+<!-- to partial view -->
+@await Component.InvokeAsync("NewItem")
+<!-- end -->
+<div class="row">
+    <div class="col-lg-3 mb-2">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#NewItemModal">Nowy przedmiot</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card border-dark">
+            <div class="card-body text-dark">
+                <div class="d-flex justify-content-lg-between">
+                    <div>
+                        <span class="fa fa-archive"></span>
+                    </div>
+                    <div>
+                        <p class="text-right">10</p>
+                        <p class="text-right">Przedmioty oczekujące</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="#">Szczegóły</a>
+                    <span class="fa fa-arrow-circle-o-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card border-dark">
+            <div class="card-body text-dark">
+                <div class="d-flex justify-content-lg-between">
+                    <div>
+                        <span class="fa fa-globe"></span>
+                    </div>
+                    <div>
+                        <p class="text-right">3</p>
+                        <p class="text-right">Aktywne aukcje</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <span>Szczegóły</span>
+                    <span class="fa fa-arrow-circle-o-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card border-dark">
+            <div class="card-body text-dark">
+                <div class="d-flex justify-content-lg-between">
+                    <div>
+                        <span class="fa fa-lock"></span>
+                    </div>
+                    <div>
+                        <p class="text-right">1200 pln</p>
+                        <p class="text-right">Moje zobowiązania</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <span>Szczegóły</span>
+                    <span class="fa fa-arrow-circle-o-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card border-dark">
+            <div class="card-body text-dark">
+                <div class="d-flex justify-content-lg-between">
+                    <div>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <div>
+                        <p class="text-right">2</p>
+                        <p class="text-right">Moje przodujące oferty</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <span>Szczegóły</span>
+                    <span class="fa fa-arrow-circle-o-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-6">
+        <div class="card border-dark">
+            <div class="card-header bg-warning">
+                <div class="d-flex justify-content-between">
+                    <h5>
+                        <span class="fa fa-bell"></span>
+                        Aktywności
+                    </h5>
+                    <div>
+                        <a href="#" class="mr-1">Pokaż wszytskie</a>
+                        <span class="fa fa-info-circle mr-1"></span>
+                        <span class="fa fa-refresh"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-unstyled">
+                    <li class="d-flex justify-content-between p-2">
+                        <div class="clearfix">
+                            <img src="~/images/s1.svg" height="50" width="50" />
+                            <p class="pull-right ml-2">Message 1.</p>
+                        </div>
+                        <div>
+                            <p class="text-right" style="margin:0;">10:22:30</p>
+                            <p class="text-right" style="margin:0;">02/05/2018</p>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between p-2">
+                        <div class="clearfix">
+                            <img src="~/images/s1.svg" height="50" width="50" />
+                            <p class="pull-right ml-2">Message 2.</p>
+                        </div>
+                        <div>
+                            <p class="text-right" style="margin:0;">10:22:30</p>
+                            <p class="text-right" style="margin:0;">02/05/2018</p>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between p-2">
+                        <div class="clearfix">
+                            <img src="~/images/s1.svg" height="50" width="50" />
+                            <p class="pull-right ml-2">Message 3.</p>
+                        </div>
+                        <div>
+                            <p class="text-right" style="margin:0;">10:22:30</p>
+                            <p class="text-right" style="margin:0;">02/05/2018</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card border-dark">
+            <div class="card-header bg-info">
+                <div class="d-flex justify-content-between">
+                    <h5>
+                        <span class="fa fa-user"></span>
+                        seller 1
+                    </h5>
+                    <div class="justify-content-end">
+                        <a href="#" class="mr-2">Edit</a>
+                        <span class="fa fa-info-circle"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <img src="~/images/s1.svg" height="150" width="150" />
+                    <dl class="clearfix ml-4">
+                        <dt>Imie i nazwisko:</dt>
+                        <dd>Jan Kowalski</dd>
+                        <dt>Email:</dt>
+                        <dd>janK@fake.com</dd>
+                        <dt>Telefon:</dt>
+                        <dd>500 100 002</dd>
+                        <dt>Adres:</dt>
+                        <dd>Kraków<br />ul. Jana Nowaka 20<br />10-222</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h5>Bierzące licytacje:</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Użytkownik</th>
+                    <th>Oferta</th>
+                    <th>Przedmiot</th>
+                    <th>Dodano</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>user 1</td>
+                    <td>250 pln</td>
+                    <td>Telewizor</td>
+                    <td>2018/02/03</td>
+                </tr>
+                <tr>
+                    <td>user 1</td>
+                    <td>250 pln</td>
+                    <td>Telewizor</td>
+                    <td>2018/02/03</td>
+                </tr>
+                <tr>
+                    <td>user 1</td>
+                    <td>250 pln</td>
+                    <td>Telewizor</td>
+                    <td>2018/02/03</td>
+                </tr>
+                <tr>
+                    <td>user 1</td>
+                    <td>250 pln</td>
+                    <td>Telewizor</td>
+                    <td>2018/02/03</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-6">
+        <h5>Stan moich ofert:</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Przedmiot</th>
+                    <th>Bieżąca oferta</th>
+                    <th>Moja oferta</th>
+                    <th>Stan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Łóżko</th>
+                    <th class="text-secondary">450 pln</th>
+                    <th class="text-primary">450 pln</th>
+                    <th class="text-success">Pierwszy</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    dt {
+        width: 40%;
+        float: left;
+    }
+
+    dd {
+        width: 60%;
+        float: left;
+    }
+</style>

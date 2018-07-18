@@ -51,6 +51,10 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
 
                     b.Property<DateTime>("DatePlaced");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(256);
@@ -124,6 +128,10 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
 
                     b.Property<int?>("SubcategoryRef")
                         .IsRequired();
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450);
 
                     b.Property<string>("UserName")
                         .IsRequired()

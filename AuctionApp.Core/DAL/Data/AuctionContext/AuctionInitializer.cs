@@ -176,6 +176,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                         {
                             DatePlaced=DateTime.Now,
                             Username=buyer.UserName,
+                            UserId=buyer.Id,
                             BidAmount=200M
                         }
                     }
@@ -190,6 +191,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                         {
                             DatePlaced=DateTime.Now,
                             Username=buyer.UserName,
+                            UserId=buyer.Id,
                             BidAmount=50M
                         }
                     }
@@ -204,6 +206,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                         {
                             DatePlaced=DateTime.Now,
                             Username=buyer.UserName,
+                            UserId=buyer.Id,
                             BidAmount=1200M
                         }
                     }
@@ -218,6 +221,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                         {
                             DatePlaced=DateTime.Now.AddDays(-2),
                             Username=buyer.UserName,
+                            UserId=buyer.Id,
                             BidAmount=400M
                         }
                     }
@@ -232,6 +236,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                         {
                             DatePlaced=DateTime.Now.AddDays(-5),
                             Username=buyer.UserName,
+                            UserId=buyer.Id,
                             BidAmount=300M
                         }
                     }
@@ -253,7 +258,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.InAuction,
                     Delivery=deliveryOptions[0],
                     Auction=auctions[0],
-                    UserName=seller.UserName
+                    UserName=seller.UserName,
+                    UserId=seller.Id
                 },
                 new Item
                 {
@@ -268,7 +274,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.InAuction,
                     Delivery=deliveryOptions[1],
                     Auction=auctions[1],
-                    UserName=seller.UserName
+                    UserName=seller.UserName,
+                    UserId=seller.Id
                 },
                 new Item
                 {
@@ -283,6 +290,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.Waiting,
                     Delivery=deliveryOptions[1],
                     UserName=seller.UserName,
+                    UserId=seller.Id,
                     Auction=null
                 },
                 new Item
@@ -298,6 +306,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.InAuction,
                     Delivery=deliveryOptions[0],
                     UserName=seller.UserName,
+                    UserId=seller.Id,
                     Auction=auctions[4]
                 },
                 new Item
@@ -313,6 +322,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.Waiting,
                     Delivery=deliveryOptions[0],
                     UserName=seller.UserName,
+                    UserId=seller.Id,
                     Auction=null
                 },
                 new Item
@@ -327,6 +337,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.Waiting,
                     Delivery=deliveryOptions[1],
                     UserName=seller.UserName,
+                    UserId=seller.Id,
                     Auction=null
                 },
                 new Item
@@ -341,7 +352,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.Waiting,
                     Delivery=deliveryOptions[1],
                     Auction=null,
-                    UserName=seller.UserName
+                    UserName=seller.UserName,
+                    UserId=seller.Id
                 },
                 new Item
                 {
@@ -353,7 +365,8 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Status=Status.Bought,
                     Delivery=deliveryOptions[1],
                     Auction=auctions[3],
-                    UserName=seller.UserName
+                    UserName=seller.UserName,
+                    UserId=seller.Id
                 }
             };
             

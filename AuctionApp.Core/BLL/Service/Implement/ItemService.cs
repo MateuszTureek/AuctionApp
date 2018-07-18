@@ -1,4 +1,5 @@
 ﻿using AuctionApp.Core.BLL.Criteria;
+using AuctionApp.Core.BLL.DTO;
 using AuctionApp.Core.BLL.DTO.Auction;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
@@ -26,12 +27,16 @@ namespace AuctionApp.Core.BLL.Service.Implement
         readonly IItemRepo _itemRepo;
         readonly UserManager<AppUser> _userManager;
         readonly IUnitOfWork _unitOfWork;
+        readonly ICategoryRepo _categoryRepo;
+        readonly IGenericRepo<Delivery> _deliveryRepo;
 
-        public ItemService(IMapper mapper, IItemRepo itemRepo, UserManager<AppUser> userManager, IUnitOfWork unitOfWork)
+        public ItemService(IMapper mapper, IItemRepo itemRepo, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IGenericRepo<Delivery> deliveryRepo, ICategoryRepo categoryRepo)
         {
             _itemRepo = itemRepo;
             _mapper = mapper;
             _userManager = userManager;
+            _deliveryRepo = deliveryRepo;
+            _categoryRepo = categoryRepo;
             _unitOfWork = unitOfWork;
         }
 
@@ -68,7 +73,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
+        public PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
         {
             var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
@@ -81,7 +86,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 case WaitingItemsOrderBy.Delivery: { oPredicate = (x => x.Delivery.Name); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Waiting && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.Waiting && w.Name.Contains(c.Phrase), oPredicate);
 
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
@@ -94,7 +99,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
+        public PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
         {
             var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
@@ -109,7 +114,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 case InAuctionItemsOrderBy.EndDate: { oPredicate = (x => x.Auction.EndDate); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(w =>w.UserId==userId && w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
 
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
@@ -122,7 +127,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
+        public PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
         {
             var c = searchDTO;
             Expression<Func<Item, object>> oPredicate;
@@ -140,7 +145,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 default: { oPredicate = (x => x.Name); break; }
             }
 
-            var items = _itemRepo.GetSortedItems(w => w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(w =>w.UserId==userId && w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
             var result = new PagedBoughtItemsDTO
@@ -188,6 +193,20 @@ namespace AuctionApp.Core.BLL.Service.Implement
         {
             Item item = _itemRepo.GetById(id);
             item.Status = newStatus;
+            _unitOfWork.Save();
+        }
+
+        public void Create(NewItemDTO dto, string userId,string userName)
+        {
+            Item item = _mapper.Map<NewItemDTO, Item>(dto);
+            item.Status = Status.Waiting;
+            item.Delivery = _deliveryRepo.GetById(dto.MethId);
+            item.Subcategory = _categoryRepo.GetSubcategory(dto.SubcatId);
+            item.UserId = userId;
+            item.UserName = userName;
+            item.ItemDescriptions = _mapper.Map<List<DescriptionDTO>, List<ItemDescription>>(dto.Descriptions);
+
+            _itemRepo.Add(item);
             _unitOfWork.Save();
         }
     }

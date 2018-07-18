@@ -1,28 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AuctionApp.Areas.customer.Models.Item;
 using AuctionApp.Core.BLL.DTO.Auction;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
 using AuctionApp.Core.BLL.Service.Contract;
+using AuctionApp.Core.DAL.Enum;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Areas.customer.Controllers
 {
     [Area("customer")]
+    [Authorize(Roles = Role.customer)]
     public class ItemController : Controller
     {
+        readonly IMapper _mappper;
         readonly IItemService _itemService;
+        readonly IPhotoService _photoService;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService,IMapper mapper, IPhotoService photoService)
         {
             _itemService = itemService;
+            _mappper = mapper;
+            _photoService = photoService;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Create(NewItemViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string username = User.FindFirst(ClaimTypes.Name).Value;
+                _photoService.AddPhoto(model.File);
+
+                NewItemDTO dto = _mappper.Map<NewItemViewModel, NewItemDTO>(model);
+                dto.ImgSrc = _photoService.GetFilePath(model.File);
+
+                _itemService.Create(dto, userId, username);
+
+                return RedirectToAction("Index", "Manage", new { area = "customer" });
+            }
+            ModelState.AddModelError(string.Empty, "Niepoprawne dane produktu.");
+            return View(model);
         }
 
         [HttpPost]
@@ -66,7 +98,8 @@ namespace AuctionApp.Areas.customer.Controllers
             SearchCriteriaDTO searchDTO,
             WaitingItemsOrderBy orderBy = WaitingItemsOrderBy.Name)
         {
-            var result = _itemService.GetWaitingItems(orderBy, searchDTO);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var result = _itemService.GetWaitingItems(orderBy, searchDTO, userId);
             return Json(result);
         }
 
@@ -75,7 +108,8 @@ namespace AuctionApp.Areas.customer.Controllers
             SearchCriteriaDTO searchDTO,
             InAuctionItemsOrderBy orderBy = InAuctionItemsOrderBy.Name)
         {
-            var result = _itemService.GetInAuctionItems(orderBy, searchDTO);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var result = _itemService.GetInAuctionItems(orderBy, searchDTO, userId);
             return Json(result);
         }
 
@@ -84,7 +118,8 @@ namespace AuctionApp.Areas.customer.Controllers
             SearchCriteriaDTO searchDTO,
             BoughtItemsOrderBy orderBy = BoughtItemsOrderBy.Name)
         {
-            var result = _itemService.GetBoughtItems(orderBy, searchDTO);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var result = _itemService.GetBoughtItems(orderBy, searchDTO, userId);
             return Json(result);
         }
     }

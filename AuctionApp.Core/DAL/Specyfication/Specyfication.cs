@@ -15,10 +15,5 @@ namespace AuctionApp.Core.DAL.Specyfication
         }
 
         public abstract Expression<Func<TEntity, bool>> ToExpression();
-
-        public Specyfication<TEntity> And(Specyfication<TEntity> specyfication)
-        {
-            return new AndSpecyfication<TEntity>(this, specyfication);
-        }
     }
 }

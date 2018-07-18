@@ -14,6 +14,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public decimal ConstPrice { get; set; }
         public Status Status { get; set; }
         public string UserName { get; set; }
+        public string UserId { get; set; }
 
         public int? AuctionRef { get; set; }
         public Auction Auction { get; set; }

@@ -9,16 +9,11 @@ import OrderLinksManager from "../manager/orderLinksManager";
 import Pagination from "../../../pagination";
 
 export default class TableOfWaitingItems extends TableItems {
-    private search: Search;
-    private selectList: SelectList;
-    private orderLinksManager: OrderLinksManager;
-    private criteriaManager: CriteriaManager;
     private buttonsToAuctionClass = "btn-to-auction";
     private addToAuctionConfirmId = 'BtnAddToAuctionConfirm';
     private deleteItemClass = "btn-delete-item";
     private deleteItemConfirmId = "BtnDeleteItem";
     private containerId = 'Waiting';
-    private paging: Pagination;
 
     constructor(
         private itemAjax: ItemAjax,

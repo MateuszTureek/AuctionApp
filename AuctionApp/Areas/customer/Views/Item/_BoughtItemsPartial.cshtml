@@ -1,6 +1,7 @@
 ﻿
 <div id="Bought">
-    <div class="d-flex justify-content-end mb-1">
+    <div class="d-flex justify-content-between mb-1">
+        <h4>Przedmioty sprzedane:</h4>
         @*Html.Partial("_ExportToolsPartial")*@
         @Html.Partial("_ToolBarPartial")
     </div>
@@ -10,33 +11,28 @@
             <tr>
                 <th>Kategoria</th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Name" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Name">
                         <span>Nazwa</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Delivery" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Delivery">
                         <span>Metoda dostawy</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.BuyNowPrice" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.BuyNowPrice">
                         <span>Kup teraz</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.StartDate" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.StartDate">
                         <span>Początek aukcji</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.EndDate" data-desc="false">
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.EndDate">
                         <span>Koniec aukcji</span>
-                        <span class="fa fa-sort-alpha-desc"></span>
                     </a>
                 </th>
                 <th>Kupujący</th>

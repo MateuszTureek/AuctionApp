@@ -1,10 +1,10 @@
 ﻿using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
+using AuctionApp.Core.DAL.Enum;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace AuctionApp.Core.DAL.Data.IdentityContext
@@ -13,11 +13,13 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
     {
         UserManager<AppUser> _userManager;
         AppIdentityDbContext _context;
-
-        public IdentityInitializer(UserManager<AppUser> userManager, AppIdentityDbContext context)
+        RoleManager<IdentityRole> _roleManager;
+        
+        public IdentityInitializer(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppIdentityDbContext context)
         {
             _userManager = userManager;
             _context = context;
+            _roleManager = roleManager;
         }
 
         public void Initialize()
@@ -28,6 +30,12 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
             {
                 return;
             }
+
+            IdentityRole role1 = new IdentityRole(Role.customer);
+            IdentityRole role2 = new IdentityRole(Role.admin);
+
+            _roleManager.CreateAsync(role1).Wait();
+            _roleManager.CreateAsync(role2).Wait();
 
             AppUser buyer = new AppUser
             {
@@ -49,11 +57,14 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
                 Country = "Polska"
             };
 
-            _userManager.PasswordHasher.HashPassword(buyer, "12345");
-            _userManager.PasswordHasher.HashPassword(seller, "12345");
+            buyer.PasswordHash = _userManager.PasswordHasher.HashPassword(buyer, "12345");
+            seller.PasswordHash = _userManager.PasswordHasher.HashPassword(seller, "12345");
 
-            var r1 = _userManager.CreateAsync(buyer).Result;
-            var r2 = _userManager.CreateAsync(seller).Result;
+            _userManager.CreateAsync(buyer).Wait();
+            _userManager.CreateAsync(seller).Wait();
+
+            _userManager.AddToRoleAsync(seller, role1.Name).Wait();
+            _userManager.AddToRoleAsync(buyer, role1.Name).Wait();
         }
     }
 }

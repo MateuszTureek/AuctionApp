@@ -27,7 +27,21 @@ namespace AuctionApp.Core.DAL.Repository.Contract
             return _dbSet
                 .Include(i => i.Subcategories)
                 .AsNoTracking()
-                .ToList();
+                .AsEnumerable();
+        }
+
+        public override Category GetById(int id)
+        {
+            return _dbSet
+                .Include(i => i.Subcategories)
+                .First(f => f.Id == id);
+        }
+
+        public Subcategory GetSubcategory(int id)
+        {
+            var p = _dbSet.Select(s => s.Subcategories.First(f => f.Id == id));
+            var result = p.Include(i => i.Category).First();
+            return result;
         }
     }
 }

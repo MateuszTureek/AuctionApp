@@ -9,14 +9,9 @@ import ICriteria from "../../interface/iCriteria";
 import Pagination from "../../../pagination";
 
 export default class TableOfInAuctionItems extends TableItems {
-    private search: Search;
-    private selectList: SelectList;
-    private orderLinksManager: OrderLinksManager;
-    private criteriaManager: CriteriaManager;
     private cancelAuctionButtonsClass = 'btn-cancel-auction';
     private cancenAuctionItemConfirmId = 'BtnCancelItemAuctionConfirm';
     private containerId = 'InAuction';
-    private paging: Pagination;
 
     constructor(
         private itemAjax: ItemAjax,

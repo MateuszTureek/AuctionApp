@@ -42,6 +42,7 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.Price, o => o.MapFrom(m => m.BuyNowPrice));
 
             CreateMap<ItemDescription, DescriptionDTO>();
+            CreateMap<DescriptionDTO, ItemDescription>();
 
             CreateMap<Item, WaitingItemDTO>()
                 .ForMember(o => o.CategoryName, d => d.MapFrom(m => m.Subcategory.Category.Name))
@@ -88,6 +89,13 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.Delivery, o => o.MapFrom(m => m.Delivery.Name))
                 .ForMember(d => d.StartDate, o => o.MapFrom(m => m.Auction.StartDate))
                 .ForMember(d => d.EndDate, o => o.MapFrom(m => m.Auction.EndDate));
+
+            CreateMap<NewItemDTO, Item>()
+                .ForMember(d => d.Auction, o => o.Ignore())
+                .ForMember(d => d.AuctionRef, o => o.Ignore())
+                .ForMember(d => d.Delivery, o => o.Ignore())
+                .ForMember(d => d.DeliveryRef, o => o.Ignore())
+                .ForMember(d => d.Status, o => o.Ignore());
         }
     }
 }

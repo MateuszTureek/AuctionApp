@@ -17,23 +17,47 @@
                 <button class="navbar-toggler ml-auto" data-toggle="collapse" data-target="#NavbarMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div id="NavbarMenu" class="collapse navbar-collapse">
                     <div class="d-flex ml-auto flex-column">
                         <ul id="RegAndLog" class="navbar-nav justify-content-end">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Logowanie</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Rejstracja</a>
-                            </li>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Login">Logowanie</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Register">Rejstracja</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <span class="pull-left mt-2 text-white h6">Zalogowany:</span>
+                                    <a class="nav-link pull-right">
+                                        @User.Identity.Name
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Manage" asp-action="Index" asp-area="customer">Moje konto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-controller="Account" asp-action="LogOut">
+                                        <button type="submit" class="btn btn-dark">
+                                            <span class="fa fa-sign-out"></span>
+                                        </button>
+                                    </form>
+                                </li>
+                            }
                         </ul>
-                        <form id="SearchForm" class="navbar-form mb-1" asp-controller="Item" asp-action="Search">
+                        <form id="SearchForm" class="navbar-form mb-1 align-self-lg-end" asp-controller="Item" asp-action="Search">
                             <div class="input-group-sm">
                                 <input name="phrase" type="search" class="form-control" placeholder="Search" />
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
             <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-dark">
                 <nav id="MainNav" class="nav nav-justified flex-column flex-lg-row d-flex d-lg-inline-flex ml-3">

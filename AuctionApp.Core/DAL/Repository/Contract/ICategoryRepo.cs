@@ -10,5 +10,6 @@ namespace AuctionApp.Core.DAL.Repository.Contract
     public interface ICategoryRepo : IGenericRepo<Category>
     {
         void AddSubcategory(Category category, Subcategory subcategory);
+        Subcategory GetSubcategory(int id);
     }
 }

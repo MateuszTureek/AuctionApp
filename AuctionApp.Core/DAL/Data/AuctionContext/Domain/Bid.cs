@@ -12,6 +12,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public decimal BidAmount { get; set; }
         public DateTime DatePlaced { get; set; }
         public string Username { get; set; }
+        public string UserId { get; set; }
 
         public int AuctionRef { get; set; }
         public Auction Auction { get; set; }

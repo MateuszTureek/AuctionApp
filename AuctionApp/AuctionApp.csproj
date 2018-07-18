@@ -1,113 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Client\ts\abstract\observable.ts" />
-    <None Remove="Client\ts\ajax\item\itemAjax.ts" />
-    <None Remove="Client\ts\auctionClearSession.ts" />
-    <None Remove="Client\ts\categoryLinkActivator.ts" />
-    <None Remove="Client\ts\contract\iLinkActivator.ts" />
-    <None Remove="Client\ts\contract\iObservable.ts" />
-    <None Remove="Client\ts\contract\iObserver.ts" />
-    <None Remove="Client\ts\customer\customer.ts" />
-    <None Remove="Client\ts\customer\implement\criteria.ts" />
-    <None Remove="Client\ts\customer\implement\factory\criteriaFactory.ts" />
-    <None Remove="Client\ts\customer\implement\filter\orderLink.ts" />
-    <None Remove="Client\ts\customer\implement\manager\tableManager.ts" />
-    <None Remove="Client\ts\customer\implement\navTabs.ts" />
-    <None Remove="Client\ts\customer\interface\iCriteria.ts" />
-    <None Remove="Client\ts\customer\implement\strategy\tableStrategy.ts" />
-    <None Remove="Client\ts\customer\implement\table\tableItems.ts" />
-    <None Remove="Client\ts\customer\implement\table\tableOfBoughtItems.ts" />
-    <None Remove="Client\ts\customer\implement\table\tableOfInAuctionItems.ts" />
-    <None Remove="Client\ts\customer\implement\table\TableOfWaitingItems.ts" />
-    <None Remove="Client\ts\customer\tabsComponent.ts" />
-    <None Remove="Client\ts\enum\status.ts" />
-    <None Remove="Client\ts\enum\WaitingItemsOrderBy.ts" />
-    <None Remove="Client\ts\formatter.ts" />
-    <None Remove="Client\ts\LinkActivator.ts" />
-    <None Remove="Client\ts\mainNavLinkActivator.ts" />
-    <None Remove="Client\ts\orderButtonLinkActivator.ts" />
-    <None Remove="Client\ts\pagination.ts" />
-    <None Remove="Client\ts\pagingLinkActivator.ts" />
-    <None Remove="Client\ts\presentation\home.ts" />
-    <None Remove="Client\ts\settings\constant.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="7.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.3" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="2.8.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2-beta1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Client\ts\abstract\observable.ts" />
-    <TypeScriptCompile Include="Client\ts\ajax\item\itemAjax.ts" />
-    <TypeScriptCompile Include="Client\ts\auctionClearSession.ts" />
-    <TypeScriptCompile Include="Client\ts\contract\iObservable.ts" />
-    <TypeScriptCompile Include="Client\ts\contract\iObserver.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\manager\criteriaManager.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\factory\tableFactory.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\criteria.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\manager\orderLinksManager.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\filter\searchItems.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\filter\selectListOfAmountPages.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\manager\tableManager.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\navTabs.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\interface\iCriteria.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\strategy\tableStrategy.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableItems.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfBoughtItems.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfInAuctionItems.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\implement\table\tableOfWaitingItems.ts" />
-    <TypeScriptCompile Include="Client\ts\enum\status.ts" />
-    <TypeScriptCompile Include="Client\ts\enum\waitingItemsOrderBy.ts" />
-    <TypeScriptCompile Include="Client\ts\formatter.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator\categoryLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\contract\iLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\customer\customer.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator\linkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator\mainNavLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator\orderButtonLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\linkActivator\pagingLinkActivator.ts" />
-    <TypeScriptCompile Include="Client\ts\pagination.ts" />
-    <TypeScriptCompile Include="Client\ts\presentation\auctions.ts" />
-    <TypeScriptCompile Include="Client\ts\presentation\home.ts" />
-    <TypeScriptCompile Include="Client\ts\settings\constant.ts" />
-  </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Areas\admin\Controllers\" />
-    <Folder Include="Areas\admin\Data\" />
-    <Folder Include="Areas\admin\Models\" />
-    <Folder Include="Areas\admin\Views\" />
-    <Folder Include="Areas\customer\Data\" />
-    <Folder Include="Areas\customer\Models\" />
-    <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

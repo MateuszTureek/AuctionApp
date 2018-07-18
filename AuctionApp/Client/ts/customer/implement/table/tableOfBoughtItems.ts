@@ -9,12 +9,7 @@ import Search from "../filter/searchItems";
 import Pagination from "../../../pagination";
 
 export default class TableOfBoughtItems extends TableItems {
-    private search: Search;
-    private selectList: SelectList;
-    private orderLinksManager: OrderLinksManager;
-    private criteriaManager: CriteriaManager;
     private containerId = 'Bought';
-    private paging: Pagination;
 
     constructor(
         private itemAjax: ItemAjax,

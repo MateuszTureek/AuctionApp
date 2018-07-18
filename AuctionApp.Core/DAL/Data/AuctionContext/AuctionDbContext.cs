@@ -31,6 +31,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 item.Property(p => p.ConstPrice).HasColumnType("decimal(16,2)");
                 item.Property(p => p.Status).IsRequired();
                 item.Property(p => p.UserName).HasMaxLength(256).IsRequired();
+                item.Property(p => p.UserId).HasMaxLength(450).IsRequired();
 
                 item
                 .HasOne(o => o.Auction)
@@ -65,6 +66,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 bid.Property(p => p.BidAmount).HasColumnType("decimal(16,2)").IsRequired();
                 bid.Property(p => p.DatePlaced).IsRequired();
                 bid.Property(p => p.Username).HasMaxLength(256).IsRequired();
+                bid.Property(p => p.UserId).HasMaxLength(450).IsRequired();
             });
 
             modelBuilder.Entity<Category>(cat =>

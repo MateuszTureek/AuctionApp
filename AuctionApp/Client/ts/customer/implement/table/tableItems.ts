@@ -1,10 +1,21 @@
 ﻿import IObserver from "../../../contract/iObserver";
 import ICriteria from "../../interface/iCriteria";
+import OrderLinksManager from "../manager/orderLinksManager";
+import CriteriaManager from "../manager/criteriaManager";
+import SelectList from "../filter/selectListOfAmountPages";
+import Search from "../filter/searchItems";
+import Pagination from "../../../pagination";
 
 export default abstract class TableItems implements IObserver {
     protected tableId;
     protected $table: JQuery<HTMLElement>;
     protected $tbody: JQuery<HTMLElement>;
+
+    protected search: Search;
+    protected selectList: SelectList;
+    protected orderLinksManager: OrderLinksManager;
+    protected criteriaManager: CriteriaManager;
+    protected paging: Pagination;
 
     constructor()
     {

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AuctionApp.Core.BLL.Dependencies;
 using AuctionApp.Core.DAL.Data;
 using AuctionApp.Core.DAL.Data.AuctionContext;
 using AuctionApp.Core.DAL.Data.IdentityContext;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -40,14 +42,33 @@ namespace AuctionApp
                     .AddEntityFrameworkStores<AppIdentityDbContext>()
                     .AddDefaultTokenProviders();
 
+            services.Configure<IdentityOptions>(opt =>
+            {
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                opt.Lockout.MaxFailedAccessAttempts = 3;
+                opt.Lockout.AllowedForNewUsers = true;
+                opt.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(opt =>
+            {
+                opt.Cookie.HttpOnly = true;
+                opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                opt.LoginPath = "/Account/Login";
+                opt.AccessDeniedPath = "/Account/AccessDanied";
+                opt.SlidingExpiration = true;
+            });
+
             services.AddScoped<IdentityInitializer>();
             services.AddScoped<AuctionInitializer>();
             // register my service
             DependencyProvider.SetupAuctionDependency(services);
 
+            services.AddAutoMapper(typeof(Core.BLL.Mapper.MapperProfile), typeof(Mapper.MapperProfile));
+
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(3);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
 
             services.AddMvc(opt => opt.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
