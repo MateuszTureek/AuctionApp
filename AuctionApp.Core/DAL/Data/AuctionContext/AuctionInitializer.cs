@@ -366,7 +366,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                     Delivery=deliveryOptions[1],
                     Auction=auctions[3],
                     UserName=seller.UserName,
-                    UserId=seller.Id
+                    UserId=seller.Id,
+                    Order=new Order
+                    {
+                        BuyerId=buyer.Id,
+                        Date=DateTime.Now,
+                        TotalCost=400+40
+                    }
                 }
             };
             

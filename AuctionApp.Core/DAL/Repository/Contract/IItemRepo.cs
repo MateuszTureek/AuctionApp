@@ -11,6 +11,10 @@ namespace AuctionApp.Core.DAL.Repository.Contract
 {
     public interface IItemRepo : IGenericRepo<Item>
     {
+        int GetLeadBidsCount(string userId);
+        decimal FinancialLiabilities(string userId);
+        int WaitingItemsCount(string userId);
+        int InAuctionItemsCount(string userId);
         IEnumerable<Item> Find(ISpec<Item, bool> spec);
         IEnumerable<Item> Find(ISpec<Item, bool> spec, ISpec<Item, object> orderSpec);
         IEnumerable<Item> GetLastAddedItems(ISpec<Item, bool> spec, int amount);

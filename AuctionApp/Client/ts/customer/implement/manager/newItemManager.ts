@@ -59,8 +59,17 @@ export default class NewItemManager {
         let $txtTitleWrpper = $('<div>').addClass('col-lg-9');
         let $txtAreaContentWrapper = $('<div>').addClass('col-lg-9');
 
-        let $txtTitle = $('<input>').addClass('form-control').attr('title', 'text').attr('name', 'Descriptions[' + length + '].Key');
-        let $txtAreaContent = $('<textarea>').addClass('form-control').attr('name', 'Descriptions[' + length + '].Value');
+        let $txtTitle = $('<input>')
+            .addClass('form-control')
+            .attr('type', 'text')
+            .attr('name', 'Descriptions[' + length + '].Key')
+            .attr('required', 'true')
+            .attr('maxlength', 80);
+
+        let $txtAreaContent = $('<textarea>')
+            .addClass('form-control')
+            .attr('required', 'true')
+            .attr('name', 'Descriptions[' + length + '].Value');
 
         $txtTitleWrpper.append($txtTitle);
         $titleRow.append($lblTitle);

@@ -25,12 +25,25 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public int? DeliveryRef { get; set; }
         public Delivery Delivery { get; set; }
 
-        public IList<ItemDescription> ItemDescriptions { get; set; }
+        public int? OrderId { get; set; }
+        public Order Order { get; set; }
+
+        public List<ItemDescription> ItemDescriptions { get; set; }
 
         public void AddDescription(ItemDescription description)
         {
             if (description != null) ItemDescriptions.Add(description);
             else throw new NullReferenceException();
+        }
+
+        public void AddDescriptions(List<ItemDescription> descriptions)
+        {
+            if (ItemDescriptions != null) ItemDescriptions.AddRange(descriptions);
+            else
+            {
+                ItemDescriptions = new List<ItemDescription>();
+                ItemDescriptions.AddRange(descriptions);
+            }
         }
     }
 }

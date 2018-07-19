@@ -29,14 +29,16 @@ namespace AuctionApp.Core.BLL.Service.Implement
         readonly IUnitOfWork _unitOfWork;
         readonly ICategoryRepo _categoryRepo;
         readonly IGenericRepo<Delivery> _deliveryRepo;
+        readonly IPhotoService _photoService;
 
-        public ItemService(IMapper mapper, IItemRepo itemRepo, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IGenericRepo<Delivery> deliveryRepo, ICategoryRepo categoryRepo)
+        public ItemService(IMapper mapper, IItemRepo itemRepo, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IGenericRepo<Delivery> deliveryRepo, ICategoryRepo categoryRepo, IPhotoService photoService)
         {
             _itemRepo = itemRepo;
             _mapper = mapper;
             _userManager = userManager;
             _deliveryRepo = deliveryRepo;
             _categoryRepo = categoryRepo;
+            _photoService = photoService;
             _unitOfWork = unitOfWork;
         }
 
@@ -44,7 +46,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
         {
             var item = _itemRepo.GetById(id);
             var result = _mapper.Map<Item, ItemDetailsDTO>(item);
-            
+
             return result;
         }
 
@@ -114,7 +116,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 case InAuctionItemsOrderBy.EndDate: { oPredicate = (x => x.Auction.EndDate); break; }
                 default: { oPredicate = (x => x.Name); break; }
             }
-            var items = _itemRepo.GetSortedItems(w =>w.UserId==userId && w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
 
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
@@ -145,7 +147,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 default: { oPredicate = (x => x.Name); break; }
             }
 
-            var items = _itemRepo.GetSortedItems(w =>w.UserId==userId && w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
             var result = new PagedBoughtItemsDTO
@@ -169,6 +171,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
         public void Remove(int id)
         {
             var item = _itemRepo.GetById(id);
+            _photoService.DeletePhoto(item.ImgSrc);
             _itemRepo.Remove(item);
             _unitOfWork.Save();
         }
@@ -177,6 +180,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
         {
             Item item = _itemRepo.GetById(dto.ItemId);
             Auction auction = _mapper.Map<CreateAuctionDTO, Auction>(dto);
+
             item.Status = Status.InAuction;
             item.Auction = auction;
             _unitOfWork.Save();
@@ -196,18 +200,36 @@ namespace AuctionApp.Core.BLL.Service.Implement
             _unitOfWork.Save();
         }
 
-        public void Create(NewItemDTO dto, string userId,string userName)
+        public void Create(NewItemDTO dto, string userId, string userName)
         {
             Item item = _mapper.Map<NewItemDTO, Item>(dto);
+            _photoService.AddPhoto(dto.File);
+
             item.Status = Status.Waiting;
             item.Delivery = _deliveryRepo.GetById(dto.MethId);
             item.Subcategory = _categoryRepo.GetSubcategory(dto.SubcatId);
             item.UserId = userId;
             item.UserName = userName;
+            item.ImgSrc = _photoService.GetLocalFilePath();
             item.ItemDescriptions = _mapper.Map<List<DescriptionDTO>, List<ItemDescription>>(dto.Descriptions);
 
             _itemRepo.Add(item);
             _unitOfWork.Save();
+        }
+
+        public int AmountOfWaitingItems(string userId)
+        {
+            return _itemRepo.WaitingItemsCount(userId);
+        }
+
+        public int AmountOfAuctions(string userId)
+        {
+            return _itemRepo.InAuctionItemsCount(userId);
+        }
+
+        public decimal CalcTotalCost(List<Item> items)
+        {
+            return items.Sum(s => s.ConstPrice + s.Delivery.Price);
         }
     }
 }

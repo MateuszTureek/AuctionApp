@@ -1,7 +1,9 @@
 ﻿using AuctionApp.Core.BLL.DTO;
 using AuctionApp.Core.BLL.DTO.Auction;
 using AuctionApp.Core.BLL.DTO.Bid;
+using AuctionApp.Core.BLL.DTO.Cart;
 using AuctionApp.Core.BLL.DTO.Item;
+using AuctionApp.Core.BLL.DTO.Order;
 using AuctionApp.Core.BLL.Mapper.Resolver;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AutoMapper;
@@ -35,11 +37,14 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.BuyNowPrice, o => o.MapFrom(m => m.ConstPrice))
                 .ForMember(d => d.DeliveryMethod, o => o.MapFrom(m => m.Delivery.Name));
 
-            CreateMap<ItemDetailsDTO, CartItemDTO>()
+            CreateMap<Item, CartItemDTO>()
+                .ForMember(d => d.DeliveryName, o => o.MapFrom(m => m.Delivery.Name))
+                .ForMember(d => d.DeliveryCost, o => o.MapFrom(m => m.Delivery.Price))
+                .ForMember(d => d.Price, o => o.MapFrom(m => m.ConstPrice))
                 .ForMember(d => d.Id, o => o.Ignore())
-                .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Id))
                 .ForMember(d => d.ItemName, o => o.MapFrom(m => m.Name))
-                .ForMember(d => d.Price, o => o.MapFrom(m => m.BuyNowPrice));
+                .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Id))
+                .ForMember(d => d.ImgSrc, o => o.MapFrom(m => m.ImgSrc));
 
             CreateMap<ItemDescription, DescriptionDTO>();
             CreateMap<DescriptionDTO, ItemDescription>();
@@ -95,7 +100,10 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.AuctionRef, o => o.Ignore())
                 .ForMember(d => d.Delivery, o => o.Ignore())
                 .ForMember(d => d.DeliveryRef, o => o.Ignore())
-                .ForMember(d => d.Status, o => o.Ignore());
+                .ForMember(d => d.Status, o => o.Ignore())
+                .ForMember(d => d.SubcategoryRef, o => o.Ignore());
+
+            CreateMap<CartItemDTO, CreatedOrderItemDTO>();
         }
     }
 }

@@ -12,6 +12,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @Html.ValidationSummary(false,"", new { @class = "text-danger" })
+
                     <div class="form-group row">
                         @Html.LabelFor(m => m.Name, new { @class = "col-lg-3" })
                         <div class="col-lg-9">
@@ -58,23 +60,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="item-description-wrapper col-lg-12 mb-1">
-                            <div class="row mb-1">
-                                <label class="col-lg-3">Tytuł:</label>
-                                <div class="col-lg-9">
-                                    <input name="Descriptions[0].Key" type="text" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <label class="col-lg-3">Opis:</label>
-                                <div class="col-lg-9">
-                                    <textarea name="Descriptions[0].Value" class="form-control"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
+                        <!-- render descriptions here -->
                     </div>
                 </div>
                 <div class="modal-footer">

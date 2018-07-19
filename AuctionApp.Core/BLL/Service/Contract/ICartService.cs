@@ -1,4 +1,4 @@
-﻿using AuctionApp.Core.BLL.DTO;
+﻿using AuctionApp.Core.BLL.DTO.Cart;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +13,6 @@ namespace AuctionApp.Core.BLL.Service.Contract
         Task RemoveCart();
         List<CartItemDTO> GetCartItems();
         decimal GetTotalPrice();
+        bool Exist(CartItemDTO itemToAdded, List<CartItemDTO> cardItems);
     }
 }

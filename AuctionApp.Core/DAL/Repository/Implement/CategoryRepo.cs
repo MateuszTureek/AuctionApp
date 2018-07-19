@@ -39,8 +39,7 @@ namespace AuctionApp.Core.DAL.Repository.Contract
 
         public Subcategory GetSubcategory(int id)
         {
-            var p = _dbSet.Select(s => s.Subcategories.First(f => f.Id == id));
-            var result = p.Include(i => i.Category).First();
+            var result = _dbSet.SelectMany(s => s.Subcategories).Include(i=>i.Category).First(f => f.Id == id);
             return result;
         }
     }

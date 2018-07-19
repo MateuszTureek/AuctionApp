@@ -22,12 +22,14 @@ namespace AuctionApp.Core.BLL.Dependencies
             services.AddTransient<IGenericRepo<Delivery>, GenericRepo<Delivery>>();
             services.AddTransient<IItemRepo, ItemRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
+            services.AddTransient<IOrderRepo, OrderRepo>();
 
+            services.AddTransient<IAuctionService, AuctionService>();
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddTransient<IDeliveryService, DeliveryService>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<ICategoryService, CategoryService>();
-
+            services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICartService, CartService>();
         }
     }

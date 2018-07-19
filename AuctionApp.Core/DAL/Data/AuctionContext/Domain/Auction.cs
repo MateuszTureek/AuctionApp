@@ -24,8 +24,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
             set
             {
                 _startDate = value;
-                //if (_endDate != null) { if (_startDate < _endDate) _startDate = value; }
-                //else _startDate = value;
             }
         }
 
@@ -35,8 +33,6 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
             set
             {
                 _endDate = value;
-                //if (_startDate != null) { if (_endDate > _startDate) { _endDate = value; } }
-                //else _startDate = value;
             }
         }
 

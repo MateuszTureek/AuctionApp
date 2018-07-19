@@ -11,6 +11,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
     public class PhotoService : IPhotoService
     {
         readonly IHostingEnvironment _hostingEnvironment;
+        string _fileName;
 
         public PhotoService(IHostingEnvironment hostingEnvironment)
         {
@@ -24,10 +25,17 @@ namespace AuctionApp.Core.BLL.Service.Implement
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);
 
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadPath, fileName);
+            _fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+            var filePath = Path.Combine(uploadPath, _fileName);
 
             return filePath;
+        }
+
+        public string GetLocalFilePath()
+        {
+            if (string.IsNullOrEmpty(_fileName)) throw new NullReferenceException();
+            return "/images/items/" + _fileName;
         }
 
         public void AddPhoto(IFormFile file)
@@ -38,6 +46,14 @@ namespace AuctionApp.Core.BLL.Service.Implement
             {
                 file.CopyTo(stream);
             }
+        }
+
+        public void DeletePhoto(string url)
+        {
+            var rootPath = _hostingEnvironment.WebRootPath;
+            var path = rootPath + url.Replace('/', '\\');
+
+            if (File.Exists(path)) File.Delete(path);
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using AuctionApp.Core.BLL.DTO;
-using AuctionApp.Core.BLL.DTO.Item;
+﻿using AuctionApp.Core.BLL.DTO.Cart;
 using AuctionApp.Core.BLL.Service.Contract;
+using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Core.DAL.Repository.Contract;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -17,35 +18,48 @@ namespace AuctionApp.Core.BLL.Service.Implement
         readonly IHttpContextAccessor _httpContextAccessor;
         readonly ISession _s;
         readonly string _key = "";
-        readonly IItemService _itemService;
         readonly IMapper _mapper;
+        readonly IItemRepo _itemRepo;
 
         public CartService(
             IHttpContextAccessor httpContextAccessor,
-            IItemService itemService,
+            IItemRepo itemRepo,
             IMapper mapper)
         {
             _httpContextAccessor = httpContextAccessor;
             _s = _httpContextAccessor.HttpContext.Session;
-            _itemService = itemService;
+            _itemRepo = itemRepo;
             _mapper = mapper;
         }
 
         public async Task AddItemToCart(int itemId)
         {
-            ItemDetailsDTO item = _itemService.GetItem(itemId);
+            Item item = _itemRepo.GetById(itemId);
+
             if (item == null) throw new NullReferenceException();
 
-            var cartItem = _mapper.Map<ItemDetailsDTO, CartItemDTO>(item);
+            CartItemDTO cartItem = _mapper.Map<Item, CartItemDTO>(item);
 
             if (!_s.IsAvailable)
                 await _s.LoadAsync().ConfigureAwait(false);
 
             var cartItems = GetCartItems();
 
-            cartItems.Add(cartItem);
-            _s.SetString(_key, JsonConvert.SerializeObject(cartItems));
-            await _s.CommitAsync().ConfigureAwait(false);
+            if (!Exist(cartItem, cartItems))
+            {
+                cartItems.Add(cartItem);
+                _s.SetString(_key, JsonConvert.SerializeObject(cartItems));
+                await _s.CommitAsync().ConfigureAwait(false);
+            }
+        }
+
+        public bool Exist(CartItemDTO itemToAdded, List<CartItemDTO> cardItems)
+        {
+            int i, length = cardItems.Count;
+
+            for (i = 0; i < length; i += 1)
+                if (cardItems[i].ItemId == itemToAdded.ItemId) return true;
+            return false;
         }
 
         public List<CartItemDTO> GetCartItems()
@@ -69,10 +83,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
                 length = cartItems.Count;
             decimal sum = 0;
 
-            for (i = 0; i < length; i += 1)
-            {
-                sum += cartItems[i].Price;
-            }
+            sum = cartItems.Sum(s => s.Price + s.DeliveryCost);
             return sum;
         }
 

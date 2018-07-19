@@ -44,10 +44,7 @@ namespace AuctionApp.Areas.customer.Controllers
             {
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 string username = User.FindFirst(ClaimTypes.Name).Value;
-                _photoService.AddPhoto(model.File);
-
                 NewItemDTO dto = _mappper.Map<NewItemViewModel, NewItemDTO>(model);
-                dto.ImgSrc = _photoService.GetFilePath(model.File);
 
                 _itemService.Create(dto, userId, username);
 
@@ -85,9 +82,11 @@ namespace AuctionApp.Areas.customer.Controllers
             return RedirectToAction("Index", "Item", new { area = "customer" });
         }
 
+        // to do
         [HttpPost]
         public IActionResult Delete(int? id)
         {
+
             if (id == null) return BadRequest();
             _itemService.Remove((int)id);
             return RedirectToAction("Index", "Item", new { area = "customer" });

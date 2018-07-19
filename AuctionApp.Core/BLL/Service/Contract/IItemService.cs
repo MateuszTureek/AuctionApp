@@ -16,16 +16,16 @@ namespace AuctionApp.Core.BLL.Service.Contract
         List<LatestItemDTO> GetLastAddedItems(Status status);
         ItemDetailsDTO GetItem(int id);
         List<SimpleItemDTO> SearchItems(string phrase);
-
         PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId);
         PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId);
         PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId);
-
         AuctionDetailsDTO GetAuctionByItem(int id);
-
-        void Create(NewItemDTO dto,string userId, string userName);
+        void Create(NewItemDTO dto, string userId, string userName);
         void SetAuction(CreateAuctionDTO dto);
         void Remove(int id);
         void ChangeStatus(int id, Status newStatus);
+        int AmountOfWaitingItems(string userId);
+        int AmountOfAuctions(string userId);
+        decimal CalcTotalCost(List<Item> items);
     }
 }

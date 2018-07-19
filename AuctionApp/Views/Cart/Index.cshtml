@@ -14,9 +14,23 @@
     img {
         height: 120px;
     }
+    dl{
+        text-align: justify;
+        width: 250px;
+    }
+    dt {
+        width: 40%;
+    }
+    dd {
+        width: 60%;
+    }
+    dt,dd{
+        margin:0;
+        float: left;
+    }
 </style>
 
-@model IEnumerable<AuctionApp.Core.BLL.DTO.CartItemDTO>
+@model IEnumerable<AuctionApp.Core.BLL.DTO.Cart.CartItemDTO>
 
 <div class="col-12 pb-4 pt-4">
     <div class="d-flex justify-content-between">
@@ -41,14 +55,26 @@
         @foreach (var cartItem in Model)
         {
             <div class="d-flex justify-content-between mb-2">
-                <div class="clearfix">
+                <div class="clearfix d-flex justify-content-between">
                     <img src="@cartItem.ImgSrc" alt="Brak zdjęcia" />
-                    <a asp-controller="Item" asp-action="Item" asp-route-id="@cartItem.ItemId"
-                       class="pull-right ml-2 h4">@cartItem.ItemName</a>
+                    <div>
+                        <a asp-controller="Item" asp-action="Item" asp-route-id="@cartItem.ItemId"
+                           class="ml-2 h4">@cartItem.ItemName</a>
+                        <p class="ml-2 h6 font-weight-bold">@cartItem.DeliveryName</p>
+                    </div>
                 </div>
-                <div class="clearfix">
-                    <p class="pull-left mr-2 mt-1 price">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</p>
-                    <form asp-controller="Cart" asp-action="Remove" class="pull-right">
+                <div class="clearfix justify-content-between d-flex">
+                    <div class="d-flex flex-column mt-3">
+                        <dl class="pull-left mr-2 mt-1 price">
+                            <dt>Cena:</dt>
+                            <dd>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</dd>
+                        </dl>
+                        <dl class="price">
+                            <dt>Dostawa:</dt>
+                            <dd>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.DeliveryCost)</dd>
+                        </dl>
+                    </div>
+                    <form asp-controller="Cart" asp-action="Remove" class="pull-right mt-4 ml-2">
                         <input type="hidden" name="id" value="@cartItem.Id" />
                         <button type="submit" class="btn btn-danger">
                             <span class="fa fa-remove"></span>
@@ -59,12 +85,14 @@
             <hr />
         }
         <div class="col-12">
-            <div class="row d-flex justify-content-between">
+            <div class="row d-flex justify-content-between pb-3">
                 <strong class="h5">
                     Suma: <span>@ViewBag.TotalCost</span>
                 </strong>
                 <div>
-                    <button class="btn btn-success">Confirm transation</button>
+                    <form asp-action="SubmitOrder" asp-controller="Order" asp-area="customer" method="post">
+                        <button type="submit" class="btn btn-success">Załóż zamówienie</button>
+                    </form>
                 </div>
             </div>
         </div>

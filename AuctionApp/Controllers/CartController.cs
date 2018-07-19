@@ -47,5 +47,12 @@ namespace AuctionApp.Controllers
             await _cartService.RemoveCart().ConfigureAwait(false);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Summary()
+        {
+            var model = _cartService.GetCartItems();
+            return View(model);
+        }
     }
 }

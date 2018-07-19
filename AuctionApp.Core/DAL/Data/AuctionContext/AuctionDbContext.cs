@@ -23,6 +23,14 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>(order =>
+            {
+                order.HasKey(k => k.Id);
+                order.Property(p => p.BuyerId).IsRequired().HasMaxLength(450);
+                order.Property(p => p.Date).IsRequired();
+                order.Property(p => p.TotalCost).IsRequired().HasColumnType("decimal(16,2)");
+            });
+
             modelBuilder.Entity<Item>(item =>
             {
                 item.HasKey(k => k.Id);
@@ -32,6 +40,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 item.Property(p => p.Status).IsRequired();
                 item.Property(p => p.UserName).HasMaxLength(256).IsRequired();
                 item.Property(p => p.UserId).HasMaxLength(450).IsRequired();
+
+                item
+                .HasOne(o => o.Order)
+                .WithMany(o => o.Items)
+                .IsRequired(false)
+                .HasForeignKey(f => f.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
 
                 item
                 .HasOne(o => o.Auction)
@@ -50,13 +65,13 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext
                 item
                 .HasOne(o => o.Delivery)
                 .WithMany(m => m.Items)
-                .IsRequired()
                 .HasForeignKey(f => f.DeliveryRef)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
                 item
                 .HasMany(m => m.ItemDescriptions)
                 .WithOne(o => o.Item)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
             });
 

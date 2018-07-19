@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
+using AuctionApp.Core.DAL.Enum;
 using AuctionApp.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +41,7 @@ namespace AuctionApp.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(true);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, Role.customer);
                     await _signInManager.SignInAsync(user, false).ConfigureAwait(true);
 
                     return RedirectToAction("Index", "Manage", new { area = "customer" });

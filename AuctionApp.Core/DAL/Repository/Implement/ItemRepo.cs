@@ -71,6 +71,11 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             return result;
         }
 
+        public int GetLeadBidsCount(string userId)
+        {
+            return _dbSet.Select(s => s.Auction.Bids.Where(w => w.UserId == userId)).Count();
+        }
+
         public IEnumerable<Item> GetSortedItems(
             Expression<Func<Item, bool>> conditionPredicate,
             Expression<Func<Item, object>> orderPredicate)
@@ -85,6 +90,24 @@ namespace AuctionApp.Core.DAL.Repository.Implement
                 .AsNoTracking()
                 .AsEnumerable();
             return result;
+        }
+
+        public decimal FinancialLiabilities(string userId)
+        {
+            var userBids = _dbSet.Where(w => w.Status == Status.Bought).Include(i=>i.Auction.Bids).SelectMany(s => s.Auction.Bids.Where(w => w.UserId == userId));
+            var wonBids = userBids.Where(w => w.Auction.BestBidId == w.Id);
+
+            return wonBids.Sum(s => s.BidAmount + s.Auction.Item.Delivery.Price);
+        }
+
+        public int InAuctionItemsCount(string userId)
+        {
+            return _dbSet.Where(w => w.Status == Status.InAuction && w.UserId == userId).Count();
+        }
+
+        public int WaitingItemsCount(string userId)
+        {
+            return _dbSet.Where(w => w.Status == Status.Waiting && w.UserId == userId).Count();
         }
     }
 }

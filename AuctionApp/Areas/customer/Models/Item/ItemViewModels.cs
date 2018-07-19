@@ -11,11 +11,11 @@ namespace AuctionApp.Areas.customer.Models.Item
 {
     public class NewItemViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole {0} jest wymagane.")]
         [Display(Name = "Nazwa")]
+        [StringLength(50, ErrorMessage = "Max. liczba znaków {1}.")]
         public string Name { get; set; }
 
-        [Required]
         [Display(Name = "Cena kup teraz")]
         public decimal? ConstPrice { get; set; }
 
