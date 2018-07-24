@@ -8,5 +8,6 @@ namespace AuctionApp.Core.BLL.Service.Contract
     public interface IOrderService
     {
         void CreateOrder(CreatedOrderDTO dto);
+        decimal GetTotalLiabilities(string userId);
     }
 }

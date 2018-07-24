@@ -33,9 +33,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.DeliverMethods, new { @class = "col-lg-3" })
+                        @Html.LabelFor(m => m.Payments, new { @class = "col-lg-3" })
                         <div class="col-lg-9">
-                            <select asp-for="MethId" asp-items="@Model.DeliverMethods" class="form-control"></select>
+                            <select asp-for="PayId" asp-items="@Model.Payments" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">

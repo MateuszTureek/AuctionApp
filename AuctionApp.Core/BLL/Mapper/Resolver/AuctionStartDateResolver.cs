@@ -11,8 +11,8 @@ namespace AuctionApp.Core.BLL.Mapper.Resolver
     {
         public double Resolve(Item source, TDestination destination, double destMember, ResolutionContext context)
         {
-            if (source.Auction.StartDate != null)
-                return source.Auction.StartDate.Value.ToUniversalTime()
+            if (source.AuctionStart != null)
+                return source.AuctionStart.Value.ToUniversalTime()
                     .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))
                     .TotalMilliseconds;
             return 0.00;

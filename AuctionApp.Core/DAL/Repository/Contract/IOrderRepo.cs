@@ -7,5 +7,6 @@ namespace AuctionApp.Core.DAL.Repository.Contract
 {
     public interface IOrderRepo : IGenericRepo<Order>
     {
+        decimal FinancialLiabilities(string userId);
     }
 }

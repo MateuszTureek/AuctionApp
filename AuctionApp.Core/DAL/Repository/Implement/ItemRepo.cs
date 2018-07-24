@@ -5,7 +5,6 @@ using AuctionApp.Core.DAL.Specyfication.Contract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -18,15 +17,11 @@ namespace AuctionApp.Core.DAL.Repository.Implement
         public ItemRepo(AuctionDbContext db) : base(db)
         {
         }
-
         public IEnumerable<Item> Find(ISpec<Item, bool> spec)
         {
             var result = _dbSet
-                .Include(i => i.Auction)
-                .Include(i => i.Auction.Bids)
                 .Include(i => i.Subcategory)
                 .Include(i => i.Subcategory.Category)
-                .Include(i => i.Delivery)
                 .Where(spec.ToExpression())
                 .OrderBy(x => x.Name)
                 .AsNoTracking();
@@ -39,30 +34,54 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             var result = _dbSet
                 .Include(i => i.Subcategory)
                 .Include(i => i.Subcategory.Category)
-                .Include(i => i.Delivery)
+                .Include(i => i.Payment)
                 .Where(spec.ToExpression())
                 .OrderBy(orderSpec.ToExpression())
-                .AsNoTracking();
+                .AsNoTracking()
+                .AsEnumerable();
 
+            return result;
+        }
+
+        public IEnumerable<Bid> GetBids(string userId)
+        {
+            var result = _dbSet
+                .SelectMany(s => s.Bids)
+                .Include(i => i.Item)
+                .Include(i => i.Item.Payment)
+                .Where(w => w.UserId == userId)
+                .AsNoTracking().AsEnumerable();
             return result;
         }
 
         public override Item GetById(int id)
         {
             return _dbSet
-                .Include(i => i.Auction)
-                .Include(i => i.Auction.Bids)
                 .Include(i => i.ItemDescriptions)
-                .Include(i => i.Delivery)
+                .Include(i => i.Payment)
+                .Include(i => i.Bids)
                 .First(f => f.Id == id);
         }
 
-        public IEnumerable<Item> GetLastAddedItems(ISpec<Item, bool> spec, int amount)
+        public IEnumerable<Bid> GetCustomerBestBids(string userId)
+        {
+            var result = _dbSet
+                .Select(s => s.Bids)
+                .Select(s => s.Where(w => w.UserId == userId))
+                .Select(s => s.Where(w => w.BidAmount == s.Max(m => m.BidAmount)))
+                .Where(w => w.Count() > 0)
+                .SelectMany(s => s)
+                .Include(i => i.Item)
+                .AsNoTracking().AsEnumerable();
+            return result;
+        }
+
+        public IEnumerable<Item> GetLatestAddedItems(ISpec<Item, bool> spec, int amount)
         {
             var result = _dbSet
                 .Include(i => i.Subcategory)
                 .Include(i => i.Subcategory.Category)
-                .Include(i => i.Delivery)
+                .Include(i => i.Payment)
                 .Where(spec.ToExpression())
                 .OrderBy(x => x.Name)
                 .Take(amount)
@@ -71,41 +90,37 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             return result;
         }
 
-        public int GetLeadBidsCount(string userId)
-        {
-            return _dbSet.Select(s => s.Auction.Bids.Where(w => w.UserId == userId)).Count();
-        }
-
         public IEnumerable<Item> GetSortedItems(
-            Expression<Func<Item, bool>> conditionPredicate,
-            Expression<Func<Item, object>> orderPredicate)
+            ISpec<Item, bool> spec,
+            ISpec<Item, object> orderSpec)
         {
             var result = _dbSet
-                .Include(i => i.Auction)
-                .Include(i => i.Auction.Bids)
+                .Include(i=>i.Payment)
+                .Include(i=>i.Order)
                 .Include(i => i.Subcategory.Category)
-                .Include(i => i.Delivery)
-                .Where(conditionPredicate)
-                .OrderBy(orderPredicate)
+                .Where(spec.ToExpression())
+                .OrderBy(orderSpec.ToExpression())
                 .AsNoTracking()
                 .AsEnumerable();
             return result;
         }
 
-        public decimal FinancialLiabilities(string userId)
-        {
-            var userBids = _dbSet.Where(w => w.Status == Status.Bought).Include(i=>i.Auction.Bids).SelectMany(s => s.Auction.Bids.Where(w => w.UserId == userId));
-            var wonBids = userBids.Where(w => w.Auction.BestBidId == w.Id);
-
-            return wonBids.Sum(s => s.BidAmount + s.Auction.Item.Delivery.Price);
-        }
-
-        public int InAuctionItemsCount(string userId)
+        public int InAuctionItemsAmount(string userId)
         {
             return _dbSet.Where(w => w.Status == Status.InAuction && w.UserId == userId).Count();
         }
 
-        public int WaitingItemsCount(string userId)
+        public int LeadingBidsAmount(string userId)
+        {
+            var result = _dbSet
+                .Select(s => s.Bids)
+                .Select(s => s.Where(w => w.BidAmount == s.Max(m => m.BidAmount) && w.UserId == userId))
+                .Where(w => w.Count() > 0);
+
+            return result.Count();
+        }
+
+        public int WaitingItemsAmount(string userId)
         {
             return _dbSet.Where(w => w.Status == Status.Waiting && w.UserId == userId).Count();
         }

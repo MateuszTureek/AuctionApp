@@ -8,6 +8,6 @@ namespace AuctionApp.Core.BLL.DTO.Bid
     {
         public decimal BidAmount { get; set; }
         public DateTime DatePlaced { get; set; }
-        public string UserName { get; set; }
+        public string Username { get; set; }
     }
 }

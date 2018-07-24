@@ -1,6 +1,5 @@
-﻿using AuctionApp.Core.BLL.Criteria;
-using AuctionApp.Core.BLL.DTO;
-using AuctionApp.Core.BLL.DTO.Auction;
+﻿using AuctionApp.Core.BLL.DTO;
+using AuctionApp.Core.BLL.DTO.Bid;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
 using AuctionApp.Core.BLL.Service.Contract;
@@ -28,18 +27,31 @@ namespace AuctionApp.Core.BLL.Service.Implement
         readonly UserManager<AppUser> _userManager;
         readonly IUnitOfWork _unitOfWork;
         readonly ICategoryRepo _categoryRepo;
-        readonly IGenericRepo<Delivery> _deliveryRepo;
         readonly IPhotoService _photoService;
+        readonly IOrderRepo _orderRepo;
+        readonly IPaymentRepo _paymentRepo;
+        readonly IBidRepo _bidRepo;
 
-        public ItemService(IMapper mapper, IItemRepo itemRepo, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IGenericRepo<Delivery> deliveryRepo, ICategoryRepo categoryRepo, IPhotoService photoService)
+        public ItemService(
+            IMapper mapper,
+            IItemRepo itemRepo,
+            UserManager<AppUser> userManager,
+            IUnitOfWork unitOfWork,
+            ICategoryRepo categoryRepo,
+            IPhotoService photoService,
+            IOrderRepo orderRepo,
+            IPaymentRepo paymentRepo,
+            IBidRepo bidRepo)
         {
             _itemRepo = itemRepo;
             _mapper = mapper;
+            _bidRepo=bidRepo;
             _userManager = userManager;
-            _deliveryRepo = deliveryRepo;
             _categoryRepo = categoryRepo;
             _photoService = photoService;
             _unitOfWork = unitOfWork;
+            _orderRepo = orderRepo;
+            _paymentRepo = paymentRepo;
         }
 
         public ItemDetailsDTO GetItem(int id)
@@ -60,38 +72,28 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return _mapper.Map<List<Item>, List<SimpleItemDTO>>(items);
         }
 
-        public PagedItemDTO GetItems(ItemCriteria criteria)
+        public PagedItemDTO GetItems(PagedItemCriteriaDTO dto)
         {
-            var c = criteria;
-            var spec = new FilterItemSpecyfication(c.Status, c.CategoryId, c.SubcategoryId);
+            var c = dto;
+            var predicateSpec = new FilterItemSpecyfication(c.Status, c.CategoryId, c.SubcategoryId);
             var orderSpec = new OrderItemSpecyfication(c.SortBy);
-            var items = _itemRepo.Find(spec, orderSpec);
+            var items = _itemRepo.Find(predicateSpec, orderSpec);
             var result = new PagedItemDTO();
 
             result.TotalPages = (int)Math.Ceiling((decimal)items.Count() / c.PageSize);
-            items = items.Skip((c.PageIndex - 1) * c.PageSize).Take(c.PageSize).ToList();
+            items = items.Skip((c.PageNumber - 1) * c.PageSize).Take(c.PageSize).ToList();
             result.Items = _mapper.Map<List<Item>, List<SimpleItemDTO>>(items.ToList());
 
             return result;
         }
 
-        public PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
+        public PagedWaitingItemsDTO GetWaitingItems(WaitingItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
             var c = searchDTO;
-            Expression<Func<Item, object>> oPredicate;
-
-            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
-
-            switch (orderBy)
-            {
-                case WaitingItemsOrderBy.BuyNowPrice: { oPredicate = (x => x.ConstPrice); break; }
-                case WaitingItemsOrderBy.Delivery: { oPredicate = (x => x.Delivery.Name); break; }
-                default: { oPredicate = (x => x.Name); break; }
-            }
-            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.Waiting && w.Name.Contains(c.Phrase), oPredicate);
-
+            var orderSpec = new OrderWaitingItemSpecyfication(orderBy);
+            var predicateSpec = new ItemSpecyfication(Status.Waiting, searchDTO.UserId, searchDTO.Phrase);
+            var items = _itemRepo.GetSortedItems(predicateSpec, orderSpec);
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
-
             var result = new PagedWaitingItemsDTO()
             {
                 TotalAmount = items.Count(),
@@ -101,25 +103,13 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
+        public PagedInAuctionItemsDTO GetInAuctionItems(InAuctionItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
             var c = searchDTO;
-            Expression<Func<Item, object>> oPredicate;
-
-            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
-
-            switch (orderBy)
-            {
-                case InAuctionItemsOrderBy.BuyNowPrice: { oPredicate = (x => x.ConstPrice); break; }
-                case InAuctionItemsOrderBy.Delivery: { oPredicate = (x => x.Delivery.Name); break; }
-                case InAuctionItemsOrderBy.StartDate: { oPredicate = (x => x.Auction.StartDate); break; }
-                case InAuctionItemsOrderBy.EndDate: { oPredicate = (x => x.Auction.EndDate); break; }
-                default: { oPredicate = (x => x.Name); break; }
-            }
-            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.InAuction && w.Name.Contains(c.Phrase), oPredicate);
-
+            var spec = new ItemSpecyfication(Status.InAuction, searchDTO.UserId, searchDTO.Phrase);
+            var orderSpec = new OrderInAuctionItemSpecyfication(orderBy);
+            var items = _itemRepo.GetSortedItems(spec, orderSpec);
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
-
             var result = new PagedInAuctionItemsDTO
             {
                 TotalAmount = items.Count(),
@@ -129,25 +119,13 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO, string userId)
+        public PagedBoughtItemsDTO GetBoughtItems(BoughtItemsOrderBy orderBy, SearchCriteriaDTO searchDTO)
         {
             var c = searchDTO;
-            Expression<Func<Item, object>> oPredicate;
+            var spec = new ItemSpecyfication(Status.Bought, searchDTO.UserId, searchDTO.Phrase);
+            var orderSpec = new OrderBoughtItemSpecyfication(orderBy);
 
-            if (string.IsNullOrEmpty(c.Phrase)) c.Phrase = "";
-
-            switch (orderBy)
-            {
-                case BoughtItemsOrderBy.Delivery: { oPredicate = (x => x.Delivery.Name); break; }
-                case BoughtItemsOrderBy.StartDate: { oPredicate = (x => x.Auction.StartDate); break; }
-                case BoughtItemsOrderBy.EndDate: { oPredicate = (x => x.Auction.EndDate); break; }
-                case BoughtItemsOrderBy.BuyNowPrice: { oPredicate = (x => x.ConstPrice); break; }
-                //case BoughtItemsOrderBy.BuyPrice: { oPredicate = (x => x.); break; }
-                //case BoughtItemsOrderBy.TotalCost: { oPredicate = (x => x.); break; }
-                default: { oPredicate = (x => x.Name); break; }
-            }
-
-            var items = _itemRepo.GetSortedItems(w => w.UserId == userId && w.Status == Status.Bought && w.Name.Contains(c.Phrase), oPredicate);
+            var items = _itemRepo.GetSortedItems(spec, orderSpec);
             List<Item> list = items.Skip((c.PageIndex - 1) * c.AmountOfPages).Take(c.AmountOfPages).ToList();
 
             var result = new PagedBoughtItemsDTO
@@ -159,11 +137,11 @@ namespace AuctionApp.Core.BLL.Service.Implement
             return result;
         }
 
-        public List<LatestItemDTO> GetLastAddedItems(Status status)
+        public List<ItemDTO> GetLastAddedItems(Status status)
         {
             var spec = new FilterItemSpecyfication(status);
-            var items = _itemRepo.GetLastAddedItems(spec, 4).ToList();
-            var result = _mapper.Map<List<Item>, List<LatestItemDTO>>(items);
+            var items = _itemRepo.GetLatestAddedItems(spec, 4).ToList();
+            var result = _mapper.Map<List<Item>, List<ItemDTO>>(items);
 
             return result;
         }
@@ -176,23 +154,6 @@ namespace AuctionApp.Core.BLL.Service.Implement
             _unitOfWork.Save();
         }
 
-        public void SetAuction(CreateAuctionDTO dto)
-        {
-            Item item = _itemRepo.GetById(dto.ItemId);
-            Auction auction = _mapper.Map<CreateAuctionDTO, Auction>(dto);
-
-            item.Status = Status.InAuction;
-            item.Auction = auction;
-            _unitOfWork.Save();
-        }
-
-        public AuctionDetailsDTO GetAuctionByItem(int id)
-        {
-            Item item = _itemRepo.GetById(id);
-            AuctionDetailsDTO dto = _mapper.Map<Item, AuctionDetailsDTO>(item);
-            return dto;
-        }
-
         public void ChangeStatus(int id, Status newStatus)
         {
             Item item = _itemRepo.GetById(id);
@@ -200,18 +161,21 @@ namespace AuctionApp.Core.BLL.Service.Implement
             _unitOfWork.Save();
         }
 
-        public void Create(NewItemDTO dto, string userId, string userName)
+        public void Create(NewItemDTO dto)
         {
             Item item = _mapper.Map<NewItemDTO, Item>(dto);
             _photoService.AddPhoto(dto.File);
 
             item.Status = Status.Waiting;
-            item.Delivery = _deliveryRepo.GetById(dto.MethId);
+            item.Payment = _paymentRepo.GetById(dto.PaymentId);
             item.Subcategory = _categoryRepo.GetSubcategory(dto.SubcatId);
-            item.UserId = userId;
-            item.UserName = userName;
+            item.UserId = dto.UserId;
             item.ImgSrc = _photoService.GetLocalFilePath();
-            item.ItemDescriptions = _mapper.Map<List<DescriptionDTO>, List<ItemDescription>>(dto.Descriptions);
+            item.Username = dto.Username;
+            item.AuctionStart = null;
+            item.AuctionEnd = null;
+            item.Order = null;
+            item.AddDescriptions(_mapper.Map<List<DescriptionDTO>, List<ItemDescription>>(dto.Descriptions));
 
             _itemRepo.Add(item);
             _unitOfWork.Save();
@@ -219,17 +183,111 @@ namespace AuctionApp.Core.BLL.Service.Implement
 
         public int AmountOfWaitingItems(string userId)
         {
-            return _itemRepo.WaitingItemsCount(userId);
+            return _itemRepo.WaitingItemsAmount(userId);
         }
 
         public int AmountOfAuctions(string userId)
         {
-            return _itemRepo.InAuctionItemsCount(userId);
+            return _itemRepo.InAuctionItemsAmount(userId);
         }
 
         public decimal CalcTotalCost(List<Item> items)
         {
-            return items.Sum(s => s.ConstPrice + s.Delivery.Price);
+            //return items.Sum(s => s.ConstPrice + s.Payment.Price);
+            throw new NotImplementedException();
+        }
+
+        public decimal GetTotalLiabilities(string userId)
+        {
+            return _orderRepo.FinancialLiabilities(userId);
+        }
+
+        public void CreateItemAuction(CreateAuctionDTO dto)
+        {
+            var item = _itemRepo.GetById(dto.ItemId);
+            item.Status = Status.InAuction;
+            item.AuctionStart = dto.AuctionStart;
+            item.AuctionEnd = dto.AuctionEnd;
+            _unitOfWork.Save();
+        }
+
+        public void CancelAuction(int id)
+        {
+            var item = _itemRepo.GetById(id);
+
+            item.AuctionStart = null;
+            item.AuctionEnd = null;
+            item.Status = Status.Waiting;
+            item.ClearBids();
+
+            _unitOfWork.Save();
+        }
+
+        public ItemAuctionDTO GetAuctionDetails(int id)
+        {
+            var item = _itemRepo.GetById(id);
+            var result = _mapper.Map<Item, ItemAuctionDTO>(item);
+            return result;
+        }
+
+        public NewBidDTO GetBestBid(int itemid)
+        {
+            var item = _itemRepo.GetById(itemid);
+            List<Bid> bids = item.Bids;
+            if (bids.Count > 0)
+            {
+                var maxBidAmount = bids.Max(m => m.BidAmount);
+                var bestBid = bids.OrderBy(o => o.DatePlaced).First(f => f.BidAmount == maxBidAmount);
+                NewBidDTO dto = _mapper.Map<Bid, NewBidDTO>(bestBid);
+                return dto;
+            }
+            return new NewBidDTO
+            {
+                BestBidPrice = 0.00M,
+                ItemId = itemid,
+                ItemName = item.Name,
+                MyBid = 0.00M
+            };
+        }
+
+        public void AddBidToItem(NewBidDTO dto, string userId)
+        {
+            Item item = _itemRepo.GetById(dto.ItemId);
+
+            if (item.UserId == userId) throw new Exception("You cannot add offer to own item.");
+
+            var bestBid = GetBestBid(item.Id);
+
+            if (bestBid.Username == dto.Username) throw new Exception("You cannot outbid yourself");
+
+            item.AddBid(new Bid
+            {
+                BidAmount = dto.MyBid,
+                DatePlaced = DateTime.Now,
+                UserId = userId,
+                Username = dto.Username
+            });
+            _unitOfWork.Save();
+        }
+
+        public int GetLeadBidOfItem(string userId)
+        {
+            var result = _itemRepo.LeadingBidsAmount(userId);
+            return result;
+        }
+
+        public List<CustomerBidDTO> GetCustomerBestBids(string userId)
+        {
+            var bids = _itemRepo.GetCustomerBestBids(userId).ToList();
+            var dto = _mapper.Map<List<Bid>, List<CustomerBidDTO>>(bids);
+            return dto;
+        }
+
+        public BidDetailsDTO GetBidDetails(int id)
+        {
+            Bid bid=_bidRepo.GetById(id);
+            BidDetailsDTO dto=_mapper.Map<Bid,BidDetailsDTO>(bid);
+            return dto;
         }
     }
 }

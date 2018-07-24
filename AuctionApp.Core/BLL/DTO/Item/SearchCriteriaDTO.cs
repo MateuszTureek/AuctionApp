@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuctionApp.Core.BLL.Enum;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,5 +10,6 @@ namespace AuctionApp.Core.BLL.DTO.Item
         public int AmountOfPages { get; set; }
         public string Phrase { get; set; }
         public int PageIndex { get; set; }
+        public string UserId { get; set; }
     }
 }

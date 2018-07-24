@@ -4,115 +4,132 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model AuctionApp.Core.BLL.DTO.Item.ItemDetailsDTO
+@model AuctionApp.Models.ItemDetailsViewModel
 
 <style>
-    dl{
+    dl {
         font-size: 16px;
     }
-    dt,dd{
+
+    dt, dd {
         float: left;
         width: 50%;
         margin-top: 10px;
     }
 </style>
 
-<div id="Item" class="col-12">
-    <div class="row pt-2">
-        <div class="col-4">
-            <img src="@Url.Content(Model.ImgSrc)" class="img-thumbnail" style="height:400px;" />
-        </div>
-        <div class="col-8">
-            <h2>@Model.Name</h2>
+<div class="row pt-2">
+    <div class="col-4">
+        <img src="@Url.Content(Model.ImgSrc)" class="img-thumbnail" style="height:400px;" />
+    </div>
+    <div class="col-8">
+        <h2>@Model.Name</h2>
 
-            <dl class="clearfix">
-                <dt>Cena:</dt>
-                <dd>
-                    @if ((decimal)Model.BuyNowPrice == 0.00M)
-                    {<span>brak</span> }
-                    else
-                    { @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", Model.BuyNowPrice)}
-                </dd>
+        <dl class="clearfix">
+            <dt>Wystawił:</dt>
+            <dd>@Model.UserNameOfOwner</dd>
+            <dt>@Html.DisplayNameFor(m => m.BuyNowPrice):</dt>
+            <dd>
+                @if ((decimal)Model.BuyNowPrice == 0.00M)
+                {<span>brak</span> }
+                else
+                { @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", Model.BuyNowPrice)}
+            </dd>
 
-                <dt>Status:</dt>
-                <dd>
-                    @if (Model.Status==AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
-                    {<span>aukcja aktywna</span> }
-                    else
-                    { <span>aukcja w poczekalni</span>}
-                </dd>
+            <dt>@Html.DisplayNameFor(m => m.Status):</dt>
+            <dd>
+                @if (Model.Status == AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
+                {<span>aukcja aktywna</span> }
+                else
+                { <span>aukcja w poczekalni</span>}
+            </dd>
 
-                <dt>Metoda płatności:</dt>
-                <dd>@Model.DeliveryMethod</dd>
-            </dl>
+            <dt>@Html.DisplayNameFor(m => m.Payment):</dt>
+            <dd>@Model.Payment</dd>
+        </dl>
 
-            <form asp-controller="Cart" asp-action="AddCartItem" class="mb-2">
-                <input type="hidden" name="itemId" value="@Model.Id" />
+        <form asp-controller="Cart" asp-action="AddCartItem" class="mb-2">
+            <input type="hidden" name="itemId" value="@Model.Id" />
+            @if (Model.Status == AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
+            {
                 <button type="submit" class="btn btn-dark">Kup teraz</button>
-            </form>
+            }
+            else
+            {
+                <p class="h5">Przedmiot w poczekalni.</p>
+            }
+        </form>
 
-            <div class="bg-dark text-white p-4 font-weight-bold" style="font-size: 18px; letter-spacing: 1px;">
-                <p class="text-center">
-                    Cene przedmiotu można licytowac.
-                </p>
-                <p class="text-center">
-                    Przedmiot można kupić za cene podana przez właściciela odrazu wciskając kup teraz.
-                </p>
-                <p class="text-center">
-                    Licytacja oraz zakup są dostępne po zalogowaniu.
-                </p>
-            </div>
+        <div class="bg-dark text-white p-4 font-weight-bold" style="font-size: 18px; letter-spacing: 1px;">
+            <p class="text-center">
+                Cene przedmiotu można licytowac.
+            </p>
+            <p class="text-center">
+                Przedmiot można kupić za cene podana przez właściciela odrazu wciskając kup teraz.
+            </p>
+            <p class="text-center">
+                Licytacja oraz zakup są dostępne po zalogowaniu.
+            </p>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-6 mt-2">
-            <h4>Opis:</h4>
-            <dl class="clearfix">
-                @foreach (var desc in Model.Descriptions)
-                {
-                    <dt style="width:30%;">@desc.Key</dt>
-                    <dd style="width:70%;">@desc.Value</dd>
-                }
-            </dl>
-        </div>
-        <div class="w-100"></div>
-        <div class="col-6 mt-2">
-            <h4>Tabela ofert:</h4>
-            @if (Model.Auction != null)
+<div class="row">
+    <div class="col-6 mt-2">
+        <h4>Opis:</h4>
+        <dl class="clearfix">
+            @foreach (var desc in Model.Descriptions)
             {
-                @if (Model.Auction.Bids.Count != 0)
-                {
+                <dt style="width:30%;">@desc.Key</dt>
+                <dd style="width:70%;">@desc.Value</dd>
+            }
+        </dl>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6 mt-2">
+        <div class="d-flex justify-content-between mb-2">
+            <h4>Tabela ofert:</h4>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("customer") && Model.Status == AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
+            {
+                @await Component.InvokeAsync("NewAuctionBid", new { id = Model.Id })
+
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#NewBidModal">Dodaj oferte</button>
+            }
+        </div>
+        @if (Model.Status == AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
+        {
+            @if (Model.Bids.Count != 0)
+            {
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Nazwa użytkownika</th>
-                            <th>Oferowana kwota</th>
-                            <th>Dodana</th>
+                            <th>@Html.DisplayNameFor(m => m.Bids[0].Username)</th>
+                            <th>@Html.DisplayNameFor(m => m.Bids[0].BidAmount)</th>
+                            <th>@Html.DisplayNameFor(m => m.Bids[0].DatePlaced)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var bid in Model.Bids)
                         {
                             <tr>
-                                <td>@bid.UserName</td>
+                                <td>@bid.Username</td>
                                 <td>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidAmount)</td>
                                 <td>@bid.DatePlaced</td>
                             </tr>
                         }
                     </tbody>
                 </table>
-                }
-                else
-                { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Brak ofert.</p> }
             }
-            else { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Aukja wciąż nie rozpoczęta.</p> }
-        </div>
-        <div class="col-12">
-            <h4>Ostation dodane:</h4>
-            <div class="row">
-                @await Component.InvokeAsync("Item", AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
-            </div>
+            else
+            { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Brak ofert.</p>}
+        }
+        else
+        { <p class="bg-dark text-white text-center font-weight-bold pt-5 pb-5 h5">Aukja wciąż nie rozpoczęta.</p>}
+    </div>
+    <div class="col-12">
+        <h4>Ostation dodane:</h4>
+        <div class="row">
+            @await Component.InvokeAsync("Item", AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)
         </div>
     </div>
 </div>

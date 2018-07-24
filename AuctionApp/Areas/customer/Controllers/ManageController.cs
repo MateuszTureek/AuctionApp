@@ -14,13 +14,13 @@ namespace AuctionApp.Areas.customer.Controllers
     [Area("customer")]
     public class ManageController : Controller
     {
-        readonly IAuctionService _auctionService;
         readonly IItemService _itemService;
+        readonly IOrderService _orderService;
 
-        public ManageController(IItemService itemService,IAuctionService auctionService)
+        public ManageController(IItemService itemService, IOrderService orderService)
         {
             _itemService = itemService;
-            _auctionService = auctionService;
+            _orderService = orderService;
         }
 
         public IActionResult Index()
@@ -29,7 +29,8 @@ namespace AuctionApp.Areas.customer.Controllers
 
             ViewBag.WaitingItemsCount = _itemService.AmountOfWaitingItems(claimUserId.Value);
             ViewBag.InAuctionItemsCount = _itemService.AmountOfAuctions(claimUserId.Value);
-            ViewBag.FinancialLiabilities = _auctionService.FinancialLiabilities(claimUserId.Value);
+            ViewBag.FinancialLiabilities = _orderService.GetTotalLiabilities(claimUserId.Value);
+            ViewBag.MyLeadBidsAmount = _itemService.GetLeadBidOfItem(claimUserId.Value);
 
             return View();
         }

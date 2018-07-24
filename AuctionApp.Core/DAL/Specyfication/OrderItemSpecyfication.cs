@@ -49,7 +49,7 @@ namespace AuctionApp.Core.DAL.Specyfication
 
         private Expression<Func<Item, object>> OrderByAuctionEndDateExpression()
         {
-            return (x => x.Auction.EndDate);
+            return (x => x.AuctionEnd);
         }
 
         private Expression<Func<Item, object>> OrderByConstPriceExpression()

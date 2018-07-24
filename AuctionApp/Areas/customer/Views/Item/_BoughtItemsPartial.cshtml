@@ -2,7 +2,6 @@
 <div id="Bought">
     <div class="d-flex justify-content-between mb-1">
         <h4>Przedmioty sprzedane:</h4>
-        @*Html.Partial("_ExportToolsPartial")*@
         @Html.Partial("_ToolBarPartial")
     </div>
 
@@ -16,8 +15,8 @@
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Delivery">
-                        <span>Metoda dostawy</span>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Payment">
+                        <span>Płatność</span>
                     </a>
                 </th>
                 <th>
@@ -35,10 +34,9 @@
                         <span>Koniec aukcji</span>
                     </a>
                 </th>
-                <th>Kupujący</th>
-                <th>Cena zakupu</th>
                 <th>Koszt dostawy</th>
                 <th>Całkowity koszt</th>
+                <th>Szaczegóły</th>
             </tr>
         </thead>
         <tbody class="text-center">

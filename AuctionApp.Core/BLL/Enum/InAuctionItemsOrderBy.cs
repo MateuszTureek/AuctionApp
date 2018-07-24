@@ -10,6 +10,6 @@ namespace AuctionApp.Core.BLL.Enum
         BuyNowPrice,
         StartDate,
         EndDate,
-        Delivery
+        Payment
     }
 }

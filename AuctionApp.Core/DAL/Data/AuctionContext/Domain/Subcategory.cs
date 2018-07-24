@@ -8,6 +8,11 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
 {
     public class Subcategory
     {
+        public Subcategory()
+        {
+            Items = new List<Item>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public short Position { get; set; }
@@ -15,12 +20,11 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public int CategoryRef { get; set; }
         public Category Category { get; set; }
 
-        public ICollection<Item> Items { get; set; }
+        public List<Item> Items { get; set; }
 
-        public void AddToSubcategory(Item item)
+        public void AddItem(Item item)
         {
-            if (Items != null) Items.Add(item);
-            else throw new NullReferenceException();
+            Items.Add(item);
         }
     }
 }

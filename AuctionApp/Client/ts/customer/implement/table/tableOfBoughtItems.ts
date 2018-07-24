@@ -43,8 +43,9 @@ export default class TableOfBoughtItems extends TableItems {
 
         this.itemAjax.getBoughtItems(criteria).then((result: any) => {
             if (result.items.length !== 0) {
+                // !!!
                 const $body = this.getTBody(result.items);
-
+                
                 this.$tbody.empty();
                 this.$tbody.append($body.children());
                 this.paging.generatePagination(result.totalAmount);
@@ -65,14 +66,14 @@ export default class TableOfBoughtItems extends TableItems {
                     .attr('href', '/item/item/' + item.id)
                     .text(item.name)
             ),
-            $('<td>').text(item.deliveryMethod),
+            $('<td>').text(item.payment),
             $('<td>').text(this.formatter.formatPrice(item.buyNowPrice)),
             $('<td>').html(this.formatter.formatDate(new Date(item.auctionStartDateMiliseconds))),
             $('<td>').html(this.formatter.formatDate(new Date(item.auctionEndDateMiliseconds))),
-            $('<td>').text(item.buyerName),
-            $('<td>').text(this.formatter.formatPrice(item.buyPrice)),
-            $('<td>').text(this.formatter.formatPrice(item.deliveryPrice)),
-            $('<td>').text(this.formatter.formatPrice(item.totalCost))
+            $('<td>').text(this.formatter.formatPrice(item.paymentPrice)),
+            $('<td>').text(this.formatter.formatPrice(item.totalCost)),
+            $('<td>').append(
+                $('<button>').attr('type', 'button').addClass('btn btn-info').attr('data-order-id', item.orderId).text('Szczegóły'))
         );
 
         return $tr;

@@ -2,47 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AuctionApp.Core.BLL.Criteria;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.Enum;
 using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
     public class ItemController : Controller
     {
-        readonly int pageSize = 3;
+        readonly int pageSize = 20;
         readonly IItemService _service;
+        readonly IMapper _mapper;
 
-        public ItemController(IItemService service)
+        public ItemController(IItemService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult Index(int? categoryId,
-                                   int? subcategoryId,
-                                   int pageNumber = 1,
-                                   SortBy sortBy = SortBy.Name)
+        public IActionResult Index(PagedItemCriteriaViewModel criteria)
         {
-            ViewBag.CategoryId = categoryId;
-            ViewBag.SortBy = sortBy;
-            ViewBag.PageNumber = pageNumber;
-            ViewBag.SubcategoryId = subcategoryId;
+            if (criteria.PageNumber == null) criteria.PageNumber = 1;
 
-            var result = _service.GetItems(new ItemCriteria()
-            {
-                PageIndex = pageNumber,
-                PageSize = pageSize,
-                SortBy = sortBy,
-                CategoryId = categoryId,
-                SubcategoryId = subcategoryId,
-                Status = Status.InAuction
-            });
+            ViewBag.CategoryId = criteria.CategoryId;
+            ViewBag.SortBy = criteria.SortBy;
+            ViewBag.PageNumber = criteria.PageNumber;
+            ViewBag.SubcategoryId = criteria.SubcategoryId;
 
-            return View(result);
+            PagedItemCriteriaDTO criteriaDTO = _mapper.Map<PagedItemCriteriaViewModel, PagedItemCriteriaDTO>(criteria);
+            criteriaDTO.PageSize = pageSize;
+            criteriaDTO.Status = Status.InAuction;
+
+            var dto = _service.GetItems(criteriaDTO);
+            var model = _mapper.Map<PagedItemDTO, PagedItemViewModel>(dto);
+
+            return View(model);
         }
 
         [HttpGet]
@@ -59,8 +58,10 @@ namespace AuctionApp.Controllers
         public IActionResult Item(int? id)
         {
             if (id == null) return BadRequest();
-            var result = _service.GetItem((int)id);
-            return View(result);
+            ItemDetailsDTO item = _service.GetItem((int)id);
+            ItemDetailsViewModel model = _mapper.Map<ItemDetailsDTO, ItemDetailsViewModel>(item);
+            model.Bids = model.Bids.OrderByDescending(o => o.BidAmount).ToList();
+            return View(model);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AuctionApp.Core.BLL.Enum
 {
     public enum SortBy
     {
-        Name = 1,
+        Name,
         EndDateAuction,
         PriceBuyNow
     }

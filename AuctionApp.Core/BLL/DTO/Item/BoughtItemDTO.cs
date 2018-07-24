@@ -12,10 +12,9 @@ namespace AuctionApp.Core.BLL.DTO.Item
         public decimal BuyNowPrice { get; set; }
         public double AuctionStartDateMiliseconds { get; set; }
         public double AuctionEndDateMiliseconds { get; set; }
-        public string DeliveryMethod { get; set; }
-        public string BuyerName { get; set; }
-        public decimal BuyPrice { get; set; }
-        public decimal DeliveryPrice { get; set; }
+        public string Payment { get; set; }
+        public decimal PaymentPrice { get; set; }
         public decimal TotalCost { get; set; }
+        public string BuyerId { get; set; }
     }
 }

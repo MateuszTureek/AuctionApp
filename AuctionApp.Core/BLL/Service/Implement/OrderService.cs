@@ -15,7 +15,6 @@ namespace AuctionApp.Core.BLL.Service.Implement
         readonly IItemRepo _itemRepo;
         readonly IOrderRepo _orderRepo;
         readonly IUnitOfWork _unitOfWork;
-        readonly IItemService _itemService;
 
         public OrderService(IItemRepo itemRepo, IOrderRepo orderRepo, IUnitOfWork unitOfWork)
         {
@@ -36,6 +35,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
             for (i = 0; i < length; i += 1)
             {
                 item = _itemRepo.GetById(cartItems[i].ItemId);
+                if (item.UserId == buyerId) throw new Exception("You try buy your own item.");
                 item.Status = Status.Bought;
                 items.Add(item);
             }
@@ -46,12 +46,16 @@ namespace AuctionApp.Core.BLL.Service.Implement
             {
                 BuyerId = buyerId,
                 Date = DateTime.Now,
-                TotalCost = totalSum,
-                Items = items
+                TotalCost = totalSum
             };
 
             _orderRepo.Add(order);
             _unitOfWork.Save();
+        }
+
+        public decimal GetTotalLiabilities(string userId)
+        {
+            return _orderRepo.FinancialLiabilities(userId);
         }
     }
 }

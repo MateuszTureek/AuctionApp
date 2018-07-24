@@ -4,6 +4,8 @@
     Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
 }
 
+@model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.CustomerBidDTO>
+
 <h4>Moje oferty.</h4>
 
 <table class="table">
@@ -11,15 +13,33 @@
         <tr class="text-center">
             <th>Zdjęcie</th>
             <th>Przedmiot</th>
-            <th>Cena: Kup teraz</th>
-            <th>Metoda płatności</th>
-            <th>Koszt dostawy</th>
-            <th>Moja oferta</th> 
+            <th>Moja oferta</th>
+            <th>Rozpoczęcie</th>
+            <th>Zakończenie</th>
             <th>Oferte dodano</th>
             <th>Stan oferty</th>
+            <th>Szczegoły</th>
         </tr>
     </thead>
     <tbody class="text-center">
-        <!-- render here -->
+        @foreach (var bid in Model)
+        {
+        <tr>
+            <td>
+                <img src="@bid.ItemImg" height="70" width="70" />
+            </td>
+            <td>
+                <a asp-controller="Item" asp-action="Item" asp-area="" asp-route-id="@bid.ItemId">@bid.ItemName</a>
+            </td>
+            <td>@bid.MyOfferPrice</td>
+            <td>@bid.AuctionStart</td>
+            <td>@bid.AuctionEnd</td>
+            <td>@bid.DateOfPlaced</td>
+            <td>@bid.BidState</td>
+            <td>
+                <a asp-area="customer" asp-controller="Bid" asp-action="Details" asp-route-id="@bid.BidId" role="button" class="btn btn-info btn-sm">Szczegoły</a>
+            </td>
+        </tr>
+        }
     </tbody>
 </table>

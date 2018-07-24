@@ -131,7 +131,7 @@ export default class TableOfWaitingItems extends TableItems {
                     .text(item.name)
             ),
             $('<td>').text(this.formatter.formatPrice(item.buyNowPrice)),
-            $('<td>').text(item.deliveryMethod),
+            $('<td>').text(item.payment),
             $('<td>').append(
                 $('<button>')
                     .attr('type', 'button')

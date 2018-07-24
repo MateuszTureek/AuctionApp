@@ -1,7 +1,6 @@
 ﻿<div id="InAuction">
     <div class="d-flex justify-content-between mb-1">
         <h4>Przedmioty w aukcji:</h4>
-        @*Html.Partial("_ExportToolsPartial")*@
         @Html.Partial("_ToolBarPartial")
     </div>
 
@@ -30,8 +29,8 @@
                     </a>
                 </th>
                 <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Delivery">
-                        <span>Metoda dostawy</span>
+                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Payment">
+                        <span>Płatność</span>
                     </a>
                 </th>
                 <th>Sprawdź oferty</th>

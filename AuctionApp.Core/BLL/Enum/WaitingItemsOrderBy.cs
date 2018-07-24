@@ -8,6 +8,6 @@ namespace AuctionApp.Core.BLL.Enum
     {
         Name = 1,
         BuyNowPrice,
-        Delivery,
+        Payment,
     }
 }

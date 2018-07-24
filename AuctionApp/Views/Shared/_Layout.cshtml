@@ -20,7 +20,7 @@
 
                 <div id="NavbarMenu" class="collapse navbar-collapse">
                     <div class="d-flex ml-auto flex-column">
-                        <ul id="RegAndLog" class="navbar-nav">
+                        <ul id="RegAndLog" class="navbar-nav justify-content-end">
                             @if (!User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
@@ -50,7 +50,7 @@
                                 </li>
                             }
                         </ul>
-                        <form id="SearchForm" class="navbar-form mb-1 align-self-lg-end" asp-controller="Item" asp-action="Search">
+                        <form id="SearchForm" class="navbar-form mb-1 align-self-lg-end" asp-controller="Item" asp-action="Search" asp-area="" method="get">
                             <div class="input-group-sm">
                                 <input name="phrase" type="search" class="form-control" placeholder="Search" />
                             </div>
@@ -96,6 +96,8 @@
     </div>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validate/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/dist/sassForLayout.bundle.js"></script>
         <script src="~/dist/tsHome.bundle.js"></script>

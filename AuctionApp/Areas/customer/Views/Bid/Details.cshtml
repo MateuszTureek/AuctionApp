@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
+}
+
+@model AuctionApp.Areas.customer.Models.BidDetailsViewModel
+
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+            <th>Nazwa:</th>
+            <th>Dane:</th>
+        </thead>
+        <tbody>
+            <tr class="bg-light">
+                <th>@Html.DisplayNameFor(model => model.OwnerUsername)</th>
+                <td>@Html.DisplayFor(model=>model.OwnerUsername)</td>
+            </tr>
+            <tr class="bg-primary text-white">
+                <th>@Html.DisplayNameFor(model => model.Subcategory)</th>
+                <td>@Html.DisplayFor(model=>model.Subcategory)</td>
+            </tr>
+            <tr class="bg-light">
+                <th>@Html.DisplayNameFor(model => model.ItemName)</th>
+                <td>
+                    <a class="text-dark" asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@Model.ItemId">
+                        @Html.DisplayFor(model=>model.ItemName)
+                    </a>
+                </td>
+            </tr>
+            <tr class="bg-primary text-white">
+                <th>@Html.DisplayNameFor(model => model.BuyNowPrice)</th>
+                <td>@Html.DisplayFor(model=>model.BuyNowPrice)</td>
+            </tr>
+            <tr class="bg-light">
+                <th>@Html.DisplayNameFor(model => model.Payment)</th>
+                <td>@Html.DisplayFor(model=>model.Payment)</td>
+            </tr>
+            <tr class="bg-primary text-white">
+                <th>@Html.DisplayNameFor(model => model.PaymentCost)</th>
+                <td>@Html.DisplayFor(model=>model.PaymentCost)</td>
+            </tr>
+            <tr class="bg-white">
+                <th>@Html.DisplayNameFor(model => model.AuctionStart)</th>
+                <td>@Html.DisplayFor(model=>model.AuctionStart)</td>
+            </tr>
+            <tr class="bg-primary text-white">
+                <th>@Html.DisplayNameFor(model => model.AuctionEnd)</th>
+                <td>@Html.DisplayFor(model=>model.AuctionEnd)</td>
+            </tr>
+            <tr class="bg-white">
+                <th>@Html.DisplayNameFor(model => model.MyOfferPrice)</th>
+                <td>@Html.DisplayFor(model=>model.MyOfferPrice)</td>
+            </tr>
+            <tr class="bg-primary text-white">
+                <th>@Html.DisplayNameFor(model => model.MyOfferPlaced)</th>
+                <td>@Html.DisplayFor(model=>model.MyOfferPlaced)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

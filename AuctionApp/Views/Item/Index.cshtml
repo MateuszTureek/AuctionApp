@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_AuctionLayout.cshtml";
 }
 
-@model AuctionApp.Core.BLL.DTO.Item.PagedItemDTO
+@model AuctionApp.Models.PagedItemViewModel
 
 <div class="col-12">
     <div class="row">
@@ -15,7 +15,7 @@
                     <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
                     <div class="card-body">
                         <h5><a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a></h5>
-                        <p>Płatność: @item.DeliveryMethod</p>
+                        <p>@Html.DisplayNameFor(m=>m.Items.First().Payment): @item.Payment</p>
                         @if (item.BuyNowPrice != 0)
                         {
                             <p>@string.Format(new System.Globalization.CultureInfo("pl"), "Kup teraz: {0:C}", item.BuyNowPrice)</p>

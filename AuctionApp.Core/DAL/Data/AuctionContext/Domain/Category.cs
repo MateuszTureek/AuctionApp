@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
 {
     public class Category
     {
+        public Category()
+        {
+            Subcategories = new List<Subcategory>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public short Position { get; set; }
 
-        public IList<Subcategory> Subcategories { get; set; }
+        public List<Subcategory> Subcategories { get; }
 
         public void AddSubcategory(Subcategory subcategory)
         {
-            if (Subcategories != null) Subcategories.Add(subcategory);
-            else throw new NullReferenceException();
+            Subcategories.Add(subcategory);
         }
     }
 }

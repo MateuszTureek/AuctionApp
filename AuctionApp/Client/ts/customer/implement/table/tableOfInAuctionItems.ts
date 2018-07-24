@@ -98,7 +98,7 @@ export default class TableOfInAuctionItems extends TableItems {
             $('<td>').text(this.formatter.formatPrice(item.buyNowPrice)),
             $('<td>').html(this.formatter.formatDate(new Date(item.auctionStartDateMiliseconds))),
             $('<td>').html(this.formatter.formatDate(new Date(item.auctionEndDateMiliseconds))),
-            $('<td>').text(item.deliveryMethod),
+            $('<td>').text(item.payment),
             $('<td>').append(
                 $('<a>')
                     .attr('href', '/customer/item/getItemBids/' + item.id)

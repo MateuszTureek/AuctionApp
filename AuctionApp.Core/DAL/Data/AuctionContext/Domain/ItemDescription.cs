@@ -12,7 +12,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Domain
         public string Key { get; set; }
         public string Value { get; set; }
 
-        public int ItemRef { get; set; }
+        public int? ItemRef { get; set; }
         public Item Item { get; set; }
     }
 }

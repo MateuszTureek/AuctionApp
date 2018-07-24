@@ -14,7 +14,7 @@ export default class ItemAjax {
 
     addItemToAuction(data) {
         return $.ajax({
-            url: '/customer/Item/ItemToAuction',
+            url: '/customer/Item/CreateAuctionOfItem',
             type: 'POST',
             data: data
         });

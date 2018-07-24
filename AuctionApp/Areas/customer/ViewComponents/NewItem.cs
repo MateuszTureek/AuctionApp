@@ -1,5 +1,6 @@
 ﻿using AuctionApp.Areas.customer.Models.Item;
 using AuctionApp.Core.BLL.Service.Contract;
+using AuctionApp.Core.DAL.Repository.Contract;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,30 +13,30 @@ namespace AuctionApp.Areas.customer.ViewComponents
 {
     public class NewItem : ViewComponent
     {
-        readonly IDeliveryService _deliveryService;
         readonly ICategoryService _categoryService;
         readonly IMapper _mapper;
+        readonly IPaymentRepo _paymentRepo;
 
-        public NewItem(IDeliveryService deliveryService, ICategoryService categoryService, IMapper mapper)
+        public NewItem(ICategoryService categoryService, IMapper mapper, IPaymentRepo paymentRepo)
         {
-            _deliveryService = deliveryService;
             _categoryService = categoryService;
             _mapper = mapper;
+            _paymentRepo = paymentRepo;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var deliveryMethods = _deliveryService.GetAllMethods();
             var categories = _categoryService.GetCategories();
             var subcategories = categories.First().Subcategories.ToList();
+            var payments = _paymentRepo.GetAll();
 
             NewItemViewModel model = new NewItemViewModel
             {
                 ConstPrice = 0.00M,
                 Name = "",
-                DeliverMethods = deliveryMethods.Select(s => new SelectListItem(s.Name, s.Id + "")).ToList(),
                 Categories = categories.Select(s => new SelectListItem(s.Name, s.Id + "")).ToList(),
-                Subcategories = subcategories.Select(s => new SelectListItem(s.Name, s.Id + "")).ToList()
+                Subcategories = subcategories.Select(s => new SelectListItem(s.Name, s.Id + "")).ToList(),
+                Payments = payments.Select(s => new SelectListItem(s.Name, s.Id + "")).ToList()
             };
 
             return View(model);

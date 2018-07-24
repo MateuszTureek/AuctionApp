@@ -27,12 +27,46 @@ namespace AuctionApp.Areas.customer.Models.Item
         [Display(Name = "Podkategoria")]
         public List<SelectListItem> Subcategories { get; set; }
 
-        public int MethId { get; set; }
-        [Display(Name = "Dostawa")]
-        public List<SelectListItem> DeliverMethods { get; set; }
+        public int PayId { get; set; }
+        [Display(Name="Płatność")]
+        public List<SelectListItem> Payments { get; set; }
 
         public List<DescriptionDTO> Descriptions { get; set; }
 
         public IFormFile File { get; set; }
+    }
+
+    public class CreateAuctionViewModel
+    {
+        public int ItemId { get; set; }
+
+        [Display(Name ="Początek aukcji")]
+        [DataType(DataType.Date)]
+        public DateTime AuctionStart { get; set; }
+
+        [Display(Name ="Koniec aukcji")]
+        [DataType(DataType.Date)]
+        public DateTime AuctionEnd { get; set; }
+    }
+
+    public class ItemAuctionViewModel
+    {
+        [Display(Name = "Przedmiot")]
+        public string ItemName { get; set; }
+        public string ImgSrc { get; set; }
+
+        [Display(Name = "Cena kup teraz")]
+        public decimal PriceBuyNow { get; set; }
+
+        [Display(Name = "Płatność")]
+        public string Payment { get; set; }
+
+        [Display(Name = "Początek aukcji")]
+        public DateTime AuctionStart { get; set; }
+
+        [Display(Name = "Koniec aukcji")]
+        public DateTime AuctionEnd { get; set; }
+
+        public List<ItemBidViewModel> Bids { get; set; }
     }
 }

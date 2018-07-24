@@ -79,11 +79,8 @@ namespace AuctionApp.Core.BLL.Service.Implement
         public decimal GetTotalPrice()
         {
             var cartItems = GetCartItems();
-            int i = 0,
-                length = cartItems.Count;
-            decimal sum = 0;
 
-            sum = cartItems.Sum(s => s.Price + s.DeliveryCost);
+            var sum = cartItems.Sum(s => s.Price + s.DeliveryCost);
             return sum;
         }
 

@@ -10,6 +10,6 @@ namespace AuctionApp.Core.BLL.DTO.Item
         public string Name { get; set; }
         public decimal BuyNowPrice { get; set; }
         public string CategoryName { get; set; }
-        public string DeliveryMethod { get; set; }
+        public string Payment { get; set; }
     }
 }

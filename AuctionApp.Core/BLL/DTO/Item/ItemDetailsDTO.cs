@@ -9,11 +9,11 @@ namespace AuctionApp.Core.BLL.DTO.Item
     public class ItemDetailsDTO : ItemDTO
     {
         public DateTime AuctionEndDate { get; set; }
-        public string DeliveryMethod { get; set; }
+        public string Payment { get; set; }
         public Status Status { get; set; }
+        public string UsernameOfOwner { get; set; }
 
         public List<DescriptionDTO> Descriptions { get; set; }
         public List<BidOfAuctionDTO> Bids { get; set; }
-        public AuctionApp.Core.DAL.Data.AuctionContext.Domain.Auction Auction { get; set; }
     }
 }

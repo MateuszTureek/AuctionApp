@@ -7,11 +7,9 @@ namespace AuctionApp.Core.BLL.Enum
     public enum BoughtItemsOrderBy
     {
         Name = 1,
-        Delivery,
-        BuyNowPrice,
+        Payment,
         StartDate,
         EndDate,
-        BuyPrice,
-        TotalCost
+        BuyNowPrice
     }
 }
