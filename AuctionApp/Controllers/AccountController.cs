@@ -37,7 +37,16 @@ namespace AuctionApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Username, Email = model.Email };
+                var user = new AppUser
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Address = model.Address,
+                    Country = model.Country,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(true);
                 if (result.Succeeded)
                 {

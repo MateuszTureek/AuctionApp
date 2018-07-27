@@ -6,11 +6,36 @@
 
 @model AuctionApp.Models.Account.RegisterViewModel
 
-<div class="container pt-2 pb-2">
+<div class="container pt-2 pb-2 col-lg-8 offset-2">
     <h2>Rejstracja</h2>
     <form asp-controller="Account" asp-action="Register" method="post">
 
         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Name, new { @class = "col-lg-3" })
+            <div class="col-lg-9">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Surname, new { @class = "col-lg-3" })
+            <div class="col-lg-9">
+                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Address, new { @class = "col-lg-3" })
+            <div class="col-lg-9">
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Country, new { @class = "col-lg-3" })
+            <div class="col-lg-9">
+                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+            </div>
+        </div>
 
         <div class="form-group row">
             @Html.LabelFor(m => m.Username, new { @class = "col-lg-3" })
@@ -22,6 +47,12 @@
             @Html.LabelFor(m => m.Email, new { @class = "col-lg-3" })
             <div class="col-lg-9">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-lg-3" })
+            <div class="col-lg-9">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group row">
