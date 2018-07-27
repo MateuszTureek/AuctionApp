@@ -1,10 +1,12 @@
 ﻿using AuctionApp.Core.BLL.DTO;
 using AuctionApp.Core.BLL.DTO.Bid;
 using AuctionApp.Core.BLL.DTO.Cart;
+using AuctionApp.Core.BLL.DTO.Customer;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Core.BLL.DTO.Order;
 using AuctionApp.Core.BLL.Mapper.Resolver;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
 using AutoMapper;
 using System.Linq;
 
@@ -19,6 +21,22 @@ namespace AuctionApp.Core.BLL.Mapper
 
         public void Configure()
         {
+            CreateMap<Bid, ShortBidOfAuctionDTO>()
+                .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Item.Id))
+                .ForMember(d => d.ItemName, o => o.MapFrom(m => m.Item.Name))
+                .ForMember(d => d.BidPrice, o => o.MapFrom(m => m.BidAmount))
+                .ForMember(d => d.PlacedDate, o => o.MapFrom(m => m.DatePlaced))
+                .ForMember(d => d.Username, o => o.MapFrom(m => m.Username));
+
+            CreateMap<Bid, CustomerShortBidDTO>()
+                .ForMember(d => d.ItemId, o => o.MapFrom(m => m.Item.Id))
+                .ForMember(d => d.ItemName, o => o.MapFrom(m => m.Item.Name))
+                .ForMember(d => d.MyOfferPrice, o => o.MapFrom(m => m.BidAmount))
+                .ForMember(d => d.BidState, o => o.ResolveUsing<BidStateResolver<CustomerShortBidDTO>>());
+
+            CreateMap<AppUser, ContactDTO>()
+            .ForMember(d=>d.Phone,o=>o.MapFrom(m=>m.PhoneNumber));
+            
             CreateMap<Bid,BidDetailsDTO>()
             .ForMember(d=>d.ItemId,o=>o.MapFrom(m=>m.Item.Id))
             .ForMember(d=>d.ItemName,o=>o.MapFrom(m=>m.Item.Name))

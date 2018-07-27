@@ -1,7 +1,9 @@
-﻿/*
-    To Layout.
-*/
+﻿
 @import 'common.scss';
+
+#MainCarousel img {
+    height: 500px;
+}
 
 main {
     background: whitesmoke;
@@ -27,7 +29,7 @@ main {
     #HowToBid,
     #About,
     #Contact {
-        font-size: $font-size*1.4;
+        font-size: $fontBasicSize*1.5;
         letter-spacing: 1px;
         text-align: justify;
         line-height: 30px;
@@ -40,5 +42,52 @@ main {
 
     #Item {
         background: whitesmoke;
+    }
+
+    #SearchResult {
+        .price {
+            font-size: $fontBasicSize * 1.8;
+        }
+    }
+
+    #SearchResult a:hover {
+        color: rgba(34, 34, 34, 0.70);
+        text-decoration: none;
+    }
+}
+
+#Cart {
+    .empty-cart {
+        font-size: 22px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    img {
+        height: 120px;
+    }
+
+    dl {
+        text-align: justify;
+        width: 250px;
+    }
+
+    dt {
+        width: 40%;
+    }
+
+    dd {
+        width: 60%;
+    }
+
+    dt, dd {
+        margin: 0;
+        float: left;
+    }
+    .link-item:hover{
+        color: rgba(34, 34, 34, 0.70);
+        text-decoration: none;
     }
 }

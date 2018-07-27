@@ -20,7 +20,7 @@ namespace AuctionApp.Core.DAL.Repository.Contract
         IEnumerable<Item> GetSortedItems(ISpec<Item, bool> spec, ISpec<Item, object> orderSpec);
         IEnumerable<Bid> GetBids(string userId);
         IEnumerable<Bid> GetCustomerBestBids(string userId);
-
+        IEnumerable<Bid> GetBidsForCustomerItems(string userId);
     }
 }
 

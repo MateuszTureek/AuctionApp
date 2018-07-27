@@ -14,6 +14,7 @@
 </div>
 <div class="row">
     <div class="col-lg-3">
+        <!-- component -->
         <div class="card border-dark">
             <div class="card-body text-dark">
                 <div class="d-flex justify-content-lg-between">
@@ -36,6 +37,7 @@
     </div>
 
     <div class="col-lg-3">
+        <!-- component -->
         <div class="card border-dark">
             <div class="card-body text-dark">
                 <div class="d-flex justify-content-lg-between">
@@ -58,6 +60,7 @@
     </div>
 
     <div class="col-lg-3">
+        <!-- component -->
         <div class="card border-dark">
             <div class="card-body text-dark">
                 <div class="d-flex justify-content-lg-between">
@@ -80,6 +83,7 @@
     </div>
 
     <div class="col-lg-3">
+        <!-- component -->
         <div class="card border-dark">
             <div class="card-body text-dark">
                 <div class="d-flex justify-content-lg-between">
@@ -104,8 +108,9 @@
 
 <div class="row mt-2">
     <div class="col-lg-6">
+        <!-- compoent here -->
         <div class="card border-dark">
-            <div class="card-header bg-warning">
+            <div class="card-header bg-light">
                 <div class="d-flex justify-content-between">
                     <h5>
                         <span class="fa fa-bell"></span>
@@ -156,99 +161,19 @@
     </div>
 
     <div class="col-lg-6">
-        <div class="card border-dark">
-            <div class="card-header bg-info">
-                <div class="d-flex justify-content-between">
-                    <h5>
-                        <span class="fa fa-user"></span>
-                        seller 1
-                    </h5>
-                    <div class="justify-content-end">
-                        <a href="#" class="mr-2">Edit</a>
-                        <span class="fa fa-info-circle"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <img src="~/images/s1.svg" height="150" width="150" />
-                    <dl class="clearfix ml-4">
-                        <dt>Imie i nazwisko:</dt>
-                        <dd>Jan Kowalski</dd>
-                        <dt>Email:</dt>
-                        <dd>janK@fake.com</dd>
-                        <dt>Telefon:</dt>
-                        <dd>500 100 002</dd>
-                        <dt>Adres:</dt>
-                        <dd>Kraków<br />ul. Jana Nowaka 20<br />10-222</dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("CustomerInfo")
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-6">
-        <h5>Bierzące licytacje:</h5>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Użytkownik</th>
-                    <th>Oferta</th>
-                    <th>Przedmiot</th>
-                    <th>Dodano</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>user 1</td>
-                    <td>250 pln</td>
-                    <td>Telewizor</td>
-                    <td>2018/02/03</td>
-                </tr>
-                <tr>
-                    <td>user 1</td>
-                    <td>250 pln</td>
-                    <td>Telewizor</td>
-                    <td>2018/02/03</td>
-                </tr>
-                <tr>
-                    <td>user 1</td>
-                    <td>250 pln</td>
-                    <td>Telewizor</td>
-                    <td>2018/02/03</td>
-                </tr>
-                <tr>
-                    <td>user 1</td>
-                    <td>250 pln</td>
-                    <td>Telewizor</td>
-                    <td>2018/02/03</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- component -->
+        @await Component.InvokeAsync("BidsOfCustomerItems")
     </div>
 
     <div class="col-lg-6">
-        <h5>Stan moich ofert:</h5>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Przedmiot</th>
-                    <th>Bieżąca oferta</th>
-                    <th>Moja oferta</th>
-                    <th>Stan</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Łóżko</th>
-                    <th class="text-secondary">450 pln</th>
-                    <th class="text-primary">450 pln</th>
-                    <th class="text-success">Pierwszy</th>
-                </tr>
-            </tbody>
-        </table>
+        <!-- component -->
+        @await Component.InvokeAsync("MyBestBids")
     </div>
 </div>
 

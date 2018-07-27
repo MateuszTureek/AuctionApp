@@ -45,7 +45,7 @@ namespace AuctionApp.Core.BLL.Service.Implement
         {
             _itemRepo = itemRepo;
             _mapper = mapper;
-            _bidRepo=bidRepo;
+            _bidRepo = bidRepo;
             _userManager = userManager;
             _categoryRepo = categoryRepo;
             _photoService = photoService;
@@ -285,8 +285,31 @@ namespace AuctionApp.Core.BLL.Service.Implement
 
         public BidDetailsDTO GetBidDetails(int id)
         {
-            Bid bid=_bidRepo.GetById(id);
-            BidDetailsDTO dto=_mapper.Map<Bid,BidDetailsDTO>(bid);
+            Bid bid = _bidRepo.GetById(id);
+            BidDetailsDTO dto = _mapper.Map<Bid, BidDetailsDTO>(bid);
+            return dto;
+        }
+
+        public List<CustomerShortBidDTO> GetShortCustomerBestBids(string userId)
+        {
+            var bids = _itemRepo.GetCustomerBestBids(userId).ToList();
+            var dto = _mapper.Map<List<Bid>, List<CustomerShortBidDTO>>(bids);
+
+            int length = bids.Count;
+            Item item;
+            for (var i = 0; i < length; i += 1)
+            {
+                item = _itemRepo.GetById(bids[i].Item.Id);
+                dto[i].CurrentOffer = item.Bids.Max(m => m.BidAmount);
+            }
+
+            return dto;
+        }
+
+        public List<ShortBidOfAuctionDTO> GetShortMyAuctions(string userId)
+        {
+            var bids = _itemRepo.GetBidsForCustomerItems(userId).ToList();
+            var dto = _mapper.Map<List<Bid>, List<ShortBidOfAuctionDTO>>(bids);
             return dto;
         }
     }

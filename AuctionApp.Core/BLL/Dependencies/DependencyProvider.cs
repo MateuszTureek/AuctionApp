@@ -30,6 +30,7 @@ namespace AuctionApp.Core.BLL.Dependencies
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICartService, CartService>();
+            services.AddTransient<ICustomerService,CustomerService>();
         }
     }
 }

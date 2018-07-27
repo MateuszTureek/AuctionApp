@@ -10,5 +10,18 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<AppUser>(user =>
+            {
+                user.Property(p => p.Name).HasMaxLength(30);
+                user.Property(p => p.Surname).HasMaxLength(50);
+                user.Property(p => p.Address).HasMaxLength(150);
+                user.Property(p => p.Country).HasMaxLength(80);
+            });
+
+            base.OnModelCreating(builder);
+        }
     }
 }

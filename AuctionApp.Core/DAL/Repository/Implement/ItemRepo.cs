@@ -54,6 +54,18 @@ namespace AuctionApp.Core.DAL.Repository.Implement
             return result;
         }
 
+        public IEnumerable<Bid> GetBidsForCustomerItems(string userId)
+        {
+            var result = _dbSet
+                .Where(w => w.UserId == userId)
+                .SelectMany(s => s.Bids)
+                .Include(i => i.Item)
+                .OrderByDescending(o=>o.DatePlaced)
+                .AsNoTracking()
+                .AsEnumerable();
+            return result;
+        }
+
         public override Item GetById(int id)
         {
             return _dbSet

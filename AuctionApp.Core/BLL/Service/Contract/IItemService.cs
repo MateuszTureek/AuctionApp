@@ -31,8 +31,9 @@ namespace AuctionApp.Core.BLL.Service.Contract
         NewBidDTO GetBestBid(int itemid);
         void AddBidToItem(NewBidDTO dto, string userId);
         int GetLeadBidOfItem(string userId);
-        List<CustomerBidDTO> GetCustomerBestBids(string userId);
-
         BidDetailsDTO GetBidDetails(int id);
+        List<CustomerBidDTO> GetCustomerBestBids(string userId);
+        List<CustomerShortBidDTO> GetShortCustomerBestBids(string userId);
+        List<ShortBidOfAuctionDTO> GetShortMyAuctions(string userId);
     }
 }

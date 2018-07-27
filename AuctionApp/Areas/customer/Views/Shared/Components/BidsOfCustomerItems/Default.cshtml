@@ -1,0 +1,25 @@
+﻿
+@model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.ShortBidOfAuctionDTO>
+
+<h5>Licytacje przedmiotów:</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Użytkownik</th>
+            <th>Oferta</th>
+            <th>Przedmiot</th>
+            <th>Dodano</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var bid in Model)
+        {
+            <tr>
+                <td>@bid.Username</td>
+                <td>@bid.BidPrice</td>
+                <td>@bid.ItemName</td>
+                <td>@bid.PlacedDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

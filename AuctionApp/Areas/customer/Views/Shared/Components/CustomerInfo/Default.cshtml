@@ -1,0 +1,36 @@
+﻿
+@model AuctionApp.Core.BLL.DTO.Customer.ContactDTO
+
+<div class="card border-dark">
+    <div class="card-header bg-light">
+        <div class="d-flex justify-content-between">
+            <h5>
+                <span class="fa fa-user"></span>
+                @User.Identity.Name
+            </h5>
+            <div class="justify-content-end">
+                <a href="#" class="mr-2">
+                    <span class="fa fa-edit"></span>
+                </a>
+                <a href="#">
+                    <span class="fa fa-info-circle"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <img src="~/images/s1.svg" height="150" width="150" />
+            <dl class="clearfix ml-4">
+                <dt>@string.Format("{0} i {1}", Html.DisplayNameFor(m => m.Name), Html.DisplayNameFor(m => m.Surname)):</dt>
+                <dd>@string.Format("{0} {1}", Model.Name, Model.Surname)</dd>
+                <dt>@Html.DisplayNameFor(m => m.Email):</dt>
+                <dd>@Model.Email</dd>
+                <dt>@Html.DisplayNameFor(m => m.Phone):</dt>
+                <dd>@Model.Phone</dd>
+                <dt>@Html.DisplayNameFor(m => m.Address):</dt>
+                <dd>@Model.Address</dd>
+            </dl>
+        </div>
+    </div>
+</div>

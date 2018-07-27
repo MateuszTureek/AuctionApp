@@ -4,97 +4,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .empty-cart {
-        font-size: 22px;
-    }
-    .price{
-        font-size: 18px;
-    }
-    img {
-        height: 120px;
-    }
-    dl{
-        text-align: justify;
-        width: 250px;
-    }
-    dt {
-        width: 40%;
-    }
-    dd {
-        width: 60%;
-    }
-    dt,dd{
-        margin:0;
-        float: left;
-    }
-</style>
-
 @model IEnumerable<AuctionApp.Core.BLL.DTO.Cart.CartItemDTO>
 
-<div class="col-12 pb-4 pt-4">
-    <div class="d-flex justify-content-between">
-        <h3>Koszyk</h3>
-        <div class="mt-0">
-            <form asp-controller="Cart" asp-action="Clear">
-                <button type="submit" class="btn btn-sm btn-danger">Wyczyść koszyk</button>
-            </form>
+<div id="Cart" class="row">
+    <div class="col-lg-12">
+        <div class="col-12 pb-4 pt-4">
+            <div class="d-flex justify-content-between">
+                <h3>Koszyk</h3>
+                <div class="mt-0">
+                    <form asp-controller="Cart" asp-action="Clear">
+                        <button type="submit" class="btn btn-sm btn-danger">Wyczyść koszyk</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            @if (Model.Count() == 0)
+            {
+                <p class="empty-cart text-center pb-5 pt-3">
+                    <span class="fa fa-info-circle"></span>
+                    <span>Koszy jest pusty.</span>
+                </p>
+            }
+            else
+            {
+                @foreach (var cartItem in Model)
+                {
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="clearfix d-flex justify-content-between">
+                            <img src="@cartItem.ImgSrc" alt="Brak zdjęcia" />
+                            <div>
+                                <a asp-controller="Item" asp-action="Item" asp-route-id="@cartItem.ItemId"
+                                   class="ml-2 h4 link-item">@cartItem.ItemName</a>
+                                <p class="ml-2 h6 font-weight-bold">@cartItem.DeliveryName</p>
+                            </div>
+                        </div>
+                        <div class="clearfix justify-content-between d-flex">
+                            <div class="d-flex flex-column mt-3">
+                                <dl class="pull-left mr-2 mt-1 price">
+                                    <dt>Cena:</dt>
+                                    <dd class="text-right">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</dd>
+                                </dl>
+                                <dl class="price">
+                                    <dt>Dostawa:</dt>
+                                    <dd class="text-right">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.DeliveryCost)</dd>
+                                </dl>
+                            </div>
+                            <form asp-controller="Cart" asp-action="Remove" class="pull-right mt-4 ml-2">
+                                <input type="hidden" name="id" value="@cartItem.Id" />
+                                <button type="submit" class="btn btn-danger mt-2">
+                                    <span class="fa fa-remove"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <div class="col-12">
+                    <div class="row d-flex justify-content-between pb-3">
+                        <strong class="h5">
+                            Suma: <span>@ViewBag.TotalCost</span>
+                        </strong>
+                        <div>
+                            <form asp-action="SubmitOrder" asp-controller="Order" asp-area="customer" method="post">
+                                <button type="submit" class="btn btn-success">Załóż zamówienie</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-</div>
-<div class="col-12">
-    @if (Model.Count() == 0)
-    {
-        <p class="empty-cart text-center pb-5">
-            <span class="fa fa-info-circle"></span>
-            <span>Koszy jest pusty.</span>
-        </p>
-    }
-    else
-    {
-        @foreach (var cartItem in Model)
-        {
-            <div class="d-flex justify-content-between mb-2">
-                <div class="clearfix d-flex justify-content-between">
-                    <img src="@cartItem.ImgSrc" alt="Brak zdjęcia" />
-                    <div>
-                        <a asp-controller="Item" asp-action="Item" asp-route-id="@cartItem.ItemId"
-                           class="ml-2 h4">@cartItem.ItemName</a>
-                        <p class="ml-2 h6 font-weight-bold">@cartItem.DeliveryName</p>
-                    </div>
-                </div>
-                <div class="clearfix justify-content-between d-flex">
-                    <div class="d-flex flex-column mt-3">
-                        <dl class="pull-left mr-2 mt-1 price">
-                            <dt>Cena:</dt>
-                            <dd>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.Price)</dd>
-                        </dl>
-                        <dl class="price">
-                            <dt>Dostawa:</dt>
-                            <dd>@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", cartItem.DeliveryCost)</dd>
-                        </dl>
-                    </div>
-                    <form asp-controller="Cart" asp-action="Remove" class="pull-right mt-4 ml-2">
-                        <input type="hidden" name="id" value="@cartItem.Id" />
-                        <button type="submit" class="btn btn-danger">
-                            <span class="fa fa-remove"></span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <hr />
-        }
-        <div class="col-12">
-            <div class="row d-flex justify-content-between pb-3">
-                <strong class="h5">
-                    Suma: <span>@ViewBag.TotalCost</span>
-                </strong>
-                <div>
-                    <form asp-action="SubmitOrder" asp-controller="Order" asp-area="customer" method="post">
-                        <button type="submit" class="btn btn-success">Załóż zamówienie</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    }
 </div>

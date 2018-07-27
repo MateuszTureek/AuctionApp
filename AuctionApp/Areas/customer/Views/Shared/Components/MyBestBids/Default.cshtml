@@ -1,0 +1,29 @@
+﻿
+@model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.CustomerShortBidDTO>
+
+<h5>Aukcje w któreych biore udział:</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Przedmiot</th>
+            <th>Bieżąca oferta</th>
+            <th>Moja oferta</th>
+            <th>Stan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bid in Model)
+        {
+            <tr>
+                <th>
+                    <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@bid.ItemId">
+                        @bid.ItemName
+                    </a>
+                </th>
+                <th class="text-secondary">@bid.CurrentOffer</th>
+                <th class="text-primary">@bid.MyOfferPrice</th>
+                <th class="text-success">@bid.BidState</th>
+            </tr>
+        }
+    </tbody>
+</table>

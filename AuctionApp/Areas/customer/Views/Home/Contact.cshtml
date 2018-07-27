@@ -4,6 +4,49 @@
     Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<h3>Moje dane kontaktowe.</h3>
+@model AuctionApp.Core.BLL.DTO.Customer.ContactDTO
 
-<!-- to do  -->
+<style>
+    dl>dt,
+    dl,dd{
+        float: left;
+        text-align:justify;
+    }
+    dt{
+        width:20%;
+    }
+    dd{
+        width:80%;
+    }
+</style>
+
+<div class="col-lg-8 offset-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h3 class="mb-3">Dane kontaktowe.</h3>
+                <div>
+                    <button type="button" class="btn btn-primary">
+                        <span class="fa fa-edit"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <img class="" src="/images/s1.svg" height="200" width="200" alt="Card image cap">
+                <div class="ml-5">
+                    <h4>@string.Format("{0} {1}", Model.Name, Model.Surname)</h4>
+                    <dl>
+                        <dt>Telefon:</dt>
+                        <dd>@Model.Phone</dd>
+                        <dt>E-mail:</dt>
+                        <dd>@Model.Email</dd>
+                        <dt>Adres:</dt>
+                        <dd>@Model.Address</dd>
+                        <dt>Kraj:</dt>
+                        <dd>@Model.Country</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
