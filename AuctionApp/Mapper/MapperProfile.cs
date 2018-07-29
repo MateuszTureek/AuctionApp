@@ -1,5 +1,7 @@
-﻿using AuctionApp.Areas.customer.Models.Item;
+﻿using AuctionApp.Areas.customer.Models;
+using AuctionApp.Areas.customer.Models.Item;
 using AuctionApp.Core.BLL.DTO.Bid;
+using AuctionApp.Core.BLL.DTO.Customer;
 using AuctionApp.Core.BLL.DTO.Item;
 using AuctionApp.Models;
 using AutoMapper;
@@ -19,18 +21,20 @@ namespace AuctionApp.Mapper
 
         public void Configure()
         {
+            CreateMap<ContactDTO, ContactViewModel>();
+
             CreateMap<NewItemViewModel, NewItemDTO>()
                 .ForMember(d => d.PaymentId, o => o.MapFrom(m => m.PayId));
 
             CreateMap<NewBidViewModel, NewBidDTO>();
             CreateMap<NewBidDTO,NewBidViewModel>();
             CreateMap<ItemDetailsDTO, ItemDetailsViewModel>();
-            CreateMap<ItemBidDTO, ItemBidViewModel>();
+            CreateMap<ItemBidDTO, Areas.customer.Models.ItemBidViewModel>();
             CreateMap<SimpleItemDTO, SimpleItemViewModel>();
             CreateMap<PagedItemDTO, PagedItemViewModel>();
             CreateMap<PagedItemCriteriaViewModel, PagedItemCriteriaDTO>();
             CreateMap<CreateAuctionViewModel, CreateAuctionDTO>();
-            CreateMap<ItemBidDTO, ItemBidViewModel>();
+            CreateMap<ItemBidDTO, Areas.customer.Models.ItemBidViewModel>();
             CreateMap<ItemAuctionDTO, ItemAuctionViewModel>();
         }
     }

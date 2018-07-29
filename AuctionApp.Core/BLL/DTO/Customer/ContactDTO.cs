@@ -2,6 +2,7 @@ namespace AuctionApp.Core.BLL.DTO.Customer
 {
     public class ContactDTO
     {
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }

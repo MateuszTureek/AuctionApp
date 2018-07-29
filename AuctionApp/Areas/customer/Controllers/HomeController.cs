@@ -14,17 +14,25 @@ namespace AuctionApp.Areas.customer.Controllers
     [Area("customer")]
     public class HomeController : Controller
     {
-        readonly ICustomerService _customerService;
+        readonly IItemService _itemService;
+        readonly IOrderService _orderService;
 
-        public HomeController(ICustomerService customerService)
+        public HomeController(IItemService itemService, IOrderService orderService)
         {
-            _customerService = customerService;
+            _itemService = itemService;
+            _orderService = orderService;
         }
-        public IActionResult Contact()
+
+        public IActionResult Index()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var dto = _customerService.GetContact(userId);
-            return View(dto);
+            var claimUserId = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            ViewBag.WaitingItemsCount = _itemService.AmountOfWaitingItems(claimUserId.Value);
+            ViewBag.InAuctionItemsCount = _itemService.AmountOfAuctions(claimUserId.Value);
+            ViewBag.FinancialLiabilities = _orderService.GetTotalLiabilities(claimUserId.Value);
+            ViewBag.MyLeadBidsAmount = _itemService.GetLeadBidOfItem(claimUserId.Value);
+
+            return View();
         }
 
         public IActionResult Help()

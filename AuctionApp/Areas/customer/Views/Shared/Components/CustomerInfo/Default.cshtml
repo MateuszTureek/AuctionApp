@@ -1,18 +1,20 @@
 ﻿
-@model AuctionApp.Core.BLL.DTO.Customer.ContactDTO
+@model AuctionApp.Areas.customer.Models.ContactViewModel
 
-<div class="card border-dark">
-    <div class="card-header bg-light">
+@await  Component.InvokeAsync("EditContact")
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
         <div class="d-flex justify-content-between">
             <h5>
                 <span class="fa fa-user"></span>
                 @User.Identity.Name
             </h5>
             <div class="justify-content-end">
-                <a href="#" class="mr-2">
+                <a href="#" class="mr-2" role="button" data-toggle="modal" data-target="#EditContactModal">
                     <span class="fa fa-edit"></span>
                 </a>
-                <a href="#">
+                <a asp-area="customer" asp-controller="Customer" asp-action="Contact">
                     <span class="fa fa-info-circle"></span>
                 </a>
             </div>
@@ -22,8 +24,10 @@
         <div class="d-flex justify-content-between">
             <img src="~/images/s1.svg" height="150" width="150" />
             <dl class="clearfix ml-4">
-                <dt>@string.Format("{0} i {1}", Html.DisplayNameFor(m => m.Name), Html.DisplayNameFor(m => m.Surname)):</dt>
-                <dd>@string.Format("{0} {1}", Model.Name, Model.Surname)</dd>
+                <dt>@Html.DisplayNameFor(m => m.Name):</dt>
+                <dd>@Model.Name</dd>
+                <dt>@Html.DisplayNameFor(m => m.Surname):</dt>
+                <dd>@Model.Surname</dd>
                 <dt>@Html.DisplayNameFor(m => m.Email):</dt>
                 <dd>@Model.Email</dd>
                 <dt>@Html.DisplayNameFor(m => m.Phone):</dt>

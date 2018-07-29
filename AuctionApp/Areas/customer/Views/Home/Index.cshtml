@@ -12,103 +12,99 @@
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#NewItemModal">Nowy przedmiot</button>
     </div>
 </div>
-<div class="row">
+<div id="CustomerSummary" class="row">
     <div class="col-lg-3">
-        <!-- component -->
-        <div class="card border-dark">
+        <div class="card bg-dark">
             <div class="card-body text-dark">
-                <div class="d-flex justify-content-lg-between">
-                    <div>
+                <div class="d-flex justify-content-lg-between text-white">
+                    <div class="summary ml-4">
                         <span class="fa fa-archive"></span>
                     </div>
                     <div>
-                        <p class="text-right">@ViewBag.WaitingItemsCount</p>
-                        <p class="text-right">Przedmioty oczekujące</p>
+                        <p class="text-right amount">@ViewBag.WaitingItemsCount</p>
+                        <p class="text-right">W poczekalni</p>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <a href="#">Szczegóły</a>
+                <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
                     <span class="fa fa-arrow-circle-o-right"></span>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 
     <div class="col-lg-3">
-        <!-- component -->
-        <div class="card border-dark">
+        <div class="card bg-info">
             <div class="card-body text-dark">
-                <div class="d-flex justify-content-lg-between">
-                    <div>
+                <div class="d-flex justify-content-lg-between text-white">
+                    <div class="summary ml-4">
                         <span class="fa fa-globe"></span>
                     </div>
                     <div>
-                        <p class="text-right">@ViewBag.InAuctionItemsCount</p>
+                        <p class="text-right amount">@ViewBag.InAuctionItemsCount</p>
                         <p class="text-right">Aktywne aukcje</p>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <span>Szczegóły</span>
+                <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
                     <span class="fa fa-arrow-circle-o-right"></span>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 
     <div class="col-lg-3">
-        <!-- component -->
-        <div class="card border-dark">
-            <div class="card-body text-dark">
-                <div class="d-flex justify-content-lg-between">
-                    <div>
+        <div class="card bg-danger">
+            <div class="card-body">
+                <div class="d-flex justify-content-lg-between text-white">
+                    <div class="summary ml-4">
                         <span class="fa fa-lock"></span>
                     </div>
                     <div>
-                        <p class="text-right">@ViewBag.FinancialLiabilities</p>
+                        <p class="text-right amount">@ViewBag.FinancialLiabilities</p>
                         <p class="text-right">Moje zobowiązania</p>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <span>Szczegóły</span>
+                <a href="#" class="pull-right">
                     <span class="fa fa-arrow-circle-o-right"></span>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 
     <div class="col-lg-3">
-        <!-- component -->
-        <div class="card border-dark">
+        <div class="card bg-warning">
             <div class="card-body text-dark">
-                <div class="d-flex justify-content-lg-between">
-                    <div>
+                <div class="d-flex justify-content-lg-between text-white">
+                    <div class="summary ml-4">
                         <span class="fa fa-star"></span>
                     </div>
                     <div>
-                        <p class="text-right">@ViewBag.MyLeadBidsAmount</p>
-                        <p class="text-right">Moje przodujące oferty</p>
+                        <p class="text-right amount">@ViewBag.MyLeadBidsAmount</p>
+                        <p class="text-right">Oferty przodujące</p>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <span>Szczegóły</span>
+                <a href="#" class="pull-right">
                     <span class="fa fa-arrow-circle-o-right"></span>
-                </div>
+                </a>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row mt-2">
-    <div class="col-lg-6">
-        <!-- compoent here -->
+
+    <div class="col-lg-7">
+        @await Component.InvokeAsync("CustomerInfo")
+    </div>
+
+    <div class="col-lg-5">
         <div class="card border-dark">
             <div class="card-header bg-light">
                 <div class="d-flex justify-content-between">
@@ -158,33 +154,28 @@
                 </ul>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg-6">
-        @await Component.InvokeAsync("CustomerInfo")
     </div>
 </div>
 
-<div class="row">
+<div class="row mt-4">
     <div class="col-lg-6">
-        <!-- component -->
         @await Component.InvokeAsync("BidsOfCustomerItems")
     </div>
 
     <div class="col-lg-6">
-        <!-- component -->
         @await Component.InvokeAsync("MyBestBids")
     </div>
 </div>
 
 <style>
     dt {
-        width: 40%;
+        width: 30%;
         float: left;
     }
 
     dd {
-        width: 60%;
+        width: 70%;
         float: left;
     }
 </style>

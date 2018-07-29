@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace AuctionApp.Areas.customer.ViewComponents
 {
-    public class CustomerInfoViewComponent : ViewComponent
+    public class EditContactViewComponent : ViewComponent
     {
         readonly ICustomerService _customerService;
         readonly IMapper _mapper;
 
-        public CustomerInfoViewComponent(ICustomerService customerService, IMapper mapper)
+        public EditContactViewComponent(ICustomerService customerService, IMapper mapper)
         {
             _customerService = customerService;
             _mapper = mapper;
@@ -27,7 +27,6 @@ namespace AuctionApp.Areas.customer.ViewComponents
             var userId = UserClaimsPrincipal.FindFirst(ClaimTypes.NameIdentifier).Value;
             var dto = _customerService.GetContact(userId);
             var model = _mapper.Map<ContactDTO, ContactViewModel>(dto);
-
             return View(model);
         }
     }

@@ -53,9 +53,9 @@ namespace AuctionApp.Controllers
                     await _userManager.AddToRoleAsync(user, Role.customer);
                     await _signInManager.SignInAsync(user, false).ConfigureAwait(true);
 
-                    return RedirectToAction("Index", "Manage", new { area = "customer" });
+                    return RedirectToAction("Index", "Home", new { area = "customer" });
                 }
-                ModelState.AddModelError("", "Rejestracja nie powiodła się.");
+                ModelState.AddModelError("", "Użytkownik o podanym loginie lub adresie email już istnieje.");
             }
             return View(model);
         }
@@ -77,7 +77,7 @@ namespace AuctionApp.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false).ConfigureAwait(true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Manage", new { area = "customer" });
+                    return RedirectToAction("Index", "Home", new { area = "customer" });
                 }
                 if (result.IsLockedOut)
                 {
@@ -93,7 +93,7 @@ namespace AuctionApp.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync().ConfigureAwait(true);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

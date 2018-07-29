@@ -35,21 +35,24 @@ namespace AuctionApp.Core.BLL.Mapper
                 .ForMember(d => d.BidState, o => o.ResolveUsing<BidStateResolver<CustomerShortBidDTO>>());
 
             CreateMap<AppUser, ContactDTO>()
-            .ForMember(d=>d.Phone,o=>o.MapFrom(m=>m.PhoneNumber));
-            
+                .ForMember(d => d.Phone, o => o.MapFrom(m => m.PhoneNumber))
+                .ForMember(d => d.UserId, o => o.MapFrom(m => m.Id));
+
+            CreateMap<ContactDTO, AppUser>();
+
             CreateMap<Bid,BidDetailsDTO>()
-            .ForMember(d=>d.ItemId,o=>o.MapFrom(m=>m.Item.Id))
-            .ForMember(d=>d.ItemName,o=>o.MapFrom(m=>m.Item.Name))
-            .ForMember(d=>d.ImgSrc,o=>o.MapFrom(m=>m.Item.ImgSrc))
-            .ForMember(d=>d.BuyNowPrice,o=>o.MapFrom(m=>m.Item.ConstPrice))
-            .ForMember(d=>d.OwnerUsername,o=>o.MapFrom(m=>m.Item.Username))
-            .ForMember(d=>d.Subcategory,o=>o.MapFrom(m=>m.Item.Subcategory.Name))
-            .ForMember(d=>d.Payment,o=>o.MapFrom(m=>m.Item.Payment.Name))
-            .ForMember(d=>d.PaymentCost,o=>o.MapFrom(m=>m.Item.Payment.Cost))
-            .ForMember(d=>d.AuctionStart,o=>o.MapFrom(m=>m.Item.AuctionStart))
-            .ForMember(d=>d.AuctionEnd,o=>o.MapFrom(m=>m.Item.AuctionEnd))
-            .ForMember(d=>d.MyOfferPrice,o=>o.MapFrom(m=>m.BidAmount))
-            .ForMember(d=>d.MyOfferPlaced,o=>o.MapFrom(m=>m.DatePlaced));
+                .ForMember(d=>d.ItemId,o=>o.MapFrom(m=>m.Item.Id))
+                .ForMember(d=>d.ItemName,o=>o.MapFrom(m=>m.Item.Name))
+                .ForMember(d=>d.ImgSrc,o=>o.MapFrom(m=>m.Item.ImgSrc))
+                .ForMember(d=>d.BuyNowPrice,o=>o.MapFrom(m=>m.Item.ConstPrice))
+                .ForMember(d=>d.OwnerUsername,o=>o.MapFrom(m=>m.Item.Username))
+                .ForMember(d=>d.Subcategory,o=>o.MapFrom(m=>m.Item.Subcategory.Name))
+                .ForMember(d=>d.Payment,o=>o.MapFrom(m=>m.Item.Payment.Name))
+                .ForMember(d=>d.PaymentCost,o=>o.MapFrom(m=>m.Item.Payment.Cost))
+                .ForMember(d=>d.AuctionStart,o=>o.MapFrom(m=>m.Item.AuctionStart))
+                .ForMember(d=>d.AuctionEnd,o=>o.MapFrom(m=>m.Item.AuctionEnd))
+                .ForMember(d=>d.MyOfferPrice,o=>o.MapFrom(m=>m.BidAmount))
+                .ForMember(d=>d.MyOfferPlaced,o=>o.MapFrom(m=>m.DatePlaced));
 
             CreateMap<Item, ItemAuctionDTO>()
                 .ForMember(d => d.ItemName, o => o.MapFrom(m => m.Name))

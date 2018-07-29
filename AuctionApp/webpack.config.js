@@ -9,6 +9,7 @@ module.exports = {
     entry: {
         sassForLayout: './Client/sass/layoutStyle.scss',
         sassForAuctionLayout: './Client/sass/auctionLayoutStyle.scss',
+        sassForCustomerStyles: './Client/sass/customerStyles',
 
         tsHome: './Client/ts/presentation/home.ts',
         tsAuction: './Client/ts/presentation/auctions.ts',
