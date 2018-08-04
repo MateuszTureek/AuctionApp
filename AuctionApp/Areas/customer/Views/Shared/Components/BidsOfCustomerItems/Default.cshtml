@@ -3,8 +3,8 @@
 
 <h5>Licytacje przedmiotów:</h5>
 <table class="table">
-    <thead>
-        <tr>
+    <thead class="thead-dark">
+        <tr class="text-center">
             <th>Użytkownik</th>
             <th>Oferta</th>
             <th>Przedmiot</th>
@@ -14,11 +14,17 @@
     <tbody>
         @foreach(var bid in Model)
         {
-            <tr>
+            <tr class="text-center">
                 <td>@bid.Username</td>
-                <td>@bid.BidPrice</td>
+                <td>
+                    @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidPrice)
+                </td>
                 <td>@bid.ItemName</td>
-                <td>@bid.PlacedDate</td>
+                <td>
+                    <span>@bid.PlacedDate.ToShortDateString()</span>
+                    <br />
+                    <span>@bid.PlacedDate.ToShortTimeString()</span>
+                </td>
             </tr>
         }
     </tbody>

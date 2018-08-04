@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AuctionApp.Hubs;
 
 namespace AuctionApp
 {
@@ -32,11 +33,9 @@ namespace AuctionApp
         {
             services.AddSingleton(_ => Configuration);
 
-            services.AddDbContext<AppIdentityDbContext>(o =>
-                 o.UseSqlServer(ConfigurationBuilderManager.GetConfiguration.GetConnectionString("IdentityConnection")));
+            services.AddDbContext<AppIdentityDbContext>(o => o.UseSqlServer(ConfigurationBuilderManager.GetConfiguration.GetConnectionString("IdentityConnection")));
 
-            services.AddDbContext<AuctionDbContext>(o =>
-                  o.UseSqlServer(ConfigurationBuilderManager.GetConfiguration.GetConnectionString("AuctionConnection")));
+            services.AddDbContext<AuctionDbContext>(o => o.UseSqlServer(ConfigurationBuilderManager.GetConfiguration.GetConnectionString("AuctionConnection")));
 
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddEntityFrameworkStores<AppIdentityDbContext>()
@@ -72,6 +71,8 @@ namespace AuctionApp
             });
 
             services.AddMvc(opt => opt.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +94,11 @@ namespace AuctionApp
             app.UseSession();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotifyHub>("/notify");
+            });
 
             app.UseMvc(routes =>
             {

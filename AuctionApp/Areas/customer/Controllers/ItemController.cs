@@ -50,7 +50,7 @@ namespace AuctionApp.Areas.customer.Controllers
 
                 _itemService.Create(dto);
 
-                return RedirectToAction("Index", "Manage", new { area = "customer" });
+                return RedirectToAction("Index", "Home", new { area = "customer" });
             }
             ModelState.AddModelError(string.Empty, "Niepoprawne dane produktu.");
             return View(model);

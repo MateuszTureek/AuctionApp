@@ -1,9 +1,9 @@
 ﻿
 @model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.CustomerShortBidDTO>
 
-<h5>Aukcje w któreych biore udział:</h5>
+<h5>Aukcje w których biore udział:</h5>
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>Przedmiot</th>
             <th>Bieżąca oferta</th>
@@ -14,16 +14,23 @@
     <tbody>
         @foreach (var bid in Model)
         {
-            <tr>
-                <th>
-                    <a asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@bid.ItemId">
-                        @bid.ItemName
-                    </a>
-                </th>
-                <th class="text-secondary">@bid.CurrentOffer</th>
-                <th class="text-primary">@bid.MyOfferPrice</th>
+        <tr>
+            <th>
+                <a class="text-dark" asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@bid.ItemId">
+                    @bid.ItemName
+                </a>
+            </th>
+            <th class="text-secondary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.CurrentOffer)</th>
+            <th class="text-primary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.MyOfferPrice)</th>
+            @if (bid.BidState == AuctionApp.Core.BLL.Enum.BidState.Najlepsza)
+            {
                 <th class="text-success">@bid.BidState</th>
-            </tr>
+            }
+            else
+            {
+                <th class="text-danger">@bid.BidState</th>
+            }
+        </tr>
         }
     </tbody>
 </table>
