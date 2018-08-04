@@ -18,7 +18,7 @@ namespace AuctionApp.Core.BLL.Dependencies
     {
         public static void SetupAuctionDependency(IServiceCollection services)
         {
-            services.AddTransient<IUnitOfWork,CustomerUnitOfWork>();
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
 
             services.AddTransient<IItemRepo, ItemRepo>();
             services.AddTransient<ICategoryRepo, CategoryRepo>();
