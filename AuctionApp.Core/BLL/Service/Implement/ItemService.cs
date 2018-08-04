@@ -7,7 +7,7 @@ using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
 using AuctionApp.Core.DAL.Repository.Contract;
 using AuctionApp.Core.DAL.Specyfication;
-using AuctionApp.Core.DAL.UnitOfWork;
+using AuctionApp.Core.DAL.UnitOfWork.Contract;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;

@@ -7,6 +7,7 @@ using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AuctionApp.Areas.customer.Controllers
 {

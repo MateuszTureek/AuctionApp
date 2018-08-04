@@ -14,7 +14,7 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
         UserManager<AppUser> _userManager;
         AppIdentityDbContext _context;
         RoleManager<IdentityRole> _roleManager;
-        
+
         public IdentityInitializer(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppIdentityDbContext context)
         {
             _userManager = userManager;
@@ -40,8 +40,8 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
             AppUser buyer = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
-                Name="Jan",
-                Surname="Kowalski",
+                Name = "Jan",
+                Surname = "Kowalski",
                 UserName = "buyer_1",
                 Email = "buyer1@fake.com",
                 PhoneNumber = "000 111 222",
@@ -52,8 +52,8 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext
             AppUser seller = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
-                Name="Paweł",
-                Surname="Nowak",
+                Name = "Paweł",
+                Surname = "Nowak",
                 UserName = "seller_1",
                 Email = "seller1@fake.com",
                 PhoneNumber = "222 444 000",
