@@ -1,59 +1,51 @@
-﻿using AuctionApp.Core.BLL.Enum;
-using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
-using AuctionApp.Core.DAL.Specyfication.Contract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using AuctionApp.Core.BLL.Enum;
+using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
+using AuctionApp.Core.DAL.Specyfication.Contract;
 
-namespace AuctionApp.Core.DAL.Specyfication
-{
-    public class OrderItemSpecyfication : ISpec<Item, object>
-    {
+namespace AuctionApp.Core.DAL.Specyfication {
+    public class OrderItemSpecyfication : ISpec<Item, object> {
         readonly SortBy _sortBy;
         Expression<Func<Item, object>> _expression;
 
-        public OrderItemSpecyfication(SortBy sortBy)
-        {
+        public OrderItemSpecyfication (SortBy sortBy) {
             _sortBy = sortBy;
 
-            switch (sortBy)
-            {
+            switch (sortBy) {
                 case SortBy.EndDateAuction:
                     {
-                        _expression = OrderByAuctionEndDateExpression();
+                        _expression = OrderByAuctionEndDateExpression ();
                         break;
                     }
                 case SortBy.PriceBuyNow:
                     {
-                        _expression = OrderByConstPriceExpression();
+                        _expression = OrderByConstPriceExpression ();
                         break;
                     }
                 default:
                     {
-                        _expression = OrderByNameExpression();
+                        _expression = OrderByNameExpression ();
                         break;
                     }
             }
         }
 
-        public Expression<Func<Item, object>> ToExpression()
-        {
+        public Expression<Func<Item, object>> ToExpression () {
             return _expression;
         }
 
-        private Expression<Func<Item, object>> OrderByNameExpression()
-        {
+        private Expression<Func<Item, object>> OrderByNameExpression () {
             return (x => x.Name);
         }
 
-        private Expression<Func<Item, object>> OrderByAuctionEndDateExpression()
-        {
+        private Expression<Func<Item, object>> OrderByAuctionEndDateExpression () {
             return (x => x.AuctionEnd);
         }
 
-        private Expression<Func<Item, object>> OrderByConstPriceExpression()
-        {
+        private Expression<Func<Item, object>> OrderByConstPriceExpression () {
             return (x => x.ConstPrice);
         }
     }
