@@ -1,24 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
-namespace AuctionApp.Core.DAL.Data.IdentityContext
-{
-    public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext>
-    {
-        public AppIdentityDbContext CreateDbContext(string[] args)
-        {
-            var builder = ConfigurationBuilderManager.CreateBuiilder<AppIdentityDbContext>();
+namespace AuctionApp.Core.DAL.Data.IdentityContext {
+    public class IdentityDbContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext> {
+        public AppIdentityDbContext CreateDbContext (string[] args) {
+            var builder = ConfigurationBuilderManager.CreateBuiilder<AppIdentityDbContext> ();
 
-            var connectionString = ConfigurationBuilderManager.GetConfiguration.GetConnectionString("IdentityConnection");
+            var connectionString = ConfigurationBuilderManager.GetConfiguration.GetConnectionString ("IdentityConnection");
 
-            builder.UseSqlServer(connectionString);
+            builder.UseSqlServer (connectionString);
 
-            return new AppIdentityDbContext(builder.Options);
+            return new AppIdentityDbContext (builder.Options);
         }
     }
 }

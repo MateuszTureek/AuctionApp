@@ -9,36 +9,29 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctionApp.Controllers
-{
+namespace AuctionApp.Controllers {
     [Authorize]
-    public class AccountController : Controller
-    {
+    public class AccountController : Controller {
         readonly UserManager<AppUser> _userManager;
         readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-        {
+        public AccountController (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
+        public IActionResult Register () {
+            return View ();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new AppUser
-                {
+        public async Task<IActionResult> Register (RegisterViewModel model) {
+            if (ModelState.IsValid) {
+                var user = new AppUser {
                     UserName = model.Username,
                     Email = model.Email,
                     Name = model.Name,
@@ -47,53 +40,46 @@ namespace AuctionApp.Controllers
                     Country = model.Country,
                     PhoneNumber = model.PhoneNumber
                 };
-                var result = await _userManager.CreateAsync(user, model.Password).ConfigureAwait(true);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, Role.customer);
-                    await _signInManager.SignInAsync(user, false).ConfigureAwait(true);
+                var result = await _userManager.CreateAsync (user, model.Password).ConfigureAwait (true);
+                if (result.Succeeded) {
+                    await _userManager.AddToRoleAsync (user, Role.customer);
+                    await _signInManager.SignInAsync (user, false).ConfigureAwait (true);
 
-                    return RedirectToAction("Index", "Home", new { area = "customer" });
+                    return RedirectToAction ("Index", "Home", new { area = "customer" });
                 }
-                ModelState.AddModelError("", "Użytkownik o podanym loginie lub adresie email już istnieje.");
+                ModelState.AddModelError ("", "Użytkownik o podanym loginie lub adresie email już istnieje.");
             }
-            return View(model);
+            return View (model);
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
+        public IActionResult Login () {
+            return View ();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false).ConfigureAwait(true);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home", new { area = "customer" });
+        public async Task<IActionResult> Login (LoginViewModel model) {
+            if (ModelState.IsValid) {
+                var result = await _signInManager.PasswordSignInAsync (model.Username, model.Password, model.RememberMe, false).ConfigureAwait (true);
+                if (result.Succeeded) {
+                    return RedirectToAction ("Index", "Home", new { area = "customer" });
                 }
-                if (result.IsLockedOut)
-                {
-                    return RedirectToAction("Lockout");
+                if (result.IsLockedOut) {
+                    return RedirectToAction ("Lockout");
                 }
-                ModelState.AddModelError("", "Niudana próba logowania.");
+                ModelState.AddModelError ("", "Niudana próba logowania.");
             }
-            return View(model);
+            return View (model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOut()
-        {
-            await _signInManager.SignOutAsync().ConfigureAwait(true);
-            return RedirectToAction("Login", "Account");
+        public async Task<IActionResult> LogOut () {
+            await _signInManager.SignOutAsync ().ConfigureAwait (true);
+            return RedirectToAction ("Login", "Account");
         }
     }
 }
