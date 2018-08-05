@@ -6,7 +6,6 @@ import PagingLinkActivator from "../linkActivator/pagingLinkActivator";
 /*
  * Main - auctions.ts
  */
-
 $(document).ready(() => {
     const categoryLinkActovator = new CategoryLinkActivator($('#Categories') as JQuery<HTMLUListElement>, 'active', CATEGORY_KEY);
     const buttonLinkActivator = new OrderButtonLinkActivator($('#OrderByGroupButton') as JQuery<HTMLDivElement>, 'active', SORT_OPTION_KEY);

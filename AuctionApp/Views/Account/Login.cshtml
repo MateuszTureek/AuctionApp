@@ -10,7 +10,7 @@
     <h2>Logowanie</h2>
     <form asp-controller="Account" asp-action="Login" method="post">
 
-        @Html.ValidationSummary(false,"",new { @class = "text-danger" })
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
         <div class="form-group row">
             @Html.LabelFor(m => m.Username, new { @class = "col-lg-3" })

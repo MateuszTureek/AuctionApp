@@ -20,44 +20,10 @@
 
                 <div id="NavbarMenu" class="collapse navbar-collapse">
                     <div class="d-flex ml-auto flex-column">
-                        <ul id="RegAndLog" class="navbar-nav justify-content-end">
-                            @if (!User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Login">Logowanie</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Register">Rejstracja</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <span class="pull-left mt-2 text-white h6">Zalogowany:</span>
-                                    <a class="nav-link pull-right">
-                                        @User.Identity.Name
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Home" asp-action="Index" asp-area="customer">Moje konto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <form asp-controller="Account" asp-action="LogOut">
-                                        <button type="submit" class="btn btn-dark">
-                                            <span class="fa fa-sign-out"></span>
-                                        </button>
-                                    </form>
-                                </li>
-                            }
-                        </ul>
-                        <form id="SearchForm" class="navbar-form mb-1 align-self-lg-end" asp-controller="Item" asp-action="Search" method="get">
-                            <div class="input-group-sm">
-                                <input name="phrase" type="search" class="form-control" placeholder="Search" />
-                            </div>
-                        </form>
+                        @Html.Partial("_LoginPartial")
+                        @Html.Partial("_SearchFormPartial")
                     </div>
                 </div>
-
             </div>
             <div class="d-sm-block d-lg-flex justify-content-between pt-2 pb-2 bg-dark">
                 <nav id="MainNav" class="nav nav-justified flex-column flex-lg-row d-flex d-lg-inline-flex">

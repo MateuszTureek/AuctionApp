@@ -4,22 +4,17 @@
     @foreach (var category in Model)
     {
         <li data-id="@category.Id" class="nav-item mb-1">
-            <a class="nav-link"
-               asp-controller="Item" asp-action="Index"
-               asp-route-categoryId="@category.Id"
-               asp-route-sortBy="@ViewBag.SortBy">
+            <a class="nav-link" asp-controller="Item" asp-action="Index" asp-route-categoryId="@category.Id" asp-route-sortBy="@ViewBag.SortBy">
                 <span class="fa fa-caret-right"></span>
                 @category.Name
             </a>
-        
             <ul class="list-unstyled flex-column d-none bg-primary">
                 @foreach (var subcategory in category.Subcategories)
                 {
-                    <li data-id="@subcategory.Id" class="nav-item pl-3">
-                        <a class="nav-link"
-                           asp-controller="Item" asp-action="Index"
-                           asp-route-subcategoryId="@subcategory.Id"
-                           asp-route-sortBy="@ViewBag.SortBy">@subcategory.Name</a>
+                    <li data-id="@subcategory.Id" class="nav-item">
+                        <a class="nav-link pl-5"
+                            asp-controller="Item" asp-action="Index" asp-route-subcategoryId="@subcategory.Id"
+                            asp-route-sortBy="@ViewBag.SortBy"> @subcategory.Name</a>
                     </li>
                 }
             </ul>

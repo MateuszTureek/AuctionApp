@@ -36,16 +36,22 @@ export default class PagingLinkActivator extends LinkActivator{
     };
 
     protected setupLink() {
-        const activeDataId = parseInt(sessionStorage.getItem(this.sessionKey));
-        if (!isNaN(activeDataId)) {
-            const $link = this.findLinkByDataId(activeDataId);
-            this.activeLink($link);
+        try{
+            const activeDataId = parseInt(sessionStorage.getItem(this.sessionKey));
+            if (!isNaN(activeDataId)) {
+                const $link = this.findLinkByDataId(activeDataId);
+                this.activeLink($link);
+            }
+            else {
+                const $firstLink = $(this.$linkCollection.first()) as JQuery<HTMLLinkElement>;
+                
+                const dataId = $firstLink.closest('li').data('id');
+                sessionStorage.setItem(this.sessionKey, dataId);
+                this.activeLink($firstLink);
+            }
         }
-        else {
-            const $firstLink = $(this.$linkCollection.first()) as JQuery<HTMLLinkElement>;
-            const dataId = $firstLink.closest('li').data('id');
-            sessionStorage.setItem(this.sessionKey, dataId);
-            this.activeLink($firstLink);
+        catch(e){
+            console.log('Pagedlist not exist for empty items collection.');
         }
     };
 
@@ -68,7 +74,7 @@ export default class PagingLinkActivator extends LinkActivator{
 
     protected setupActivateNextAndPrevLink() {
         const activeDataId = parseInt(sessionStorage.getItem(this.sessionKey));
-
+        
         if (isNaN(activeDataId)) { throw new Error('Any pagination link is not active.'); }
 
         const firstDataId = $(this.$linkCollection.first()).closest('li').data('id') as number;

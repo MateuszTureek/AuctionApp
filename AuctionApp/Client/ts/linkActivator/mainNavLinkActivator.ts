@@ -22,9 +22,14 @@
 
     setupLink() {
         const href = window.location.pathname;
-        const $link = this.getLinkByHref(href);
-        this.deactiveLink();
-        this.activeLink($link);
+        try{
+            const $link = this.getLinkByHref(href);
+            this.deactiveLink();
+            this.activeLink($link);
+        }
+        catch(e){
+            console.log('Nav link for this page not exist.');
+        }
     };
 
     getLinkByHref(href: string): JQuery<HTMLLinkElement> {

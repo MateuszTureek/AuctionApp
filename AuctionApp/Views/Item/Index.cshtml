@@ -12,12 +12,13 @@
         {
             <div class="col-12 col-sm-6 col-lg-4 mt-3 mb-2 mb-lg-0">
                 <div class="card">
-                    <img src="@Url.Content(item.ImgSrc)" style="height:200px; width: 100%;" />
+                    <img src="@Url.Content(item.ImgSrc)" />
                     <div class="card-body">
-                        <h5><a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a></h5>
-
+                        <h5>
+                            <a asp-controller="Item" asp-action="Item" asp-route-id="@item.Id">@item.Name</a>
+                        </h5>
                         <div class="d-flex justify-content-lg-between mb-2">
-                            <span>@Html.DisplayNameFor(m=>item.Payment):</span>
+                            <span>@Html.DisplayNameFor(m => item.Payment):</span>
                             <span>@item.Payment</span>
                         </div>
                         <div class="d-flex justify-content-lg-between mb-2">

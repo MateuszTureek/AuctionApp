@@ -8,15 +8,14 @@ export default class LinkActivator implements ILinkActivator{
     constructor(
         protected $ulElem: JQuery<HTMLUListElement>,
         protected active: string,
-        protected sessionKey) {
-
+        protected sessionKey)
+    {
         this.init();
     };
 
     init() {
         this.$linkCollection = this.$ulElem.children('li').children('a');
         this.$linkCollection.on('click', (e: Event) => { this.linkOnClick(e); });
-        
         this.setupLink();
     };
 
@@ -25,7 +24,7 @@ export default class LinkActivator implements ILinkActivator{
         const $clickedLink = $(e.target);
         const clickedDataId = $clickedLink.closest('li').data('id');
         const activedDataId = parseInt(sessionStorage.getItem(this.sessionKey));
-
+        
         if (isNaN(activedDataId)) {
             sessionStorage.setItem(this.sessionKey, clickedDataId);
         }
@@ -40,6 +39,7 @@ export default class LinkActivator implements ILinkActivator{
 
     protected setupLink() {
         const activeDataId = parseInt(sessionStorage.getItem(this.sessionKey));
+
         if (!isNaN(activeDataId)) {
             const $link = this.findLinkByDataId(activeDataId);
             this.activeLink($link);

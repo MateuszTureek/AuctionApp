@@ -6,7 +6,12 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Areas\admin\Controllers\" />
     <Folder Include="Areas\admin\Data\" />
     <Folder Include="Areas\admin\Models\" />
