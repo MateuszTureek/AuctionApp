@@ -11,37 +11,31 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctionApp.Areas.customer.Controllers
-{
-    [Area("customer")]
-    [Authorize(Roles = Role.customer)]
-    public class OrderController : Controller
-    {
+namespace AuctionApp.Areas.customer.Controllers {
+    [Area ("customer")]
+    [Authorize (Roles = Role.customer)]
+    public class OrderController : Controller {
         readonly ICartService _cartService;
         readonly IOrderService _orderService;
         readonly IMapper _mapper;
 
-        public OrderController(ICartService cartService, IOrderService orderService, IMapper mapper)
-        {
+        public OrderController (ICartService cartService, IOrderService orderService, IMapper mapper) {
             _cartService = cartService;
             _orderService = orderService;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public IActionResult SubmitOrder()
-        {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<CartItemDTO> cart = _cartService.GetCartItems();
-            CreatedOrderDTO dto = new CreatedOrderDTO
-            {
+        public IActionResult SubmitOrder () {
+            string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
+            List<CartItemDTO> cart = _cartService.GetCartItems ();
+            CreatedOrderDTO dto = new CreatedOrderDTO {
                 UserId = userId,
-                OrderItems = _mapper.Map<List<CartItemDTO>, List<CreatedOrderItemDTO>>(cart)
+                OrderItems = _mapper.Map<List<CartItemDTO>, List<CreatedOrderItemDTO>> (cart)
             };
-            _orderService.CreateOrder(dto);
-            _cartService.RemoveCart();
-
-            return RedirectToAction("Index", "Home", new { area = "" });
+            _orderService.CreateOrder (dto);
+            _cartService.RemoveCart ();
+            return RedirectToAction ("Index", "Home", new { area = "" });
         }
     }
 }
