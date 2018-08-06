@@ -4,56 +4,59 @@
         @Html.Partial("_ToolBarPartial")
     </div>
 
-    <table id="InAuctionItemsTable" class="table">
-        <thead class="thead-dark text-center">
-            <tr>
-                <th>Kategoria</th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Name">
-                        <span>Nazwa</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.BuyNowPrice">
-                        <span>Cena: Kup teraz</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.StartDate">
-                        <span>Początek aukcji</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.EndDate">
-                        <span>Koniec aukcji</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Payment">
-                        <span>Płatność</span>
-                    </a>
-                </th>
-                <th>Sprawdź oferty</th>
-                <th>Wycofaj przemiot</th>
-            </tr>
-        </thead>
-        <tbody class="text-center">
-            <!-- render by js-->
-        </tbody>
-    </table>
+    <div class="d-none">
+        <table id="InAuctionItemsTable" class="table">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th>Kategoria</th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Name">
+                            <span>Nazwa</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.BuyNowPrice">
+                            <span>Cena: Kup teraz</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.StartDate">
+                            <span>Początek aukcji</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.EndDate">
+                            <span>Koniec aukcji</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.InAuctionItemsOrderBy.Payment">
+                            <span>Płatność</span>
+                        </a>
+                    </th>
+                    <th>Sprawdź oferty</th>
+                    <th>Wycofaj przemiot</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <!-- render by js-->
+            </tbody>
+        </table>
 
-    <ul class="pagination justify-content-lg-center">
-        <li class="page-item" data-arrow="left">
-            <a class="page-link" href="#"><span>&laquo;</span></a>
-        </li>
-        <!-- render page numbers here ! -->
-        <li class="page-item" data-arrow="right">
-            <a class="page-link" href="#"><span>&raquo;</span></a>
-        </li>
-    </ul>
+        <ul class="pagination justify-content-lg-center">
+            <li class="page-item" data-arrow="left">
+                <a class="page-link" href="#"><span>&laquo;</span></a>
+            </li>
+            <!-- render page numbers here ! -->
+            <li class="page-item" data-arrow="right">
+                <a class="page-link" href="#"><span>&raquo;</span></a>
+            </li>
+        </ul>
+    </div>
 </div>
-@*
-<p class="no-items d-none">Brak oczekujących przedmiotów.</p>
-*@
+
+<div class="empty d-none">
+    <span>Brak aktywnych aukcji.</p>
+</div>
 
 @Html.Partial("_CancelItemAuction")

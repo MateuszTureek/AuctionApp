@@ -1,11 +1,10 @@
 ﻿@import 'common.scss';
-
-side > ul > li a.nav-link {
+side>ul>li a.nav-link {
     color: white;
 }
 
-side > ul > li a.nav-link:hover,
-side > ul > li a.nav-link.active {
+side>ul>li a.nav-link:hover,
+side>ul>li a.nav-link.active {
     color: whitesmoke;
     background: #006add;
 }
@@ -23,8 +22,57 @@ a:hover {
     .summary {
         font-size: $fontBasicSize* 6;
     }
-
     .amount {
         font-size: $fontBasicSize * 2;
+    }
+    div.card:hover {
+        opacity: .95;
+    }
+}
+
+#CustomerInfo {
+    img{
+    }
+    dl{
+        dt,dd{
+            float: left;
+        }
+        dt{
+            width: 35%;
+        }
+        dd{
+            width: 65%;
+        }
+    }
+}
+
+.empty{
+    height: 250px;
+    width: 100%;
+    background: whitesmoke;
+    border: 1px solid #d3d3d3;
+    font-size: $fontBasicSize *1.7;
+    letter-spacing: 2px;
+    text-align: center;
+    
+    span{
+        position: relative;
+        top: 40%;
+    }
+}
+
+#Items{
+    table img {
+        width: 80px;
+        height: 70px;
+    }
+    
+    #NavTabs li {
+        margin-right: 2px;
+    }
+
+    #NavTabs li a.nav-link:not(.active) {
+        background: rgba(128, 128, 128, 0.40);
+        color: #5e5c5c;
     }
 }

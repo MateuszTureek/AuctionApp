@@ -2,35 +2,44 @@
 @model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.CustomerShortBidDTO>
 
 <h5>Aukcje w których biore udział:</h5>
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>Przedmiot</th>
-            <th>Bieżąca oferta</th>
-            <th>Moja oferta</th>
-            <th>Stan</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var bid in Model)
-        {
-        <tr>
-            <th>
-                <a class="text-dark" asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@bid.ItemId">
-                    @bid.ItemName
-                </a>
-            </th>
-            <th class="text-secondary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.CurrentOffer)</th>
-            <th class="text-primary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.MyOfferPrice)</th>
-            @if (bid.BidState == AuctionApp.Core.BLL.Enum.BidState.Najlepsza)
+
+@if(Model.Count()>0)
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Przedmiot</th>
+                <th>Bieżąca oferta</th>
+                <th>Moja oferta</th>
+                <th>Stan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bid in Model)
             {
-                <th class="text-success">@bid.BidState</th>
+            <tr>
+                <th>
+                    <a class="text-dark" asp-area="" asp-controller="Item" asp-action="Item" asp-route-id="@bid.ItemId">
+                        @bid.ItemName
+                    </a>
+                </th>
+                <th class="text-secondary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.CurrentOffer)</th>
+                <th class="text-primary">@string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.MyOfferPrice)</th>
+                @if (bid.BidState == AuctionApp.Core.BLL.Enum.BidState.Najlepsza)
+                {
+                    <th class="text-success">@bid.BidState</th>
+                }
+                else
+                {
+                    <th class="text-danger">@bid.BidState</th>
+                }
+            </tr>
             }
-            else
-            {
-                <th class="text-danger">@bid.BidState</th>
-            }
-        </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+else { 
+    <div class="empty">
+        <span>Brak aukcji w których bierzesz udział.</span>
+    </div>
+}

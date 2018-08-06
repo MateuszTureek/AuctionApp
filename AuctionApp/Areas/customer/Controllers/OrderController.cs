@@ -34,7 +34,7 @@ namespace AuctionApp.Areas.customer.Controllers {
                 OrderItems = _mapper.Map<List<CartItemDTO>, List<CreatedOrderItemDTO>> (cart)
             };
             await _orderService.CreateOrderAsync (dto);
-            _cartService.RemoveCart ();
+            await _cartService.RemoveCart ();
             return RedirectToAction ("Index", "Home", new { area = "" });
         }
     }

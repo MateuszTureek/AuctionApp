@@ -1,0 +1,83 @@
+<div class="col-lg-3">
+    <div class="card bg-dark">
+        <div class="card-body text-dark">
+            <div class="d-flex justify-content-lg-between text-white">
+                <div class="summary ml-4">
+                    <span class="fa fa-archive"></span>
+                </div>
+                <div>
+                    <p class="text-right amount">@ViewBag.WaitingItemsCount</p>
+                    <p class="text-right">W poczekalni</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
+                <span class="fa fa-arrow-circle-o-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3">
+    <div class="card bg-info">
+        <div class="card-body text-dark">
+            <div class="d-flex justify-content-lg-between text-white">
+                <div class="summary ml-4">
+                    <span class="fa fa-globe"></span>
+                </div>
+                <div>
+                    <p class="text-right amount">@ViewBag.InAuctionItemsCount</p>
+                    <p class="text-right">Aktywne aukcje</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
+                <span class="fa fa-arrow-circle-o-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3">
+    <div class="card bg-danger">
+        <div class="card-body">
+            <div class="d-flex justify-content-lg-between text-white">
+                <div class="summary ml-4">
+                    <span class="fa fa-lock"></span>
+                </div>
+                <div>
+                    <p class="text-right amount">@ViewBag.FinancialLiabilities</p>
+                    <p class="text-right">Moje zobowiązania</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="pull-right">
+                <span class="fa fa-arrow-circle-o-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3">
+    <div class="card bg-warning">
+        <div class="card-body text-dark">
+            <div class="d-flex justify-content-lg-between text-white">
+                <div class="summary ml-4">
+                    <span class="fa fa-star"></span>
+                </div>
+                <div>
+                    <p class="text-right amount">@ViewBag.MyLeadBidsAmount</p>
+                    <p class="text-right">Oferty przodujące</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="pull-right">
+                <span class="fa fa-arrow-circle-o-right"></span>
+            </a>
+        </div>
+    </div>
+</div>

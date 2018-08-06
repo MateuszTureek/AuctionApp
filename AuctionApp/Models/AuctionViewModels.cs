@@ -13,14 +13,14 @@ namespace AuctionApp.Models
         [HiddenInput]
         public int ItemId { get; set; }
 
-        [Display(Name = "Przedmiot")]
+        [Display(Name = "Przedmiot:")]
         public string ItemName { get; set; }
 
-        [Display(Name = "Najlepsza oferta")]
+        [Display(Name = "Bieżąca:")]
         public decimal BestBidPrice { get; set; }
 
         [Required]
-        [Display(Name = "Moja oferta")]
+        [Display(Name = "Moja oferta:")]
         [MyPriceGreaterThanBestBidPrice("BestBidPrice", ErrorMessage = "Twoja oferta musi być wieksza od bieżącej ofety.")]
         public decimal MyBid { get; set; }
     }

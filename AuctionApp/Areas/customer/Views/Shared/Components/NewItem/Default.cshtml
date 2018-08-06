@@ -15,46 +15,46 @@
                     @Html.ValidationSummary(false,"", new { @class = "text-danger" })
 
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.Name, new { @class = "col-lg-3" })
-                        <div class="col-lg-9">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-lg-4" })
+                        <div class="col-lg-8">
                             @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3">Zdjęcie</label>
-                        <div class="col-lg-9">
+                        <label class="col-lg-4">Zdjęcie</label>
+                        <div class="col-lg-8">
                             <input type="file" name="File" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.ConstPrice, new { @class = "col-lg-3" })
-                        <div class="col-lg-9">
+                        @Html.LabelFor(m => m.ConstPrice, new { @class = "col-lg-4" })
+                        <div class="col-lg-8">
                             @Html.EditorFor(m => m.ConstPrice, new { htmlAttributes = new { @class = "form-control" } })
                         </div>
                     </div>
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.Payments, new { @class = "col-lg-3" })
-                        <div class="col-lg-9">
+                        @Html.LabelFor(m => m.Payments, new { @class = "col-lg-4" })
+                        <div class="col-lg-8">
                             <select asp-for="PayId" asp-items="@Model.Payments" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.Categories, new { @class = "col-lg-3" })
-                        <div class="col-lg-9">
+                        @Html.LabelFor(m => m.Categories, new { @class = "col-lg-4" })
+                        <div class="col-lg-8">
                             <select asp-for="CatId" asp-items="@Model.Categories" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        @Html.LabelFor(m => m.Subcategories, new { @class = "col-lg-3" })
-                        <div class="col-lg-9">
+                        @Html.LabelFor(m => m.Subcategories, new { @class = "col-lg-4" })
+                        <div class="col-lg-8">
                             <select asp-for="SubcatId" asp-items="@Model.Subcategories" class="form-control"></select>
                         </div>
                     </div>
                     <div id="ItemDescriptions" class="form-group row">
                         <div class="col-lg-12 mb-1">
                             <div class="row">
-                                <label class="col-lg-3">Nowy opis:</label>
-                                <div class="col-lg-9">
+                                <label class="col-lg-4">Nowy opis:</label>
+                                <div class="col-lg-8">
                                     <button id="BtnNewItemDescription" type="button" class="btn btn-dark">Dodaj pole</button>
                                     <button id="BtnDeleteItemDescription" type="button" class="btn btn-danger">Usuń pole</button>
                                 </div>

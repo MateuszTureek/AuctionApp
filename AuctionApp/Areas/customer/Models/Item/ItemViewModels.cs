@@ -16,7 +16,7 @@ namespace AuctionApp.Areas.customer.Models.Item
         [StringLength(50, ErrorMessage = "Max. liczba znaków {1}.")]
         public string Name { get; set; }
 
-        [Display(Name = "Cena kup teraz")]
+        [Display(Name = "Kup teraz za:")]
         public decimal? ConstPrice { get; set; }
 
         public int CatId { get; set; }

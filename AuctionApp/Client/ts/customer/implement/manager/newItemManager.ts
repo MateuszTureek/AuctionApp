@@ -53,11 +53,11 @@ export default class NewItemManager {
         let $titleRow = $('<div>').addClass('row mb-1');
         let $contentRow = $('<div>').addClass('row');
 
-        let $lblTitle = $('<label>').addClass('col-lg-3').text('Tytuł:');
-        let $lblContent = $('<label>').addClass('col-lg-3').text('Opis:');
+        let $lblTitle = $('<label>').addClass('col-lg-4').text('Tytuł:');
+        let $lblContent = $('<label>').addClass('col-lg-4').text('Opis:');
 
-        let $txtTitleWrpper = $('<div>').addClass('col-lg-9');
-        let $txtAreaContentWrapper = $('<div>').addClass('col-lg-9');
+        let $txtTitleWrpper = $('<div>').addClass('col-lg-8');
+        let $txtAreaContentWrapper = $('<div>').addClass('col-lg-8');
 
         let $txtTitle = $('<input>')
             .addClass('form-control')

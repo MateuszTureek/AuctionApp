@@ -4,38 +4,6 @@
     Layout = "~/Areas/customer/Views/Shared/_CustomerLayout.cshtml";
 }
 
-@*
-
-<!-- POM -->
-<div class="container">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            User..........<input type="text" id="userInput" />
-            <br />
-            Message...<input type="text" id="messageInput" />
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <h4>List:</h4>
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-</div>
-<script src="~/lib/signalr/signalr.js"></script>
-<script src="~/dist/activityHub.js"></script>
-
-*@
-
 <div class="mt-2">
     @await Component.InvokeAsync("NewItem")
     <div class="row">
@@ -44,101 +12,18 @@
         </div>
     </div>
     <div id="CustomerSummary" class="row">
-        <div class="col-lg-3">
-            <div class="card bg-dark">
-                <div class="card-body text-dark">
-                    <div class="d-flex justify-content-lg-between text-white">
-                        <div class="summary ml-4">
-                            <span class="fa fa-archive"></span>
-                        </div>
-                        <div>
-                            <p class="text-right amount">@ViewBag.WaitingItemsCount</p>
-                            <p class="text-right">W poczekalni</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
-                        <span class="fa fa-arrow-circle-o-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="card bg-info">
-                <div class="card-body text-dark">
-                    <div class="d-flex justify-content-lg-between text-white">
-                        <div class="summary ml-4">
-                            <span class="fa fa-globe"></span>
-                        </div>
-                        <div>
-                            <p class="text-right amount">@ViewBag.InAuctionItemsCount</p>
-                            <p class="text-right">Aktywne aukcje</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a asp-area="customer" asp-controller="Item" asp-action="Index" class="pull-right">
-                        <span class="fa fa-arrow-circle-o-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="card bg-danger">
-                <div class="card-body">
-                    <div class="d-flex justify-content-lg-between text-white">
-                        <div class="summary ml-4">
-                            <span class="fa fa-lock"></span>
-                        </div>
-                        <div>
-                            <p class="text-right amount">@ViewBag.FinancialLiabilities</p>
-                            <p class="text-right">Moje zobowiązania</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="pull-right">
-                        <span class="fa fa-arrow-circle-o-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="card bg-warning">
-                <div class="card-body text-dark">
-                    <div class="d-flex justify-content-lg-between text-white">
-                        <div class="summary ml-4">
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <div>
-                            <p class="text-right amount">@ViewBag.MyLeadBidsAmount</p>
-                            <p class="text-right">Oferty przodujące</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="pull-right">
-                        <span class="fa fa-arrow-circle-o-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_SummaryPartial")
     </div>
-
     <div class="row mt-4">
         <div class="col-lg-6">
             @await Component.InvokeAsync("BidsOfCustomerItems")
         </div>
 
-        <div class="col-lg-6">
+        <div id="MyBestBids" class="col-lg-6">
             @await Component.InvokeAsync("MyBestBids")
         </div>
     </div>
-    <div class="row mt-2">
+    <div id="CustomerInfo" class="row mt-2">
         <div class="col-lg-6">
             @await Component.InvokeAsync("CustomerInfo")
         </div>
@@ -147,16 +32,4 @@
             @await Component.InvokeAsync("Activities")
         </div>
     </div>
-
 </div>
-<style>
-    dt {
-        width: 30%;
-        float: left;
-    }
-
-    dd {
-        width: 70%;
-        float: left;
-    }
-</style>

@@ -2,30 +2,39 @@
 @model IEnumerable<AuctionApp.Core.BLL.DTO.Bid.ShortBidOfAuctionDTO>
 
 <h5>Licytacje przedmiotów:</h5>
-<table class="table">
-    <thead class="thead-dark">
-        <tr class="text-center">
-            <th>Użytkownik</th>
-            <th>Oferta</th>
-            <th>Przedmiot</th>
-            <th>Dodano</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var bid in Model)
-        {
+
+@if(Model.Count()>0)
+{
+    <table class="table">
+        <thead class="thead-dark">
             <tr class="text-center">
-                <td>@bid.Username</td>
-                <td>
-                    @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidPrice)
-                </td>
-                <td>@bid.ItemName</td>
-                <td>
-                    <span>@bid.PlacedDate.ToShortDateString()</span>
-                    <br />
-                    <span>@bid.PlacedDate.ToShortTimeString()</span>
-                </td>
+                <th>Użytkownik</th>
+                <th>Oferta</th>
+                <th>Przedmiot</th>
+                <th>Dodano</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach(var bid in Model)
+            {
+                <tr class="text-center">
+                    <td>@bid.Username</td>
+                    <td>
+                        @string.Format(new System.Globalization.CultureInfo("pl"), "{0:C}", bid.BidPrice)
+                    </td>
+                    <td>@bid.ItemName</td>
+                    <td>
+                        <span>@bid.PlacedDate.ToShortDateString()</span>
+                        <br />
+                        <span>@bid.PlacedDate.ToShortTimeString()</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else{
+    <div class="empty">
+        <span>Obecnie nikt nie licytuje twoich przedmiotów.</span>
+    </div>
+}

@@ -76,7 +76,7 @@
                     {
                         @await Component.InvokeAsync("NewAuctionBid", new { id = Model.Id })
 
-                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#NewBidModal">Dodaj oferte</button>
+                        <button type="button" class="btn btn-dark mb-2 mt-2 btn-sm" data-toggle="modal" data-target="#NewBidModal">Dodaj oferte</button>
                     }
                 </div>
                 @if (Model.Status == AuctionApp.Core.DAL.Data.AuctionContext.Domain.Status.InAuction)

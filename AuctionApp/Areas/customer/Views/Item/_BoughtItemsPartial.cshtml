@@ -5,55 +5,58 @@
         @Html.Partial("_ToolBarPartial")
     </div>
 
-    <table id="BoughtItemsTable" class="table">
-        <thead class="thead-dark text-center">
-            <tr>
-                <th>Kategoria</th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Name">
-                        <span>Nazwa</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Payment">
-                        <span>Płatność</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.BuyNowPrice">
-                        <span>Kup teraz</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.StartDate">
-                        <span>Początek aukcji</span>
-                    </a>
-                </th>
-                <th>
-                    <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.EndDate">
-                        <span>Koniec aukcji</span>
-                    </a>
-                </th>
-                <th>Koszt dostawy</th>
-                <th>Całkowity koszt</th>
-                <th>Szaczegóły</th>
-            </tr>
-        </thead>
-        <tbody class="text-center">
-            <!-- render by js -->
-        </tbody>
-    </table>
+    <div class="d-none">
+        <table id="BoughtItemsTable" class="table">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th>Kategoria</th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Name">
+                            <span>Nazwa</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.Payment">
+                            <span>Płatność</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.BuyNowPrice">
+                            <span>Kup teraz</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.StartDate">
+                            <span>Początek aukcji</span>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="#" data-order-by="@AuctionApp.Core.BLL.Enum.BoughtItemsOrderBy.EndDate">
+                            <span>Koniec aukcji</span>
+                        </a>
+                    </th>
+                    <th>Koszt dostawy</th>
+                    <th>Całkowity koszt</th>
+                    <th>Szaczegóły</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <!-- render by js -->
+            </tbody>
+        </table>
 
-    <ul class="pagination justify-content-lg-center">
-        <li class="page-item" data-arrow="left">
-            <a class="page-link" href="#"><span>&laquo;</span></a>
-        </li>
-        <!-- render page numbers here ! -->
-        <li class="page-item" data-arrow="right">
-            <a class="page-link" href="#"><span>&raquo;</span></a>
-        </li>
-    </ul>
+        <ul class="pagination justify-content-lg-center">
+            <li class="page-item" data-arrow="left">
+                <a class="page-link" href="#"><span>&laquo;</span></a>
+            </li>
+            <!-- render page numbers here ! -->
+            <li class="page-item" data-arrow="right">
+                <a class="page-link" href="#"><span>&raquo;</span></a>
+            </li>
+        </ul>
+    </div>
 </div>
-@*
-<p class="no-items d-none">Brak przedmiotów kupionych.</p>
-*@
+
+<div class="empty d-none">
+    <span>Brak sprzedarzy.</p>
+</div>

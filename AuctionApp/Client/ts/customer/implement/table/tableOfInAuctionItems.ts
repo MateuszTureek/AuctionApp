@@ -12,6 +12,7 @@ export default class TableOfInAuctionItems extends TableItems {
     private cancelAuctionButtonsClass = 'btn-cancel-auction';
     private cancenAuctionItemConfirmId = 'BtnCancelItemAuctionConfirm';
     private containerId = 'InAuction';
+    private $container=$('#'+this.containerId);
 
     constructor(
         private itemAjax: ItemAjax,
@@ -21,10 +22,10 @@ export default class TableOfInAuctionItems extends TableItems {
         this.tableId = 'InAuctionItemsTable';
         this.$table = $('#' + this.tableId);
         this.$tbody = this.$table.children('tbody').first();
-        this.search = new Search(this.$table.closest('div').find('input[type="search"]'));
-        this.selectList = new SelectList(this.$table.closest('div').find('select'));
+        this.search = new Search(this.$container.find('input[type="search"]'));
+        this.selectList = new SelectList(this.$container.find('select'));
         this.orderLinksManager = new OrderLinksManager(this.$table.children('thead').find('th a'));
-        this.paging = new Pagination($('#' + this.containerId).find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
+        this.paging = new Pagination(this.$container.find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
 
         this.search.add(this);
         this.selectList.add(this.paging);
@@ -78,9 +79,15 @@ export default class TableOfInAuctionItems extends TableItems {
                 this.$tbody.append($body.children());
                 this.events();
                 this.paging.generatePagination(result.totalAmount);
+
+                $('.empty').addClass('d-none');
+                this.$tbody.closest('div').removeClass('d-none');
             }
             else {
                 this.$tbody.empty();
+                
+                this.$tbody.closest('div').addClass('d-none');
+                $('.empty').removeClass('d-none');
             }
         }).catch((e) => { console.log('item in auction error'); });
     };

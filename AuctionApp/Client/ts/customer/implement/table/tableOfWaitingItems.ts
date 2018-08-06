@@ -14,6 +14,7 @@ export default class TableOfWaitingItems extends TableItems {
     private deleteItemClass = "btn-delete-item";
     private deleteItemConfirmId = "BtnDeleteItem";
     private containerId = 'Waiting';
+    private $container = $('#'+this.containerId);
 
     constructor(
         private itemAjax: ItemAjax,
@@ -25,10 +26,10 @@ export default class TableOfWaitingItems extends TableItems {
         this.$table = $('#' + this.tableId);
         this.$tbody = this.$table.children('tbody').first();
 
-        this.search = new Search(this.$table.closest('div').find('input[type="search"]'));
-        this.selectList = new SelectList(this.$table.closest('div').find('select'));
+        this.search = new Search(this.$container.closest('div').find('input[type="search"]'));
+        this.selectList = new SelectList(this.$container.closest('div').find('select'));
         this.orderLinksManager = new OrderLinksManager(this.$table.children('thead').find('th a'));
-        this.paging = new Pagination($('#' + this.containerId).find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
+        this.paging = new Pagination(this.$container.find('ul.pagination'), this.selectList.GetSelectedOptionValue, this.selectList);
 
         this.search.add(this);
         this.selectList.add(this.paging);
@@ -108,14 +109,19 @@ export default class TableOfWaitingItems extends TableItems {
         this.itemAjax.getWaitingItems(criteria).then((result: any) => {
             if (result.items.length !== 0) {
                 const $body = this.getTBody(result.items);
-
+                
                 this.$tbody.empty();
                 this.$tbody.append($body.children());
                 this.events();
                 this.paging.generatePagination(result.totalAmount);
+                
+                $('.empty').addClass('d-none');
+                this.$tbody.closest('div').removeClass('d-none');
             }
             else {
                 this.$tbody.empty();
+                this.$tbody.closest('div').addClass('d-none');
+                $('.empty').removeClass('d-none');
             }
         }).catch((e) => { console.log('item waiting error'); });
     };

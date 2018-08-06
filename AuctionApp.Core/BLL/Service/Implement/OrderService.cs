@@ -40,7 +40,7 @@ namespace AuctionApp.Core.BLL.Service.Implement {
                 TotalCost = totalSum
             };
 
-            _unitOfWork.OrderRepo.Add (order);
+            await _unitOfWork.OrderRepo.Add (order);
             _unitOfWork.Save ();
         }
 
