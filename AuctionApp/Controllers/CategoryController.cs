@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 using AuctionApp.Core.BLL.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctionApp.Controllers
-{
-    public class CategoryController : Controller
-    {
+namespace AuctionApp.Controllers {
+    public class CategoryController : Controller {
         readonly ICategoryService _service;
 
-        public CategoryController(ICategoryService service)
-        {
+        public CategoryController (ICategoryService service) {
             _service = service;
         }
     }

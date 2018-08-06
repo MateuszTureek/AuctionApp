@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
 using AuctionApp.Core.DAL.Enum;
 using AuctionApp.Models.Account;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,12 @@ namespace AuctionApp.Controllers {
     public class AccountController : Controller {
         readonly UserManager<AppUser> _userManager;
         readonly SignInManager<AppUser> _signInManager;
+        readonly IMapper _mapper;
 
-        public AccountController (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) {
+        public AccountController (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper) {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -31,15 +34,8 @@ namespace AuctionApp.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register (RegisterViewModel model) {
             if (ModelState.IsValid) {
-                var user = new AppUser {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Address = model.Address,
-                    Country = model.Country,
-                    PhoneNumber = model.PhoneNumber
-                };
+                var user = _mapper.Map<RegisterViewModel, AppUser> (model);
+
                 var result = await _userManager.CreateAsync (user, model.Password).ConfigureAwait (true);
                 if (result.Succeeded) {
                     await _userManager.AddToRoleAsync (user, Role.customer);
