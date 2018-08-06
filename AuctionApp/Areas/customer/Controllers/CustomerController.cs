@@ -11,34 +11,40 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctionApp.Areas.customer.Controllers {
-    [Authorize (Roles = Role.customer)]
-    [Area ("customer")]
-    public class CustomerController : Controller {
+namespace AuctionApp.Areas.customer.Controllers
+{
+    [Authorize(Roles = Role.customer)]
+    [Area("customer")]
+    public class CustomerController : Controller
+    {
         readonly ICustomerService _customerService;
         readonly IMapper _mapper;
 
-        public CustomerController (ICustomerService customerService, IMapper mapper) {
+        public CustomerController(ICustomerService customerService, IMapper mapper)
+        {
             _customerService = customerService;
             _mapper = mapper;
         }
 
-        public IActionResult Contact () {
-            var userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
-            var dto = _customerService.GetContact (userId);
-            return View (dto);
+        public IActionResult Contact()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var dto = _customerService.GetContact(userId);
+            return View(dto);
         }
 
         [HttpPost]
-        public IActionResult EditContact (ContactViewModel model) {
-            if (!ModelState.IsValid) {
-                ModelState.AddModelError (string.Empty, "Dane kontaktowe są niepoprawne.");
-                return RedirectToAction ("Index", "Home", new { area = "customer" });
+        public IActionResult EditContact(ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Dane kontaktowe są niepoprawne.");
+                return RedirectToAction("Index", "Home", new { area = "customer" });
             }
-            var dto = _mapper.Map<ContactViewModel, ContactDTO> (model);
-            dto.UserId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
-            _customerService.EditContact (dto);
-            return RedirectToAction ("Index", "Home", new { area = "customer" });
+            var dto = _mapper.Map<ContactViewModel, ContactDTO>(model);
+            dto.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _customerService.EditContact(dto);
+            return RedirectToAction("Index", "Home", new { area = "customer" });
         }
     }
 }
