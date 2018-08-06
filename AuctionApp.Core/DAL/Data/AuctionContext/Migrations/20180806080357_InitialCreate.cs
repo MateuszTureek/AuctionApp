@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
 {
-    public partial class InitialCreateMigr : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -34,7 +34,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,6 +82,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                     ImgSrc = table.Column<string>(nullable: false),
                     ConstPrice = table.Column<decimal>(type: "decimal(16,2)", nullable: false),
                     Status = table.Column<int>(nullable: false),
+                    Username = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(maxLength: 450, nullable: false),
                     AuctionStart = table.Column<DateTime>(nullable: true),
                     AuctionEnd = table.Column<DateTime>(nullable: true),
@@ -93,9 +94,9 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Items_Order_OrderId",
+                        name: "FK_Items_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -121,6 +122,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                     BidAmount = table.Column<decimal>(type: "decimal(16,2)", nullable: false),
                     DatePlaced = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<string>(maxLength: 450, nullable: false),
+                    Username = table.Column<string>(maxLength: 250, nullable: false),
                     ItemRef = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -198,7 +200,7 @@ namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Payments");

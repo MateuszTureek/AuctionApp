@@ -12,6 +12,7 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext {
                 user.Property (p => p.Surname).HasMaxLength (50);
                 user.Property (p => p.Address).HasMaxLength (150);
                 user.Property (p => p.Country).HasMaxLength (80);
+                user.Property (p => p.PhotoSrc).IsRequired();
             });
 
             base.OnModelCreating (builder);

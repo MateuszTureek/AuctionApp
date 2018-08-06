@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuctionApp.Core.DAL.Data.AuctionContext.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20180723102059_ItemAddUsername")]
-    partial class ItemAddUsername
+    [Migration("20180806080357_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

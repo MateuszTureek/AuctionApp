@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Data.IdentityContext.Domain;
 using AuctionApp.Core.DAL.Enum;
 using AuctionApp.Models.Account;
@@ -16,11 +17,13 @@ namespace AuctionApp.Controllers {
         readonly UserManager<AppUser> _userManager;
         readonly SignInManager<AppUser> _signInManager;
         readonly IMapper _mapper;
+        readonly IPhotoService _photoService;
 
-        public AccountController (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper) {
+        public AccountController (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, IPhotoService photoService) {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -35,6 +38,8 @@ namespace AuctionApp.Controllers {
         public async Task<IActionResult> Register (RegisterViewModel model) {
             if (ModelState.IsValid) {
                 var user = _mapper.Map<RegisterViewModel, AppUser> (model);
+                _photoService.AddPhoto(model.File);
+                user.PhotoSrc = _photoService.GetLocalFilePath();
 
                 var result = await _userManager.CreateAsync (user, model.Password).ConfigureAwait (true);
                 if (result.Succeeded) {

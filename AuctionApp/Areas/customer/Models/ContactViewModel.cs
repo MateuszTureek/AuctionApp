@@ -43,5 +43,7 @@ namespace AuctionApp.Areas.customer.Models
         [Required(ErrorMessage = "Pole {0} jest wymagane.")]
         [MaxLength(80)]
         public string Country { get; set; }
+
+        public string PhotoSrc { get; set; }
     }
 }

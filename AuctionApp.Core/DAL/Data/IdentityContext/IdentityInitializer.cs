@@ -40,7 +40,8 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext {
                 Email = "buyer1@fake.com",
                 PhoneNumber = "000 111 222",
                 Address = "ul.Jana Pawła 23",
-                Country = "Polska"
+                Country = "Polska",
+                PhotoSrc = "/images/profilePhotos/user1.png"
             };
 
             AppUser seller = new AppUser {
@@ -51,7 +52,8 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext {
                 Email = "seller1@fake.com",
                 PhoneNumber = "222 444 000",
                 Address = "ul.Łąkowa 9",
-                Country = "Polska"
+                Country = "Polska",
+                PhotoSrc = "/images/profilePhotos/user2.png"
             };
 
             buyer.PasswordHash = _userManager.PasswordHasher.HashPassword (buyer, "12345");

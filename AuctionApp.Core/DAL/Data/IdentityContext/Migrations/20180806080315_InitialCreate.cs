@@ -40,7 +40,12 @@ namespace AuctionApp.Core.DAL.Data.IdentityContext.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Surname = table.Column<string>(maxLength: 50, nullable: true),
+                    Address = table.Column<string>(maxLength: 150, nullable: true),
+                    Country = table.Column<string>(maxLength: 80, nullable: true),
+                    PhotoSrc = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -36,6 +36,7 @@ namespace AuctionApp.Core.BLL.Mapper
 
             CreateMap<AppUser, ContactDTO>()
                 .ForMember(d => d.Phone, o => o.MapFrom(m => m.PhoneNumber))
+                .ForMember(d => d.Photo, o => o.MapFrom(m => m.PhotoSrc))
                 .ForMember(d => d.UserId, o => o.MapFrom(m => m.Id));
 
             CreateMap<ContactDTO, AppUser>();

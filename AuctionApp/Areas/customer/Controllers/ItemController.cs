@@ -15,113 +15,127 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace AuctionApp.Areas.customer.Controllers {
-    [Area ("customer")]
-    [Authorize (Roles = Role.customer)]
-    public class ItemController : Controller {
+namespace AuctionApp.Areas.customer.Controllers
+{
+    [Area("customer")]
+    [Authorize(Roles = Role.customer)]
+    public class ItemController : Controller
+    {
         readonly IMapper _mappper;
         readonly IItemService _itemService;
-        readonly IPhotoService _photoService;
 
-        public ItemController (IItemService itemService, IMapper mapper, IPhotoService photoService) {
+        public ItemController(IItemService itemService, IMapper mapper, IPhotoService photoService)
+        {
             _itemService = itemService;
             _mappper = mapper;
-            _photoService = photoService;
         }
 
-        public IActionResult Index () {
-            return View ();
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create (NewItemViewModel model) {
-            if (ModelState.IsValid) {
-                string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
-                string username = User.FindFirst (ClaimTypes.Name).Value;
-                NewItemDTO dto = _mappper.Map<NewItemViewModel, NewItemDTO> (model);
+        public async Task<IActionResult> Create(NewItemViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string username = User.FindFirst(ClaimTypes.Name).Value;
+                NewItemDTO dto = _mappper.Map<NewItemViewModel, NewItemDTO>(model);
                 dto.UserId = userId;
                 dto.Username = username;
 
-                await _itemService.CreateAsync (dto);
+                await _itemService.CreateAsync(dto);
 
-                return RedirectToAction ("Index", "Home", new { area = "customer" });
+                return RedirectToAction("Index", "Home", new { area = "customer" });
             }
-            ModelState.AddModelError (string.Empty, "Niepoprawne dane produktu.");
-            return View (model);
+            ModelState.AddModelError(string.Empty, "Niepoprawne dane produktu.");
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAuctionOfItem (CreateAuctionViewModel model) {
-            if (!ModelState.IsValid) {
-                ModelState.AddModelError ("", "Niepoprawne dane.");
-                return BadRequest ();
+        public async Task<IActionResult> CreateAuctionOfItem(CreateAuctionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Niepoprawne dane.");
+                return BadRequest();
             }
 
-            var dto = _mappper.Map<CreateAuctionViewModel, CreateAuctionDTO> (model);
-            await _itemService.CreateItemAuctionAsync (dto);
+            var dto = _mappper.Map<CreateAuctionViewModel, CreateAuctionDTO>(model);
+            await _itemService.CreateItemAuctionAsync(dto);
 
-            return RedirectToAction ("Index", "Item", new { area = "customer" });
+            return RedirectToAction("Index", "Item", new { area = "customer" });
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAuctionBid (NewBidViewModel model) {
-            if (!ModelState.IsValid) {
-                ModelState.AddModelError ("", "Niepoprawne dane.");
-                return RedirectToAction ("Item", "Item", new { id = model.ItemId, area = "" });
+        public async Task<IActionResult> CreateAuctionBid(NewBidViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Niepoprawne dane.");
+                return RedirectToAction("Item", "Item", new { id = model.ItemId, area = "" });
             }
-            NewBidDTO dto = _mappper.Map<NewBidViewModel, NewBidDTO> (model);
-            string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
-            string username = User.FindFirst (ClaimTypes.Name).Value;
+            NewBidDTO dto = _mappper.Map<NewBidViewModel, NewBidDTO>(model);
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string username = User.FindFirst(ClaimTypes.Name).Value;
             dto.Username = username;
-            await _itemService.AddBidToItemAsync (dto, userId);
-            return RedirectToAction ("Index", "Home", new { area = "" });
+            await _itemService.AddBidToItemAsync(dto, userId);
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete (int? id) {
-            if (id == null) return BadRequest ();
-            await _itemService.RemoveAsync ((int) id);
-            return RedirectToAction ("Index", "Item", new { area = "customer" });
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return BadRequest();
+            await _itemService.RemoveAsync((int)id);
+            return RedirectToAction("Index", "Item", new { area = "customer" });
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetItemBids (int? id) {
-            if (id == null) return BadRequest ();
-            var dto = await _itemService.GetAuctionDetailsAsync ((int) id);
-            var result = _mappper.Map<ItemAuctionDTO, ItemAuctionViewModel> (dto);
-            return View (result);
+        public async Task<IActionResult> GetItemBids(int? id)
+        {
+            if (id == null) return BadRequest();
+            var dto = await _itemService.GetAuctionDetailsAsync((int)id);
+            var result = _mappper.Map<ItemAuctionDTO, ItemAuctionViewModel>(dto);
+            return View(result);
         }
 
         [HttpGet]
-        public IActionResult GetWaitingItems (SearchCriteriaDTO searchDTO, WaitingItemsOrderBy orderBy = WaitingItemsOrderBy.Name) {
-            var userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
+        public IActionResult GetWaitingItems(SearchCriteriaDTO searchDTO, WaitingItemsOrderBy orderBy = WaitingItemsOrderBy.Name)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             searchDTO.UserId = userId;
-            var result = _itemService.GetWaitingItems (orderBy, searchDTO);
-            return Json (result);
+            var result = _itemService.GetWaitingItems(orderBy, searchDTO);
+            return Json(result);
         }
 
         [HttpGet]
-        public IActionResult GetInAuctionItems (SearchCriteriaDTO searchDTO, InAuctionItemsOrderBy orderBy = InAuctionItemsOrderBy.Name) {
-            var userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
+        public IActionResult GetInAuctionItems(SearchCriteriaDTO searchDTO, InAuctionItemsOrderBy orderBy = InAuctionItemsOrderBy.Name)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             searchDTO.UserId = userId;
-            var result = _itemService.GetInAuctionItems (orderBy, searchDTO);
-            return Json (result);
+            var result = _itemService.GetInAuctionItems(orderBy, searchDTO);
+            return Json(result);
         }
 
         [HttpGet]
-        public IActionResult GetBoughtItems (SearchCriteriaDTO searchDTO, BoughtItemsOrderBy orderBy = BoughtItemsOrderBy.Name) {
-            var userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
+        public IActionResult GetBoughtItems(SearchCriteriaDTO searchDTO, BoughtItemsOrderBy orderBy = BoughtItemsOrderBy.Name)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             searchDTO.UserId = userId;
-            var result = _itemService.GetBoughtItems (orderBy, searchDTO);
-            return Json (result);
+            var result = _itemService.GetBoughtItems(orderBy, searchDTO);
+            return Json(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CancelAuctionOfItem (int? id) {
-            if (id == null) return BadRequest ();
+        public async Task<IActionResult> CancelAuctionOfItem(int? id)
+        {
+            if (id == null) return BadRequest();
 
-            await _itemService.CancelAuctionAsync ((int) id);
-            return RedirectToAction ("Index", "Item", new { area = "" });
+            await _itemService.CancelAuctionAsync((int)id);
+            return RedirectToAction("Index", "Item", new { area = "" });
         }
     }
 }

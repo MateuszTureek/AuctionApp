@@ -23,7 +23,8 @@ namespace AuctionApp.Mapper
 
         public void Configure()
         {
-            CreateMap<ContactDTO, ContactViewModel>();
+            CreateMap<ContactDTO, ContactViewModel>()
+                .ForMember(d => d.PhotoSrc, o => o.MapFrom(m => m.Photo));
 
             CreateMap<NewItemViewModel, NewItemDTO>()
                 .ForMember(d => d.PaymentId, o => o.MapFrom(m => m.PayId));

@@ -9,5 +9,6 @@ namespace AuctionApp.Core.BLL.DTO.Customer
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Country { get; set; }
+        public string Photo { get; set; }
     }
 }
