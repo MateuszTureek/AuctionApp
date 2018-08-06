@@ -13,11 +13,11 @@ namespace AuctionApp.Core.DAL.Repository.Implement {
     public class BidRepo : GenericRepo<Bid>, IBidRepo {
         public BidRepo (AuctionDbContext db) : base (db) { }
 
-        public override Bid GetById (int id) {
-            return _dbSet
+        public override async Task<Bid> GetById (int id) {
+            return await _dbSet
                 .Include (i => i.Item)
                 .Include (i => i.Item.Subcategory)
-                .Include (i => i.Item.Payment).First (f => f.Id == id);
+                .Include (i => i.Item.Payment).FirstOrDefaultAsync (f => f.Id == id);
         }
     }
 }

@@ -31,9 +31,9 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Details (int? id) {
+        public async Task<IActionResult> Details (int? id) {
             if (id == null) return BadRequest ();
-            var bidDTO = _itemService.GetBidDetails ((int) id);
+            var bidDTO = await _itemService.GetBidDetailsAsync ((int) id);
             var model = _mapper.Map<BidDetailsDTO, BidDetailsViewModel> (bidDTO);
             return View (model);
         }

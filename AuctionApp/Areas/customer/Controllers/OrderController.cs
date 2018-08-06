@@ -26,14 +26,14 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpPost]
-        public IActionResult SubmitOrder () {
+        public async Task<IActionResult> SubmitOrder () {
             string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
             List<CartItemDTO> cart = _cartService.GetCartItems ();
             CreatedOrderDTO dto = new CreatedOrderDTO {
                 UserId = userId,
                 OrderItems = _mapper.Map<List<CartItemDTO>, List<CreatedOrderItemDTO>> (cart)
             };
-            _orderService.CreateOrder (dto);
+            await _orderService.CreateOrderAsync (dto);
             _cartService.RemoveCart ();
             return RedirectToAction ("Index", "Home", new { area = "" });
         }

@@ -48,9 +48,9 @@ namespace AuctionApp.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Item (int? id) {
+        public async Task<IActionResult> Item (int? id) {
             if (id == null) return BadRequest ();
-            ItemDetailsDTO item = _service.GetItem ((int) id);
+            ItemDetailsDTO item = await _service.GetItemAsync ((int) id);
             ItemDetailsViewModel model = _mapper.Map<ItemDetailsDTO, ItemDetailsViewModel> (item);
             model.Bids = model.Bids.OrderByDescending (o => o.BidAmount).ToList ();
 

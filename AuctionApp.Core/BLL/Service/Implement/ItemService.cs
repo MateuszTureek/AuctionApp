@@ -35,8 +35,8 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             _unitOfWork = unitOfWork;
         }
 
-        public ItemDetailsDTO GetItem (int id) {
-            var item = _unitOfWork.ItemRepo.GetById (id);
+        public async Task<ItemDetailsDTO> GetItemAsync (int id) {
+            var item = await _unitOfWork.ItemRepo.GetById (id);
             var result = _mapper.Map<Item, ItemDetailsDTO> (item);
 
             return result;
@@ -117,25 +117,25 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             return result;
         }
 
-        public void Remove (int id) {
-            var item = _unitOfWork.ItemRepo.GetById (id);
+        public async Task RemoveAsync (int id) {
+            var item = await _unitOfWork.ItemRepo.GetById (id);
             _photoService.DeletePhoto (item.ImgSrc);
             _unitOfWork.ItemRepo.Remove (item);
             _unitOfWork.Save ();
         }
 
-        public void ChangeStatus (int id, Status newStatus) {
-            Item item = _unitOfWork.ItemRepo.GetById (id);
+        public async Task ChangeStatusAsync (int id, Status newStatus) {
+            Item item = await _unitOfWork.ItemRepo.GetById (id);
             item.Status = newStatus;
             _unitOfWork.Save ();
         }
 
-        public void Create (NewItemDTO dto) {
+        public async Task CreateAsync (NewItemDTO dto) {
             Item item = _mapper.Map<NewItemDTO, Item> (dto);
             _photoService.AddPhoto (dto.File);
 
             item.Status = Status.Waiting;
-            item.Payment = _unitOfWork.PaymentRepo.GetById (dto.PaymentId);
+            item.Payment = await _unitOfWork.PaymentRepo.GetById (dto.PaymentId);
             item.Subcategory = _unitOfWork.CategoryRepo.GetSubcategory (dto.SubcatId);
             item.UserId = dto.UserId;
             item.ImgSrc = _photoService.GetLocalFilePath ();
@@ -145,7 +145,7 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             item.Order = null;
             item.AddDescriptions (_mapper.Map<List<DescriptionDTO>, List<ItemDescription>> (dto.Descriptions));
 
-            _unitOfWork.ItemRepo.Add (item);
+            await _unitOfWork.ItemRepo.Add (item);
             _unitOfWork.Save ();
         }
 
@@ -166,16 +166,16 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             return _unitOfWork.OrderRepo.FinancialLiabilities (userId);
         }
 
-        public void CreateItemAuction (CreateAuctionDTO dto) {
-            var item = _unitOfWork.ItemRepo.GetById (dto.ItemId);
+        public async Task CreateItemAuctionAsync (CreateAuctionDTO dto) {
+            var item = await _unitOfWork.ItemRepo.GetById (dto.ItemId);
             item.Status = Status.InAuction;
             item.AuctionStart = dto.AuctionStart;
             item.AuctionEnd = dto.AuctionEnd;
             _unitOfWork.Save ();
         }
 
-        public void CancelAuction (int id) {
-            var item = _unitOfWork.ItemRepo.GetById (id);
+        public async Task CancelAuctionAsync (int id) {
+            var item = await _unitOfWork.ItemRepo.GetById (id);
 
             item.AuctionStart = null;
             item.AuctionEnd = null;
@@ -185,14 +185,14 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             _unitOfWork.Save ();
         }
 
-        public ItemAuctionDTO GetAuctionDetails (int id) {
-            var item = _unitOfWork.ItemRepo.GetById (id);
+        public async Task<ItemAuctionDTO> GetAuctionDetailsAsync (int id) {
+            var item = await _unitOfWork.ItemRepo.GetById (id);
             var result = _mapper.Map<Item, ItemAuctionDTO> (item);
             return result;
         }
 
-        public NewBidDTO GetBestBid (int itemid) {
-            var item = _unitOfWork.ItemRepo.GetById (itemid);
+        public async Task<NewBidDTO> GetBestBidAsync (int itemid) {
+            var item = await _unitOfWork.ItemRepo.GetById (itemid);
             List<Bid> bids = item.Bids;
             if (bids.Count > 0) {
                 var maxBidAmount = bids.Max (m => m.BidAmount);
@@ -208,12 +208,12 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             };
         }
 
-        public void AddBidToItem (NewBidDTO dto, string userId) {
-            Item item = _unitOfWork.ItemRepo.GetById (dto.ItemId);
+        public async Task AddBidToItemAsync (NewBidDTO dto, string userId) {
+            Item item = await _unitOfWork.ItemRepo.GetById (dto.ItemId);
 
             if (item.UserId == userId) throw new Exception ("You cannot add offer to own item.");
 
-            var bestBid = GetBestBid (item.Id);
+            var bestBid = await GetBestBidAsync (item.Id);
 
             if (bestBid.Username == dto.Username) throw new Exception ("You cannot outbid yourself");
 
@@ -237,20 +237,20 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             return dto;
         }
 
-        public BidDetailsDTO GetBidDetails (int id) {
-            Bid bid = _unitOfWork.BidRepo.GetById (id);
+        public async Task<BidDetailsDTO> GetBidDetailsAsync (int id) {
+            Bid bid = await _unitOfWork.BidRepo.GetById (id);
             BidDetailsDTO dto = _mapper.Map<Bid, BidDetailsDTO> (bid);
             return dto;
         }
 
-        public List<CustomerShortBidDTO> GetShortCustomerBestBids (string userId) {
+        public async Task<List<CustomerShortBidDTO>> GetShortCustomerBestBidsAsync (string userId) {
             var bids = _unitOfWork.ItemRepo.GetCustomerBestBids (userId).ToList ();
             var dto = _mapper.Map<List<Bid>, List<CustomerShortBidDTO>> (bids);
 
             int length = bids.Count;
             Item item;
             for (var i = 0; i < length; i += 1) {
-                item = _unitOfWork.ItemRepo.GetById (bids[i].Item.Id);
+                item = await _unitOfWork.ItemRepo.GetById (bids[i].Item.Id);
                 dto[i].CurrentOffer = item.Bids.Max (m => m.BidAmount);
             }
 

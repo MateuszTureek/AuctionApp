@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AuctionApp.Core.BLL.DTO.Order;
 using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
@@ -16,7 +17,7 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             _unitOfWork = unitOfWork;
         }
 
-        public void CreateOrder (CreatedOrderDTO dto) {
+        public async Task CreateOrderAsync (CreatedOrderDTO dto) {
             var cartItems = dto.OrderItems;
             var buyerId = dto.UserId;
             List<Item> items = new List<Item> ();
@@ -25,7 +26,7 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             decimal totalSum = 0;
 
             for (i = 0; i < length; i += 1) {
-                item = _unitOfWork.ItemRepo.GetById (cartItems[i].ItemId);
+                item = await _unitOfWork.ItemRepo.GetById (cartItems[i].ItemId);
                 if (item.UserId == buyerId) throw new Exception ("You try buy your own item.");
                 item.Status = Status.Bought;
                 items.Add (item);

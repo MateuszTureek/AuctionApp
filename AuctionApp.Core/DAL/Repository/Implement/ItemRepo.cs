@@ -58,12 +58,12 @@ namespace AuctionApp.Core.DAL.Repository.Implement {
             return result;
         }
 
-        public override Item GetById (int id) {
-            return _dbSet
+        public override async Task<Item> GetById (int id) {
+            return await _dbSet
                 .Include (i => i.ItemDescriptions)
                 .Include (i => i.Payment)
                 .Include (i => i.Bids)
-                .First (f => f.Id == id);
+                .FirstOrDefaultAsync (f => f.Id == id);
         }
 
         public IEnumerable<Bid> GetCustomerBestBids (string userId) {

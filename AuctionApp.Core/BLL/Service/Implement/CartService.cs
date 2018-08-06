@@ -30,7 +30,7 @@ namespace AuctionApp.Core.BLL.Service.Implement {
         }
 
         public async Task AddItemToCart (int itemId) {
-            Item item = _itemRepo.GetById (itemId);
+            Item item = await _itemRepo.GetById (itemId);
 
             if (item == null) throw new NullReferenceException ();
 

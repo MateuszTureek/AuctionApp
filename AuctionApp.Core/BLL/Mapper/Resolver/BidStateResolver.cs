@@ -17,7 +17,7 @@ namespace AuctionApp.Core.BLL.Mapper.Resolver
 
         public BidState Resolve(Bid source, TDestination destination, BidState destMember, ResolutionContext context)
         {
-            var bestBid = _itemService.GetBestBid(source.Item.Id);
+            var bestBid = _itemService.GetBestBidAsync(source.Item.Id).Result;
 
             if (source.BidAmount == bestBid.BestBidPrice) return BidState.Najlepsza;
             return BidState.Przebita;

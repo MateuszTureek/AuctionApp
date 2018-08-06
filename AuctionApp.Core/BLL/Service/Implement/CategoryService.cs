@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AuctionApp.Core.BLL.DTO;
 using AuctionApp.Core.BLL.Service.Contract;
 using AuctionApp.Core.DAL.Data.AuctionContext.Domain;
@@ -24,8 +25,8 @@ namespace AuctionApp.Core.BLL.Service.Implement {
             return _mapper.Map<List<Category>, List<CategoryDTO>> (categories);
         }
 
-        public CategoryDTO GetCategory (int id) {
-            var category = _categoryRepo.GetById (id);
+        public async Task<CategoryDTO> GetCategoryAsync (int id) {
+            var category = await _categoryRepo.GetById (id);
             return _mapper.Map<Category, CategoryDTO> (category);
         }
     }

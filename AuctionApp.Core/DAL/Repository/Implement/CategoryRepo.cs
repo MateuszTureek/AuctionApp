@@ -24,10 +24,10 @@ namespace AuctionApp.Core.DAL.Repository.Contract {
                 .AsEnumerable ();
         }
 
-        public override Category GetById (int id) {
-            return _dbSet
+        public override async Task<Category> GetById (int id) {
+            return await _dbSet
                 .Include (i => i.Subcategories)
-                .First (f => f.Id == id);
+                .FirstOrDefaultAsync (f => f.Id == id);
         }
 
         public Subcategory GetSubcategory (int id) {

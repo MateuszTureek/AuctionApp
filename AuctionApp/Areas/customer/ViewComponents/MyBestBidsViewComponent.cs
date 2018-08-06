@@ -16,7 +16,7 @@ namespace AuctionApp.Areas.customer.ViewComponents {
 
         public async Task<IViewComponentResult> InvokeAsync () {
             var userId = UserClaimsPrincipal.FindFirst (ClaimTypes.NameIdentifier).Value;
-            var dto = _itemService.GetShortCustomerBestBids (userId);
+            var dto = await _itemService.GetShortCustomerBestBidsAsync (userId);
             return View (dto);
         }
     }

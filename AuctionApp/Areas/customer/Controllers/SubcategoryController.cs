@@ -19,9 +19,9 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpGet]
-        public IActionResult SubcategoryByCatId (int? id) {
+        public async Task<IActionResult> SubcategoryByCatId (int? id) {
             if (id == null) return BadRequest ();
-            var category = _categoryService.GetCategory ((int) id);
+            var category = await _categoryService.GetCategoryAsync ((int) id);
             var subcategory = category.Subcategories.Select (s => new SelectListItem () { Value = s.Id + "", Text = s.Name }).ToList ();
             return Json (subcategory);
         }

@@ -20,7 +20,7 @@ namespace AuctionApp.ViewComponents {
         }
 
         public async Task<IViewComponentResult> InvokeAsync (int id) {
-            var bestBid = _itemService.GetBestBid (id);
+            var bestBid = await _itemService.GetBestBidAsync (id);
             NewBidViewModel model = _mapper.Map<NewBidDTO, NewBidViewModel> (bestBid);
             return View (model);
         }

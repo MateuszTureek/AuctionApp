@@ -34,7 +34,7 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Create (NewItemViewModel model) {
+        public async Task<IActionResult> Create (NewItemViewModel model) {
             if (ModelState.IsValid) {
                 string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
                 string username = User.FindFirst (ClaimTypes.Name).Value;
@@ -42,7 +42,7 @@ namespace AuctionApp.Areas.customer.Controllers {
                 dto.UserId = userId;
                 dto.Username = username;
 
-                _itemService.Create (dto);
+                await _itemService.CreateAsync (dto);
 
                 return RedirectToAction ("Index", "Home", new { area = "customer" });
             }
@@ -51,20 +51,20 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpPost]
-        public IActionResult CreateAuctionOfItem (CreateAuctionViewModel model) {
+        public async Task<IActionResult> CreateAuctionOfItem (CreateAuctionViewModel model) {
             if (!ModelState.IsValid) {
                 ModelState.AddModelError ("", "Niepoprawne dane.");
                 return BadRequest ();
             }
 
             var dto = _mappper.Map<CreateAuctionViewModel, CreateAuctionDTO> (model);
-            _itemService.CreateItemAuction (dto);
+            await _itemService.CreateItemAuctionAsync (dto);
 
             return RedirectToAction ("Index", "Item", new { area = "customer" });
         }
 
         [HttpPost]
-        public IActionResult CreateAuctionBid (NewBidViewModel model) {
+        public async Task<IActionResult> CreateAuctionBid (NewBidViewModel model) {
             if (!ModelState.IsValid) {
                 ModelState.AddModelError ("", "Niepoprawne dane.");
                 return RedirectToAction ("Item", "Item", new { id = model.ItemId, area = "" });
@@ -73,21 +73,21 @@ namespace AuctionApp.Areas.customer.Controllers {
             string userId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
             string username = User.FindFirst (ClaimTypes.Name).Value;
             dto.Username = username;
-            _itemService.AddBidToItem (dto, userId);
+            await _itemService.AddBidToItemAsync (dto, userId);
             return RedirectToAction ("Index", "Home", new { area = "" });
         }
 
         [HttpPost]
-        public IActionResult Delete (int? id) {
+        public async Task<IActionResult> Delete (int? id) {
             if (id == null) return BadRequest ();
-            _itemService.Remove ((int) id);
+            await _itemService.RemoveAsync ((int) id);
             return RedirectToAction ("Index", "Item", new { area = "customer" });
         }
 
         [HttpGet]
-        public IActionResult GetItemBids (int? id) {
+        public async Task<IActionResult> GetItemBids (int? id) {
             if (id == null) return BadRequest ();
-            var dto = _itemService.GetAuctionDetails ((int) id);
+            var dto = await _itemService.GetAuctionDetailsAsync ((int) id);
             var result = _mappper.Map<ItemAuctionDTO, ItemAuctionViewModel> (dto);
             return View (result);
         }
@@ -117,10 +117,10 @@ namespace AuctionApp.Areas.customer.Controllers {
         }
 
         [HttpPost]
-        public IActionResult CancelAuctionOfItem (int? id) {
+        public async Task<IActionResult> CancelAuctionOfItem (int? id) {
             if (id == null) return BadRequest ();
 
-            _itemService.CancelAuction ((int) id);
+            await _itemService.CancelAuctionAsync ((int) id);
             return RedirectToAction ("Index", "Item", new { area = "" });
         }
     }
